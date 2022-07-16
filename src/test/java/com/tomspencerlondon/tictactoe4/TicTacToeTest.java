@@ -2,7 +2,6 @@ package com.tomspencerlondon.tictactoe4;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class TicTacToeTest {
@@ -26,7 +25,6 @@ public class TicTacToeTest {
   }
 
   @Test
-  @Disabled
   void startThenMove_1_IsBoardWithXOnTopRowMiddle() {
     TicTacToe ticTacToe = new TicTacToe();
 
@@ -34,5 +32,15 @@ public class TicTacToeTest {
 
     assertThat(ticTacToe.board())
         .isEqualTo("_X_______");
+  }
+
+  @Test
+  void startThenMove_8_IsBoardWithXOnBottomRowRight() {
+    TicTacToe ticTacToe = new TicTacToe();
+
+    ticTacToe.move(8);
+
+    assertThat(ticTacToe.board())
+        .isEqualTo("________X");
   }
 }
