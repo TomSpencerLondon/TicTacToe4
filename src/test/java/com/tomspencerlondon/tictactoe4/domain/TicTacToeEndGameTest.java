@@ -36,4 +36,15 @@ public class TicTacToeEndGameTest {
     assertThat(ticTacToe.outcome())
         .isEqualTo("Player wins!");
   }
+
+  @Test
+  void oneXIsGameInProgress() {
+    TicTacToe ticTacToe = new TicTacToe(
+        "X__",
+        "___",
+        "___");
+
+    assertThat(ticTacToe.outcome())
+        .isEqualTo("In Progress");
+  }
 }

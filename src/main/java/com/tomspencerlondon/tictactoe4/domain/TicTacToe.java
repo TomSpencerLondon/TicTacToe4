@@ -31,10 +31,14 @@ public class TicTacToe {
   }
 
   public String outcome() {
-    if (board[0].equals("X") || board[4].equals("X")) {
+    if (playerWins()) {
       return "Player wins!";
     }
 
     return "In Progress";
+  }
+
+  private boolean playerWins() {
+    return (board[0].equals("X") && board[1].equals("X"))|| board[4].equals("X");
   }
 }
