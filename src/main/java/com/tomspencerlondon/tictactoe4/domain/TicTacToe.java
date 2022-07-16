@@ -30,7 +30,7 @@ public class TicTacToe {
     isPlayerMove = !isPlayerMove;
   }
 
-  public boolean playerWins() {
-    return true;
+  public String outcome() {
+    return "Player wins!";
   }
 }
