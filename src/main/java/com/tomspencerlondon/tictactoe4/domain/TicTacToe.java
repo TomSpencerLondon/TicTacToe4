@@ -31,7 +31,7 @@ public class TicTacToe {
   }
 
   public String outcome() {
-    if (board[0].equals("X")) {
+    if (board[0].equals("X") || board[4].equals("X")) {
       return "Player wins!";
     }
 

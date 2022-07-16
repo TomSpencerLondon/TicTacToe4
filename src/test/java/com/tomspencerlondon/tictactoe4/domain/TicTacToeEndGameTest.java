@@ -25,4 +25,15 @@ public class TicTacToeEndGameTest {
     assertThat(ticTacToe.outcome())
         .isEqualTo("Player wins!");
   }
+
+  @Test
+  void threeXInMiddleRowOutcomeIsPlayerWins() {
+    TicTacToe ticTacToe = new TicTacToe(
+        "_O_",
+        "XXX",
+        "_O_");
+
+    assertThat(ticTacToe.outcome())
+        .isEqualTo("Player wins!");
+  }
 }
