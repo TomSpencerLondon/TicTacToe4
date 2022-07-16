@@ -5,10 +5,12 @@ import java.util.Arrays;
 public class TicTacToe {
 
   private final String[] board;
+  private boolean isPlayerMove;
 
   public TicTacToe() {
     board = new String[9];
     Arrays.fill(board, "_");
+    isPlayerMove = true;
   }
 
   public String board() {
@@ -16,6 +18,6 @@ public class TicTacToe {
   }
 
   public void move(int move) {
-    board[move] = "X";
+    board[move] = isPlayerMove ? "X" : "";
   }
 }
