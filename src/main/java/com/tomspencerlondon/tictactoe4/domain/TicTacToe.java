@@ -1,10 +1,10 @@
-package com.tomspencerlondon.tictactoe4;
+package com.tomspencerlondon.tictactoe4.domain;
 
 import java.util.Arrays;
 
 public class TicTacToe {
 
-  private final String[] board;
+  private String[] board;
   private boolean isPlayerMove;
 
   public TicTacToe() {
@@ -13,6 +13,14 @@ public class TicTacToe {
     isPlayerMove = true;
   }
 
+  // Used only for tests
+  @Deprecated
+  public TicTacToe(String topRow, String middleRow, String bottomRow) {
+    String fullBoard = topRow + middleRow + bottomRow;
+    board = fullBoard.split("");
+  }
+
+
   public String board() {
     return String.join("", board);
   }
@@ -20,5 +28,9 @@ public class TicTacToe {
   public void move(int move) {
     board[move] = isPlayerMove ? "X" : "O";
     isPlayerMove = !isPlayerMove;
+  }
+
+  public boolean playerWins() {
+    return true;
   }
 }

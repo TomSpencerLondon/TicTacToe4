@@ -1,10 +1,10 @@
-package com.tomspencerlondon.tictactoe4;
+package com.tomspencerlondon.tictactoe4.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-public class TicTacToeTest {
+public class TicTacToeMoveTest {
 
   @Test
   void startGameIsEmptyBoard() {
