@@ -45,7 +45,7 @@ public class TicTacToeTest {
   }
 
   @Test
-  void givenMove_0_ComputerMove_1_IsBoardWithTwoMoves() {
+  void twoMovesIsBoardWithAlternatePlayers() {
     TicTacToe ticTacToe = new TicTacToe();
     ticTacToe.move(0);
 
@@ -53,5 +53,17 @@ public class TicTacToeTest {
 
     assertThat(ticTacToe.board())
         .isEqualTo("XO_______");
+  }
+
+  @Test
+  void threeMovesIsBoardWithTwoPlayerAndOneComputer() {
+    TicTacToe ticTacToe = new TicTacToe();
+    ticTacToe.move(0);
+    ticTacToe.move(1);
+
+    ticTacToe.move(7);
+
+    assertThat(ticTacToe.board())
+        .isEqualTo("XO_____X_");
   }
 }
