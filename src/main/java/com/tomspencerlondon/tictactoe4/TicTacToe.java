@@ -2,7 +2,7 @@ package com.tomspencerlondon.tictactoe4;
 
 public class TicTacToe {
 
-  private final String board;
+  private String board;
 
   public TicTacToe() {
     board = "_________";
@@ -13,6 +13,6 @@ public class TicTacToe {
   }
 
   public void move(int move) {
-
+    board = "X" + board.substring(1);
   }
 }
