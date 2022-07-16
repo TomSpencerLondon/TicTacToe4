@@ -15,12 +15,22 @@ public class TicTacToeTest {
   }
 
   @Test
-  void addMove_0_IsBoardWithXOnTopLeft() {
+  void startThenMove_0_IsBoardWithXOnTopRowLeft() {
     TicTacToe ticTacToe = new TicTacToe();
 
     ticTacToe.move(0);
 
     assertThat(ticTacToe.board())
         .isEqualTo("X________");
+  }
+
+  @Test
+  void startThenMove_1_IsBoardWithXOnTopRowMiddle() {
+    TicTacToe ticTacToe = new TicTacToe();
+
+    ticTacToe.move(1);
+
+    assertThat(ticTacToe.board())
+        .isEqualTo("_X_______");
   }
 }
