@@ -2,23 +2,21 @@ package com.tomspencerlondon.tictactoe4.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class TicTacToeEndGameTest {
 
 
   @Test
-  @Disabled
-  void newGameIsInProgress() {
+  void newGameOutcomeIsInProgress() {
     TicTacToe ticTacToe = new TicTacToe();
-//    assertThat(ticTacToe.outcome())
-//        .isFalse();
+    assertThat(ticTacToe.outcome())
+        .isEqualTo("In Progress");
 
   }
 
   @Test
-  void threeXInTopRowIsPlayerWins() {
+  void threeXInTopRowOutcomeIsPlayerWins() {
     TicTacToe ticTacToe = new TicTacToe(
         "XXX",
         "_O_",

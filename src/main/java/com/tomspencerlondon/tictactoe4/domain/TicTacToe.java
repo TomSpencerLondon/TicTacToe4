@@ -31,6 +31,10 @@ public class TicTacToe {
   }
 
   public String outcome() {
-    return "Player wins!";
+    if (board[0].equals("X")) {
+      return "Player wins!";
+    }
+
+    return "In Progress";
   }
 }
