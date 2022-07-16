@@ -1,18 +1,21 @@
 package com.tomspencerlondon.tictactoe4;
 
+import java.util.Arrays;
+
 public class TicTacToe {
 
-  private String board;
+  private final String[] board;
 
   public TicTacToe() {
-    board = "_________";
+    board = new String[9];
+    Arrays.fill(board, "_");
   }
 
   public String board() {
-    return board;
+    return String.join("", board);
   }
 
   public void move(int move) {
-    board = "X" + board.substring(1);
+    board[move] = "X";
   }
 }
