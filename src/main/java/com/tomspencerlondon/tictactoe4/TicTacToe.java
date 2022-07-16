@@ -18,6 +18,7 @@ public class TicTacToe {
   }
 
   public void move(int move) {
-    board[move] = isPlayerMove ? "X" : "";
+    board[move] = isPlayerMove ? "X" : "O";
+    isPlayerMove = !isPlayerMove;
   }
 }
