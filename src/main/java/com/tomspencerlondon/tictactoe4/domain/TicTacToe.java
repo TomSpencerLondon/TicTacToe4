@@ -39,7 +39,7 @@ public class TicTacToe {
   }
 
   private boolean playerWins() {
-    return topRow() || board[4].equals("X");
+    return topRow() || (board[3].equals("X") && board[4].equals("X") && board[5].equals("X"));
   }
 
   private boolean topRow() {
