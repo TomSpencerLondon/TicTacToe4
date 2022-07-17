@@ -40,7 +40,11 @@ public class TicTacToe {
 
   private boolean playerWins() {
     return topRow() || middleRow() || bottomRow() ||
-        leftColumn() || middleColumn() || board[2].equals("X") && board[8].equals("X");
+        leftColumn() || middleColumn() || rightColumn();
+  }
+
+  private boolean rightColumn() {
+    return board[2].equals("X") && board[5].equals("X") && board[8].equals("X");
   }
 
   private boolean middleColumn() {
