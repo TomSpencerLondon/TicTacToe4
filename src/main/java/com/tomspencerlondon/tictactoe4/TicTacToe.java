@@ -28,8 +28,7 @@ public class TicTacToe {
     for (String square : board) {
       if (square.equals("X")) {
         playerCount++;
-      }
-      if (square.equals("O")) {
+      }else if (square.equals("O")) {
         computerCount++;
       }
     }
@@ -38,10 +37,10 @@ public class TicTacToe {
       return true;
     }
 
-    if (playerCount == 1 && computerCount != 1) {
-      return false;
-    };
+    if ((playerCount + computerCount) % 2 == 0) {
+      return true;
+    }
 
-    return true;
+    return false;
   }
 }

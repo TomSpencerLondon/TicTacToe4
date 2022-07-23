@@ -99,4 +99,17 @@ public class TicTacToeTest {
     assertThat(playerMove)
         .isTrue();
   }
+
+  @Test
+  void isNotPlayerMoveAfterMoveComputerMoveAndSecondPlayerMove() {
+    TicTacToe ticTacToe = new TicTacToe();
+    ticTacToe.move(1);
+    ticTacToe.move(2);
+    ticTacToe.move(3);
+
+    boolean playerMove = ticTacToe.isPlayerMove();
+
+    assertThat(playerMove)
+        .isFalse();
+  }
 }
