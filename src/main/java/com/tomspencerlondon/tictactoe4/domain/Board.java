@@ -14,4 +14,12 @@ public class Board {
   public String[] getboard() {
     return board;
   }
+
+  String asString() {
+    return String.join("", getboard());
+  }
+
+  void play(int move, String piece) {
+    getboard()[move] = piece;
+  }
 }

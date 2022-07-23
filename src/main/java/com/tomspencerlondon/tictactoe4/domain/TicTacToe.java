@@ -23,11 +23,11 @@ public class TicTacToe {
 
 
   public String board() {
-    return String.join("", board.getboard());
+    return board.asString();
   }
 
-  public void move(int move) {
-    board.getboard()[move] = isPlayerMove ? "X" : "O";
+  public void move(int position) {
+    board.play(position, isPlayerMove ? "X" : "O");
     isPlayerMove = !isPlayerMove;
   }
 
@@ -40,7 +40,7 @@ public class TicTacToe {
   }
 
   private boolean playerWins(String piece) {
-    return winChecker.hasWon(piece, board.getboard());
+    return winChecker.hasWon(piece, board);
   }
 
 }
