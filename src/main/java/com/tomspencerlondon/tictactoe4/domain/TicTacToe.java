@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 public class TicTacToe {
 
-  private final String[] board;
+  private final Board board;
   private boolean isPlayerMove;
   private final WinChecker winChecker = new WinChecker();
 
   public TicTacToe() {
-    board = new String[9];
-    Arrays.fill(board, "_");
+    board = new Board();
+    Arrays.fill(board.getboard(), "_");
     isPlayerMove = true;
   }
 
@@ -18,16 +18,16 @@ public class TicTacToe {
   @Deprecated
   public TicTacToe(String topRow, String middleRow, String bottomRow) {
     String fullBoard = topRow + middleRow + bottomRow;
-    board = fullBoard.split("");
+    board = new Board(fullBoard.split(""));
   }
 
 
   public String board() {
-    return String.join("", board);
+    return String.join("", board.getboard());
   }
 
   public void move(int move) {
-    board[move] = isPlayerMove ? "X" : "O";
+    board.getboard()[move] = isPlayerMove ? "X" : "O";
     isPlayerMove = !isPlayerMove;
   }
 
@@ -40,7 +40,7 @@ public class TicTacToe {
   }
 
   private boolean playerWins(String piece) {
-    return winChecker.hasWon(piece, board);
+    return winChecker.hasWon(piece, board.getboard());
   }
 
 }

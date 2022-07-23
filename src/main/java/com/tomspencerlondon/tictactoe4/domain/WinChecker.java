@@ -15,6 +15,7 @@ public class WinChecker {
       new WinningCombination(2, 4, 6));
 
   boolean hasWon(String piece, String[] board) {
-    return WINNING_COMBINATIONS.stream().anyMatch(winningCombination -> winningCombination.isWin(piece, board));
+    return WINNING_COMBINATIONS.stream()
+        .anyMatch(winningCombination -> winningCombination.isWin(piece, board));
   }
 }
