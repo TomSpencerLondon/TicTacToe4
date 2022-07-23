@@ -21,4 +21,22 @@ public class TicTacToe {
     board[move] = isPlayerMove ? "X" : "O";
     isPlayerMove = !isPlayerMove;
   }
+
+  public boolean isPlayerMove() {
+    int count = 0;
+    for (String square : board) {
+      if (square.equals("X")) {
+        count++;
+      }
+    }
+
+    if (count == 0) {
+      return true;
+    }
+    if (count == 1) {
+      return false;
+    };
+
+    return false;
+  }
 }

@@ -66,4 +66,25 @@ public class TicTacToeTest {
     assertThat(ticTacToe.board())
         .isEqualTo("XO_____X_");
   }
+
+  @Test
+  void isPlayerMoveOnFirstPlay() {
+    TicTacToe ticTacToe = new TicTacToe();
+
+    boolean playerMove = ticTacToe.isPlayerMove();
+
+    assertThat(playerMove)
+        .isTrue();
+  }
+
+  @Test
+  void isNotPlayerMoveAfterFirstMove() {
+    TicTacToe ticTacToe = new TicTacToe();
+    ticTacToe.move(1);
+
+    boolean playerMove = ticTacToe.isPlayerMove();
+
+    assertThat(playerMove)
+        .isFalse();
+  }
 }
