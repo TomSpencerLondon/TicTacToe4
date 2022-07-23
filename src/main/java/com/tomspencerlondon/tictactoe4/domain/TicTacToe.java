@@ -4,8 +4,9 @@ import java.util.Arrays;
 
 public class TicTacToe {
 
-  private String[] board;
+  private final String[] board;
   private boolean isPlayerMove;
+  private final WinChecker winChecker = new WinChecker();
 
   public TicTacToe() {
     board = new String[9];
@@ -39,7 +40,7 @@ public class TicTacToe {
   }
 
   private boolean playerWins(String piece) {
-    return WinningCombinations.hasWon(piece, board);
+    return winChecker.hasWon(piece, board);
   }
 
 }
