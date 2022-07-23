@@ -61,7 +61,7 @@ public class TicTacToe {
   }
 
   private boolean middleColumn() {
-    return board[1].equals("X") && board[4].equals("X") && board[7].equals("X");
+    return column(1);
   }
 
   private boolean rightColumn() {
