@@ -51,19 +51,23 @@ public class TicTacToe {
   }
 
   private boolean rightToLeftDiagonal() {
-    return board[2].equals("X") && board[4].equals("X") && board[6].equals("X");
+    return playerWinsWith(2, 4, 6);
   }
 
   private boolean leftToRightDiagonal() {
-    return board[0].equals("X") && board[4].equals("X") && board[8].equals("X");
+    return playerWinsWith(0, 4, 8);
   }
 
   private boolean column(int first) {
-    return board[first].equals("X") && board[first + 3].equals("X") && board[first + 6].equals("X");
+    return playerWinsWith(first, first + 3, first + 6);
   }
 
   private boolean row(int first) {
-    return board[first].equals("X") && board[first + 1].equals("X") && board[first + 2].equals("X");
+    return playerWinsWith(first, first + 1, first + 2);
+  }
+
+  private boolean playerWinsWith(int x, int x1, int x2) {
+    return board[x].equals("X") && board[x1].equals("X") && board[x2].equals("X");
   }
 
 }
