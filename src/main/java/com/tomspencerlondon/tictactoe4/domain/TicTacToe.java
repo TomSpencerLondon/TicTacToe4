@@ -1,11 +1,9 @@
 package com.tomspencerlondon.tictactoe4.domain;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class TicTacToe {
 
-  private static final List<WinningCombinations> WINNING_COMBINATIONS = List.of(new WinningCombinations(0, 1, 2), new WinningCombinations(3, 4, 5), new WinningCombinations(6, 7, 8), new WinningCombinations(0, 3, 6), new WinningCombinations(1, 4, 7), new WinningCombinations(2, 5, 8), new WinningCombinations(0, 4, 8), new WinningCombinations(2, 4, 6));
   private String[] board;
   private boolean isPlayerMove;
 
@@ -33,20 +31,15 @@ public class TicTacToe {
   }
 
   public String outcome() {
-    if (playerWins()) {
+    if (playerWins("X")) {
       return "Player wins!";
     }
 
     return "In Progress";
   }
 
-  private boolean playerWins() {
-    return WINNING_COMBINATIONS.stream()
-        .anyMatch(winningCombination -> playerWinsWith("X", winningCombination));
-  }
-
-  private boolean playerWinsWith(String piece, WinningCombinations winningCombinations) {
-    return winningCombinations.isWin(piece, board);
+  private boolean playerWins(String piece) {
+    return WinningCombinations.hasWon(piece, board);
   }
 
 }
