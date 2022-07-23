@@ -13,20 +13,15 @@ public class Board {
     this.board = board;
   }
 
-  @Deprecated
-  public String[] getboard() {
-    return board;
-  }
-
   String asString() {
-    return String.join("", getboard());
+    return String.join("", board);
   }
 
   void play(int move, String piece) {
-    getboard()[move] = piece;
+    board[move] = piece;
   }
 
   boolean contains(int position, String piece) {
-    return getboard()[position].equals(piece);
+    return board[position].equals(piece);
   }
 }
