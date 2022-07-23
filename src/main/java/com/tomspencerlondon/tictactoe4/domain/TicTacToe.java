@@ -46,7 +46,7 @@ public class TicTacToe {
   }
 
   private boolean playerWinsWith(String piece, WinningCombinations winningCombinations) {
-    return board[winningCombinations.first()].equals(piece) && board[winningCombinations.second()].equals(piece) && board[winningCombinations.third()].equals(piece);
+    return winningCombinations.isWin(piece, board);
   }
 
 }
