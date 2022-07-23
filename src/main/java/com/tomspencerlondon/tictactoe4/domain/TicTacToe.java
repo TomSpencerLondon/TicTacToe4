@@ -39,7 +39,11 @@ public class TicTacToe {
   }
 
   private boolean playerWins() {
-    return row(0) || row(3) || row(6) || isColumnWin() || leftToRightDiagonal() || rightToLeftDiagonal();
+    return isRowWin() || isColumnWin() || leftToRightDiagonal() || rightToLeftDiagonal();
+  }
+
+  private boolean isRowWin() {
+    return row(0) || row(3) || row(6);
   }
 
   private boolean isColumnWin() {
