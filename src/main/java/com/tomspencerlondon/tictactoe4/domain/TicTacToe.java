@@ -39,35 +39,18 @@ public class TicTacToe {
   }
 
   private boolean playerWins() {
-    return isRowWin() || isColumnWin() || leftToRightDiagonal() || rightToLeftDiagonal();
+    return playerWinsWith("X", new WinningCombinations(0, 1, 2)) ||
+        playerWinsWith("X", new WinningCombinations(3, 4, 5)) ||
+        playerWinsWith("X", new WinningCombinations(6, 7, 8)) ||
+        playerWinsWith("X", new WinningCombinations(0, 3, 6)) ||
+        playerWinsWith("X", new WinningCombinations(1, 4, 7)) ||
+        playerWinsWith("X", new WinningCombinations(2, 5, 8)) ||
+        playerWinsWith("X", new WinningCombinations(0, 4, 8)) ||
+        playerWinsWith("X", new WinningCombinations(2, 4, 6));
   }
 
-  private boolean isRowWin() {
-    return row(0) || row(3) || row(6);
-  }
-
-  private boolean isColumnWin() {
-    return column(0) || column(1) || column(2);
-  }
-
-  private boolean rightToLeftDiagonal() {
-    return playerWinsWith("X", 2, 4, 6);
-  }
-
-  private boolean leftToRightDiagonal() {
-    return playerWinsWith("X", 0, 4, 8);
-  }
-
-  private boolean column(int first) {
-    return playerWinsWith("X", first, first + 3, first + 6);
-  }
-
-  private boolean row(int first) {
-    return playerWinsWith("X", first, first + 1, first + 2);
-  }
-
-  private boolean playerWinsWith(String piece, int first, int second, int third) {
-    return board[first].equals(piece) && board[second].equals(piece) && board[third].equals(piece);
+  private boolean playerWinsWith(String piece, WinningCombinations winningCombinations) {
+    return board[winningCombinations.first()].equals(piece) && board[winningCombinations.second()].equals(piece) && board[winningCombinations.third()].equals(piece);
   }
 
 }
