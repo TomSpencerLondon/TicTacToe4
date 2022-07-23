@@ -1,7 +1,5 @@
 package com.tomspencerlondon.tictactoe4.domain;
 
-import java.util.Arrays;
-
 public class TicTacToe {
 
   private final Board board;
@@ -10,7 +8,6 @@ public class TicTacToe {
 
   public TicTacToe() {
     board = new Board();
-    Arrays.fill(board.getboard(), "_");
     isPlayerMove = true;
   }
 
