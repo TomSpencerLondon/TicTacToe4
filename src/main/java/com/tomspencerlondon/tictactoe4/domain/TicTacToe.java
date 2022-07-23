@@ -5,6 +5,7 @@ import java.util.List;
 
 public class TicTacToe {
 
+  private static final List<WinningCombinations> WINNING_COMBINATIONS = List.of(new WinningCombinations(0, 1, 2), new WinningCombinations(3, 4, 5), new WinningCombinations(6, 7, 8), new WinningCombinations(0, 3, 6), new WinningCombinations(1, 4, 7), new WinningCombinations(2, 5, 8), new WinningCombinations(0, 4, 8), new WinningCombinations(2, 4, 6));
   private String[] board;
   private boolean isPlayerMove;
 
@@ -40,13 +41,8 @@ public class TicTacToe {
   }
 
   private boolean playerWins() {
-    List<WinningCombinations> winningCombinations = List.of(new WinningCombinations(0, 1, 2), new WinningCombinations(3, 4, 5), new WinningCombinations(6, 7, 8), new WinningCombinations(0, 3, 6), new WinningCombinations(1, 4, 7), new WinningCombinations(2, 5, 8), new WinningCombinations(0, 4, 8), new WinningCombinations(2, 4, 6));
-    for (WinningCombinations winningCombination : winningCombinations) {
-      if (playerWinsWith("X", winningCombination)) {
-        return true;
-      }
-    }
-    return false;
+    return WINNING_COMBINATIONS.stream()
+        .anyMatch(winningCombination -> playerWinsWith("X", winningCombination));
   }
 
   private boolean playerWinsWith(String piece, WinningCombinations winningCombinations) {
