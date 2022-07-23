@@ -112,4 +112,33 @@ public class TicTacToeTest {
     assertThat(playerMove)
         .isFalse();
   }
+
+  @Test
+  void isPlayerMoveAfterTwoPlayerAndTwoComputerMoves() {
+    TicTacToe ticTacToe = new TicTacToe();
+    ticTacToe.move(1);
+    ticTacToe.move(2);
+    ticTacToe.move(3);
+    ticTacToe.move(4);
+
+    boolean playerMove = ticTacToe.isPlayerMove();
+
+    assertThat(playerMove)
+        .isTrue();
+  }
+
+  @Test
+  void isNotPlayerMoveAfterThreePlayerAndTwoComputerMoves() {
+    TicTacToe ticTacToe = new TicTacToe();
+    ticTacToe.move(1);
+    ticTacToe.move(2);
+    ticTacToe.move(3);
+    ticTacToe.move(4);
+    ticTacToe.move(5);
+
+    boolean playerMove = ticTacToe.isPlayerMove();
+
+    assertThat(playerMove)
+        .isFalse();
+  }
 }

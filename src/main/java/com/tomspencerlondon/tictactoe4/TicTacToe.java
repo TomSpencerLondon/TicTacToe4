@@ -23,17 +23,8 @@ public class TicTacToe {
   }
 
   public boolean isPlayerMove() {
-    int moveCount = 0;
-    for (String square : board) {
-      if (!square.equals("_")) {
-        moveCount++;
-      }
-    }
-
-    if (moveCount == 0) {
-      return true;
-    }
-
-    return moveCount % 2 == 0;
+    return Arrays.stream(board)
+        .filter(square -> !square.equals("_"))
+        .count() % 2 == 0;
   }
 }
