@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Board {
+
+  private final List<Place> places = List.of(new Place(0, 0), new Place(0, 1), new Place(0, 2), new Place(1, 0), new Place(1, 1), new Place(1, 2), new Place(2, 0), new Place(2, 1), new Place(2, 2));
   private String[][] board = new String[3][3];
 
   public Board() {
@@ -35,7 +37,6 @@ public class Board {
   }
 
   private Place position(int position) {
-    List<Place> places = List.of(new Place(0, 0), new Place(0, 1), new Place(0, 2), new Place(1, 0), new Place(1, 1), new Place(1, 2), new Place(2, 0), new Place(2, 1), new Place(2, 2));
     return places.get(position);
   }
 }
