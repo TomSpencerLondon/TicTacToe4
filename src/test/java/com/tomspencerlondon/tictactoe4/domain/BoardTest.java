@@ -76,6 +76,4 @@ class BoardTest {
     assertThat(board.contains(8, "X"))
         .isTrue();
   }
-
-
 }
