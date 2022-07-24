@@ -1,5 +1,9 @@
 package com.tomspencerlondon.tictactoe4.domain;
 
+import static java.util.Arrays.asList;
+
+import java.util.Iterator;
+
 public class TicTacToe {
 
   private final Board board;
@@ -15,7 +19,14 @@ public class TicTacToe {
   @Deprecated
   public TicTacToe(String topRow, String middleRow, String bottomRow) {
     String fullBoard = topRow + middleRow + bottomRow;
-    board = new Board(fullBoard.split(""));
+    Iterator<String> iterator = asList(fullBoard.split("")).iterator();
+    String[][] board = new String[3][3];
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        board[i][j] = iterator.next();
+      }
+    }
+    this.board = new Board(board);
   }
 
 

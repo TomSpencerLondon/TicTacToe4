@@ -40,4 +40,42 @@ class BoardTest {
     assertThat(board.contains(1, "O"))
         .isTrue();
   }
+
+  @Test
+  void givenFullBoardBoardContainsPositions() {
+    Board board = new Board();
+
+    board.play(0, "X");
+    board.play(1, "O");
+    board.play(2, "X");
+    board.play(3, "O");
+    board.play(4, "X");
+    board.play(5, "O");
+    board.play(6, "X");
+    board.play(7, "O");
+    board.play(8, "X");
+
+    assertThat(board.asString())
+        .isEqualTo("XOXOXOXOX");
+    assertThat(board.contains(0, "X"))
+        .isTrue();
+    assertThat(board.contains(1, "O"))
+        .isTrue();
+    assertThat(board.contains(2, "X"))
+        .isTrue();
+    assertThat(board.contains(3, "O"))
+        .isTrue();
+    assertThat(board.contains(4, "X"))
+        .isTrue();
+    assertThat(board.contains(5, "O"))
+        .isTrue();
+    assertThat(board.contains(6, "X"))
+        .isTrue();
+    assertThat(board.contains(7, "O"))
+        .isTrue();
+    assertThat(board.contains(8, "X"))
+        .isTrue();
+  }
+
+
 }
