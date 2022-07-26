@@ -1,6 +1,9 @@
 package com.tomspencerlondon.tictactoe4.domain;
 
+import static java.util.Arrays.asList;
+
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +18,20 @@ public class Board {
     Arrays.fill(board[2], "_");
   }
 
-  public Board(String[][] board) {
+  private Board(String[][] board) {
+    this.board = board;
+  }
+
+  public Board(String topRow, String middleRow, String bottomRow) {
+    String fullBoard = topRow + middleRow + bottomRow;
+    Iterator<String> iterator = asList(fullBoard.split("")).iterator();
+    String[][] board = new String[3][3];
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        board[i][j] = iterator.next();
+      }
+    }
+
     this.board = board;
   }
 
