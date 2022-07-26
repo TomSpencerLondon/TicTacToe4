@@ -17,7 +17,11 @@ public class TicTacToeEndGameTest {
 
   @Test
   void threeXInTopRowOutcomeIsPlayerWins() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("XXX", "_O_", "_O_"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "XXX",
+        "_O_",
+        "_O_"
+    ));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("Player wins!");
@@ -25,7 +29,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void threeXInMiddleRowOutcomeIsPlayerWins() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("_O_", "XXX", "_O_"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "_O_",
+        "XXX",
+        "_O_"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("Player wins!");
@@ -33,7 +40,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void oneXIsGameInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("X__", "___", "___"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "X__",
+        "___",
+        "___"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -41,7 +51,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoXTopRowIsGameInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("XX_", "___", "__O"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "XX_",
+        "___",
+        "__O"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -49,7 +62,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoMiddleRowIsGameInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("___", "XX_", "__O"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "___",
+        "XX_",
+        "__O"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -57,7 +73,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoInMiddleRowIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("___", "X_X", "O_O"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "___",
+        "X_X",
+        "O_O"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -65,7 +84,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoEndOfMiddleRowIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("___", "_XX", "O_O"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "___",
+        "_XX",
+        "O_O"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -73,7 +95,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void threeOnBottomRowIsPlayerWins() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("___", "_OO", "XXX"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "___",
+        "_OO",
+        "XXX"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("Player wins!");
@@ -81,7 +106,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoOnBottomRowIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("___", "_OO", "XX_"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "___",
+        "_OO",
+        "XX_"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -89,7 +117,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoSeparatedOnBottomRowIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("___", "_OO", "X_X"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "___",
+        "_OO",
+        "X_X"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -97,7 +128,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void leftColumnIsWin() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("X__", "XOO", "X__"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "X__",
+        "XOO",
+        "X__"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("Player wins!");
@@ -105,7 +139,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoInLeftColumnIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("X__", "XOO", "___"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "X__",
+        "XOO",
+        "___"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -113,7 +150,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoSeparateInLeftColumnIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("X__", "_OO", "X__"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "X__",
+        "_OO",
+        "X__"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -121,7 +161,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void threeInMiddleColumnIsPlayerWins() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("_X_", "OXO", "_X_"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "_X_",
+        "OXO",
+        "_X_"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("Player wins!");
@@ -129,7 +172,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoInMiddleColumnIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("_X_", "OXO", "___"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "_X_",
+        "OXO",
+        "___"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -137,7 +183,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoSeparateInMiddleColumnIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("_X_", "O_O", "_X_"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "_X_",
+        "O_O",
+        "_X_"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -145,7 +194,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void threeInRightColumnIsPlayerWins() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("__X", "OOX", "__X"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "__X",
+        "OOX",
+        "__X"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("Player wins!");
@@ -153,7 +205,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoInRightColumnIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("__X", "OOX", "___"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "__X",
+        "OOX",
+        "___"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -161,7 +216,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoSeparateInRightColumnIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("__X", "OO_", "__X"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "__X",
+        "OO_",
+        "__X"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -169,7 +227,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void leftToRightDiagonalIsPlayerWins() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("X_O", "OX_", "__X"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "X_O",
+        "OX_",
+        "__X"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("Player wins!");
@@ -177,7 +238,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoInLeftToRightDiagonalIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("X_O", "OX_", "___"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "X_O",
+        "OX_",
+        "___"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -185,7 +249,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoSeparateInLeftToRightDiagonalIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("X_O", "O__", "__X"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "X_O",
+        "O__",
+        "__X"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -193,7 +260,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void middleAndBottomRightInLeftToRightDiagonalIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("__O", "OX_", "__X"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "__O",
+        "OX_",
+        "__X"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -201,7 +271,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void rightToLeftDiagonalIsPlayerWins() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("__X", "OX_", "X_O"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "__X",
+        "OX_",
+        "X_O"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("Player wins!");
@@ -209,7 +282,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoInRightToLeftDiagonalIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("__X", "OX_", "__O"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "__X",
+        "OX_",
+        "__O"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
@@ -217,7 +293,10 @@ public class TicTacToeEndGameTest {
 
   @Test
   void twoSeparateInRightToLeftDiagonalIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board("__X", "O__", "X_O"));
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "__X",
+        "O__",
+        "X_O"));
 
     assertThat(ticTacToe.outcome())
         .isEqualTo("In Progress");
