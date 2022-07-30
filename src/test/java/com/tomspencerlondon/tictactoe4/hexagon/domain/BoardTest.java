@@ -3,6 +3,7 @@ package com.tomspencerlondon.tictactoe4.hexagon.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 class BoardTest {
@@ -11,7 +12,7 @@ class BoardTest {
   void givenNoPlayBoardIsEmpty() {
     Board board = new Board();
 
-    assertThat(board.asString())
+    assertThat(asString(board))
         .isEqualTo("_________");
   }
 
@@ -21,7 +22,7 @@ class BoardTest {
 
     board.play(0, "X");
 
-    assertThat(board.asString())
+    assertThat(asString(board))
         .isEqualTo("X________");
     assertThat(board.contains(0, "X"))
         .isTrue();
@@ -34,7 +35,7 @@ class BoardTest {
     board.play(0, "X");
     board.play(1, "O");
 
-    assertThat(board.asString())
+    assertThat(asString(board))
         .isEqualTo("XO_______");
     assertThat(board.contains(0, "X"))
         .isTrue();
@@ -56,7 +57,7 @@ class BoardTest {
     board.play(7, "O");
     board.play(8, "X");
 
-    assertThat(board.asString())
+    assertThat(asString(board))
         .isEqualTo("XOXOXOXOX");
     assertThat(board.contains(0, "X"))
         .isTrue();
@@ -81,15 +82,18 @@ class BoardTest {
   @Test
   void boardQueryReturnsCopyOfBoard() {
     Board board = new Board();
-    String[][] expected = new String[3][3];
-    Arrays.fill(expected[0], "_");
-    Arrays.fill(expected[1], "_");
-    Arrays.fill(expected[2], "_");
+    String[][] expected = BoardFactory.empty();
 
-    String[][] result = board.board();
+    String[][] result = board.boardState().state();
     board.play(1, "X");
 
     assertThat(result)
         .isEqualTo(expected);
+  }
+
+  static String asString(Board board) {
+    return Arrays.stream(board.boardState().state())
+        .flatMap(Arrays::stream)
+        .collect(Collectors.joining());
   }
 }

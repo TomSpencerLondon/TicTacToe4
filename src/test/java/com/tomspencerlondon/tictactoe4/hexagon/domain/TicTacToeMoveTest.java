@@ -2,6 +2,8 @@ package com.tomspencerlondon.tictactoe4.hexagon.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 public class TicTacToeMoveTest {
@@ -10,7 +12,7 @@ public class TicTacToeMoveTest {
   void startGameIsEmptyBoard() {
     TicTacToe ticTacToe = new TicTacToe();
 
-    assertThat(ticTacToe.board())
+    assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("_________");
   }
 
@@ -20,7 +22,7 @@ public class TicTacToeMoveTest {
 
     ticTacToe.move(0);
 
-    assertThat(ticTacToe.board())
+    assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("X________");
   }
 
@@ -30,7 +32,7 @@ public class TicTacToeMoveTest {
 
     ticTacToe.move(1);
 
-    assertThat(ticTacToe.board())
+    assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("_X_______");
   }
 
@@ -40,7 +42,7 @@ public class TicTacToeMoveTest {
 
     ticTacToe.move(8);
 
-    assertThat(ticTacToe.board())
+    assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("________X");
   }
 
@@ -51,7 +53,7 @@ public class TicTacToeMoveTest {
 
     ticTacToe.move(1);
 
-    assertThat(ticTacToe.board())
+    assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("XO_______");
   }
 
@@ -63,7 +65,13 @@ public class TicTacToeMoveTest {
 
     ticTacToe.move(7);
 
-    assertThat(ticTacToe.board())
+    assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("XO_____X_");
+  }
+
+  String asString(BoardState boardState) {
+    return Arrays.stream(boardState.state())
+        .flatMap(Arrays::stream)
+        .collect(Collectors.joining());
   }
 }

@@ -1,6 +1,7 @@
 package com.tomspencerlondon.tictactoe4.adapter.in.web;
 
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -21,15 +22,15 @@ public class GameController {
 
   @GetMapping("/")
   public String game(Model model) {
-    String board = gameService.board();
-    model.addAttribute("board", board);
+    BoardState board = gameService.board();
+    model.addAttribute("board", board.state());
     return "game";
   }
 
   @MessageMapping("/board")
   @SendTo("topic/board")
-  public void broadcastNews(@Payload String square) {
-
+  public String broadcastNews(@Payload String square) {
+    return null;
   }
 
 }

@@ -5,7 +5,6 @@ import static java.util.Arrays.asList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Board {
 
@@ -16,10 +15,6 @@ public class Board {
     Arrays.fill(board[0], "_");
     Arrays.fill(board[1], "_");
     Arrays.fill(board[2], "_");
-  }
-
-  private Board(String[][] board) {
-    this.board = board;
   }
 
   public Board(String topRow, String middleRow, String bottomRow) {
@@ -35,19 +30,6 @@ public class Board {
     this.board = board;
   }
 
-  @Deprecated
-  String asString() {
-    return Arrays.stream(board)
-        .flatMap(Arrays::stream)
-        .collect(Collectors.joining());
-  }
-
-  String[][] board() {
-    return Arrays.stream(board)
-        .map(String[]::clone)
-        .toArray(String[][]::new);
-  }
-
   void play(int move, String piece) {
     Place position = position(move);
     board[position.x()][position.y()] = piece;
@@ -61,4 +43,9 @@ public class Board {
   private Place position(int position) {
     return places.get(position);
   }
+
+  public BoardState boardState() {
+    return BoardState.copyOf(board);
+  }
+
 }

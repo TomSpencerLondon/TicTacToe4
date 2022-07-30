@@ -15,13 +15,8 @@ public class TicTacToe {
     this.board = board;
   }
 
-  // For testing
-  public String board() {
-    return board.asString();
-  }
-
   public BoardState boardState() {
-    return new BoardState(board);
+    return board.boardState();
   }
 
   public void move(int position) {
