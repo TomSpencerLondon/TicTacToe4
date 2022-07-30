@@ -29,9 +29,15 @@ public class TicTacToe {
       return GameState.PLAYER_X_WINS;
     } else if (playerWins("O")) {
       return GameState.PLAYER_O_WINS;
+    } else if (isDraw()) {
+      return GameState.DRAW;
     }
 
     return GameState.IN_PROGRESS;
+  }
+
+  private boolean isDraw() {
+    return !playerWins("X") && !playerWins("O") && board.isFull();
   }
 
   private boolean playerWins(String piece) {

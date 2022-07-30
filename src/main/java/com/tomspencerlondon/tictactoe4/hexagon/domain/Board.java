@@ -48,4 +48,14 @@ public class Board {
     return BoardState.copyOf(board);
   }
 
+  boolean isFull() {
+    for (String[] row : boardState().state()) {
+      for (String square : row) {
+        if (square.equals("_")) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 }

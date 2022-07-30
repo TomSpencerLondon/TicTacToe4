@@ -312,4 +312,15 @@ public class TicTacToeEndGameTest {
     assertThat(ticTacToe.gameState())
         .isEqualByComparingTo(GameState.IN_PROGRESS);
   }
+
+  @Test
+  void fullBoardWithoutWinnerIsDraw() {
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "XOX",
+        "OXO",
+        "OXO"));
+
+    assertThat(ticTacToe.gameState())
+        .isEqualByComparingTo(GameState.DRAW);
+  }
 }
