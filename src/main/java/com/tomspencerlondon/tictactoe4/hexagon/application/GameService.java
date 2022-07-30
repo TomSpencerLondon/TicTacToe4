@@ -14,4 +14,8 @@ public class GameService {
   public BoardState board() {
     return ticTacToe.boardState();
   }
+
+  public String outcome() {
+    return ticTacToe.outcome();
+  }
 }

@@ -24,6 +24,7 @@ public class GameController {
   public String game(Model model) {
     BoardState board = gameService.board();
     model.addAttribute("board", board.state());
+    model.addAttribute("outcome", gameService.outcome());
     return "game";
   }
 

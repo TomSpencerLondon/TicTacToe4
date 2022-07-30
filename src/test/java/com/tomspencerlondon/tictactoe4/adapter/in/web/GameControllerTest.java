@@ -23,4 +23,14 @@ class GameControllerTest {
         .isEqualTo(expected);
   }
 
+  @Test
+  void returnsGameOutcome() {
+    GameController controller = new GameController(new GameService(new TicTacToe()));
+    Model model = new ConcurrentModel();
+
+    controller.game(model);
+
+    assertThat(model.getAttribute("outcome"))
+        .isEqualTo("In Progress");
+  }
 }
