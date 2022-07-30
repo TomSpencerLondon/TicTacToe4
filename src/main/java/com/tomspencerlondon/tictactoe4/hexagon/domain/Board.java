@@ -1,4 +1,4 @@
-package com.tomspencerlondon.tictactoe4.domain;
+package com.tomspencerlondon.tictactoe4.hexagon.domain;
 
 import static java.util.Arrays.asList;
 
@@ -35,11 +35,17 @@ public class Board {
     this.board = board;
   }
 
-
+  @Deprecated
   String asString() {
     return Arrays.stream(board)
         .flatMap(Arrays::stream)
         .collect(Collectors.joining());
+  }
+
+  String[][] board() {
+    return Arrays.stream(board)
+        .map(String[]::clone)
+        .toArray(String[][]::new);
   }
 
   void play(int move, String piece) {

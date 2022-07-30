@@ -1,4 +1,4 @@
-package com.tomspencerlondon.tictactoe4.domain;
+package com.tomspencerlondon.tictactoe4.hexagon.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

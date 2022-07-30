@@ -1,4 +1,4 @@
-package com.tomspencerlondon.tictactoe4.domain;
+package com.tomspencerlondon.tictactoe4.hexagon.domain;
 
 public class TicTacToe {
 
@@ -15,9 +15,13 @@ public class TicTacToe {
     this.board = board;
   }
 
-
+  // For testing
   public String board() {
     return board.asString();
+  }
+
+  public BoardState boardState() {
+    return new BoardState(board);
   }
 
   public void move(int position) {

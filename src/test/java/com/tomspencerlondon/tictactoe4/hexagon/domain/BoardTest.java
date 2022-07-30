@@ -1,7 +1,8 @@
-package com.tomspencerlondon.tictactoe4.domain;
+package com.tomspencerlondon.tictactoe4.hexagon.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class BoardTest {
@@ -75,5 +76,20 @@ class BoardTest {
         .isTrue();
     assertThat(board.contains(8, "X"))
         .isTrue();
+  }
+
+  @Test
+  void boardQueryReturnsCopyOfBoard() {
+    Board board = new Board();
+    String[][] expected = new String[3][3];
+    Arrays.fill(expected[0], "_");
+    Arrays.fill(expected[1], "_");
+    Arrays.fill(expected[2], "_");
+
+    String[][] result = board.board();
+    board.play(1, "X");
+
+    assertThat(result)
+        .isEqualTo(expected);
   }
 }
