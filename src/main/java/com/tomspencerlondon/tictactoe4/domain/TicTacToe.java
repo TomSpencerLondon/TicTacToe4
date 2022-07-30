@@ -27,7 +27,7 @@ public class TicTacToe {
 
   public String outcome() {
     if (playerWins("X")) {
-      return "Player wins!";
+      return "Player X wins!";
     }
 
     return "In Progress";
