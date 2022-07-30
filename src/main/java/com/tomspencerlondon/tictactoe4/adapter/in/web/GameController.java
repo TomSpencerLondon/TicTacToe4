@@ -2,6 +2,7 @@ package com.tomspencerlondon.tictactoe4.adapter.in.web;
 
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.GameState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -24,7 +25,8 @@ public class GameController {
   public String game(Model model) {
     BoardState board = gameService.board();
     model.addAttribute("board", board.state());
-    model.addAttribute("outcome", gameService.outcome());
+    GameState outcome = gameService.outcome();
+    model.addAttribute("outcome", outcome.getValue());
     return "game";
   }
 

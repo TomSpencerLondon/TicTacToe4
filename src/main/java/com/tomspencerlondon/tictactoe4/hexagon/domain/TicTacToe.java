@@ -24,14 +24,14 @@ public class TicTacToe {
     isPlayerMove = !isPlayerMove;
   }
 
-  public String outcome() {
+  public GameState gameState() {
     if (playerWins("X")) {
-      return "Player X wins!";
+      return GameState.PLAYER_X_WINS;
     } else if (playerWins("O")) {
-      return "Player O wins!";
+      return GameState.PLAYER_O_WINS;
     }
 
-    return "In Progress";
+    return GameState.IN_PROGRESS;
   }
 
   private boolean playerWins(String piece) {

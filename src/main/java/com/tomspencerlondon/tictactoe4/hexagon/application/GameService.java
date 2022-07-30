@@ -1,6 +1,7 @@
 package com.tomspencerlondon.tictactoe4.hexagon.application;
 
 import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.GameState;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 
 public class GameService {
@@ -15,7 +16,7 @@ public class GameService {
     return ticTacToe.boardState();
   }
 
-  public String outcome() {
-    return ticTacToe.outcome();
+  public GameState outcome() {
+    return ticTacToe.gameState();
   }
 }
