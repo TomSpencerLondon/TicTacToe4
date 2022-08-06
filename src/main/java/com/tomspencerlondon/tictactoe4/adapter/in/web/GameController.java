@@ -23,8 +23,20 @@ public class GameController {
     BoardState board = gameService.board();
     model.addAttribute("board", board.state());
     GameState outcome = gameService.outcome();
-    model.addAttribute("outcome", outcome.getValue());
+    model.addAttribute("outcome", transform(outcome));
     return "game";
+  }
+
+  private String transform(GameState state) {
+    if (state == GameState.PLAYER_X_WINS) {
+      return "Player X wins!";
+    } else if (state == GameState.PLAYER_O_WINS) {
+      return "Player O wins!";
+    } else if (state == GameState.DRAW) {
+      return "Draw!";
+    }
+
+    return "In Progress";
   }
 
 }
