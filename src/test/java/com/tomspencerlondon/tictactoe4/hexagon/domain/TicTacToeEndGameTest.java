@@ -15,40 +15,6 @@ public class TicTacToeEndGameTest {
   }
 
   @Test
-  void threeXInTopRowOutcomeIsPlayerXWins() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "XXX",
-        "_O_",
-        "_O_"
-    ));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.PLAYER_X_WINS);
-  }
-
-  @Test
-  void threeOInMiddleRowOutcomeIsPlayerOWins() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "_X_",
-        "OOO",
-        "_X_"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.PLAYER_O_WINS);
-  }
-
-  @Test
-  void threeXInMiddleRowOutcomeIsPlayerXWins() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "_O_",
-        "XXX",
-        "_O_"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.PLAYER_X_WINS);
-  }
-
-  @Test
   void oneXIsGameInProgress() {
     TicTacToe ticTacToe = new TicTacToe(new Board(
         "X__",
@@ -68,6 +34,29 @@ public class TicTacToeEndGameTest {
 
     assertThat(ticTacToe.gameState())
         .isEqualByComparingTo(GameState.IN_PROGRESS);
+  }
+
+  @Test
+  void threeXInTopRowOutcomeIsPlayerXWins() {
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "XXX",
+        "_O_",
+        "_O_"
+    ));
+
+    assertThat(ticTacToe.gameState())
+        .isEqualByComparingTo(GameState.PLAYER_X_WINS);
+  }
+
+  @Test
+  void threeXInMiddleRowOutcomeIsPlayerXWins() {
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "_O_",
+        "XXX",
+        "_O_"));
+
+    assertThat(ticTacToe.gameState())
+        .isEqualByComparingTo(GameState.PLAYER_X_WINS);
   }
 
   @Test
@@ -145,5 +134,16 @@ public class TicTacToeEndGameTest {
 
     assertThat(ticTacToe.gameState())
         .isEqualByComparingTo(GameState.DRAW);
+  }
+
+  @Test
+  void threeOInMiddleRowOutcomeIsPlayerOWins() {
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "_X_",
+        "OOO",
+        "_X_"));
+
+    assertThat(ticTacToe.gameState())
+        .isEqualByComparingTo(GameState.PLAYER_O_WINS);
   }
 }
