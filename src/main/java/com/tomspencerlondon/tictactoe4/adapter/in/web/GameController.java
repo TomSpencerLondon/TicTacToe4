@@ -1,5 +1,7 @@
 package com.tomspencerlondon.tictactoe4.adapter.in.web;
 
+import static com.tomspencerlondon.tictactoe4.adapter.in.web.GameStateTranslator.transform;
+
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.GameState;
@@ -25,18 +27,6 @@ public class GameController {
     GameState outcome = gameService.outcome();
     model.addAttribute("outcome", transform(outcome));
     return "game";
-  }
-
-  private String transform(GameState state) {
-    if (state == GameState.PLAYER_X_WINS) {
-      return "Player X wins!";
-    } else if (state == GameState.PLAYER_O_WINS) {
-      return "Player O wins!";
-    } else if (state == GameState.DRAW) {
-      return "Draw!";
-    }
-
-    return "In Progress";
   }
 
 }
