@@ -3,7 +3,8 @@ package com.tomspencerlondon.tictactoe4.hexagon.domain;
 public enum GameState {
   PLAYER_X_WINS("Player X wins!"),
   PLAYER_O_WINS("Player O wins!"),
-  IN_PROGRESS("In Progress"), DRAW("Draw!");
+  IN_PROGRESS("In Progress"),
+  DRAW("Draw!");
 
   private String value;
 

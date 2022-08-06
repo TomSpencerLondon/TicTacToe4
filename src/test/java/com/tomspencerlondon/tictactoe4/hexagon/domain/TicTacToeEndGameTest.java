@@ -12,7 +12,6 @@ public class TicTacToeEndGameTest {
     TicTacToe ticTacToe = new TicTacToe();
     assertThat(ticTacToe.gameState())
         .isEqualByComparingTo(GameState.IN_PROGRESS);
-
   }
 
   @Test
@@ -72,39 +71,6 @@ public class TicTacToeEndGameTest {
   }
 
   @Test
-  void twoMiddleRowIsGameInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "___",
-        "XX_",
-        "__O"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
-  void twoInMiddleRowIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "___",
-        "X_X",
-        "O_O"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
-  void twoEndOfMiddleRowIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "___",
-        "_XX",
-        "O_O"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
   void threeOnBottomRowIsPlayerXWins() {
     TicTacToe ticTacToe = new TicTacToe(new Board(
         "___",
@@ -113,28 +79,6 @@ public class TicTacToeEndGameTest {
 
     assertThat(ticTacToe.gameState())
         .isEqualByComparingTo(GameState.PLAYER_X_WINS);
-  }
-
-  @Test
-  void twoOnBottomRowIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "___",
-        "_OO",
-        "XX_"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
-  void twoSeparatedOnBottomRowIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "___",
-        "_OO",
-        "X_X"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
   }
 
   @Test
@@ -149,28 +93,6 @@ public class TicTacToeEndGameTest {
   }
 
   @Test
-  void twoInLeftColumnIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "X__",
-        "XOO",
-        "___"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
-  void twoSeparateInLeftColumnIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "X__",
-        "_OO",
-        "X__"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
   void threeInMiddleColumnIsPlayerXWins() {
     TicTacToe ticTacToe = new TicTacToe(new Board(
         "_X_",
@@ -179,28 +101,6 @@ public class TicTacToeEndGameTest {
 
     assertThat(ticTacToe.gameState())
         .isEqualByComparingTo(GameState.PLAYER_X_WINS);
-  }
-
-  @Test
-  void twoInMiddleColumnIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "_X_",
-        "OXO",
-        "___"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
-  void twoSeparateInMiddleColumnIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "_X_",
-        "O_O",
-        "_X_"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
   }
 
   @Test
@@ -215,28 +115,6 @@ public class TicTacToeEndGameTest {
   }
 
   @Test
-  void twoInRightColumnIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "__X",
-        "OOX",
-        "___"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
-  void twoSeparateInRightColumnIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "__X",
-        "OO_",
-        "__X"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
   void leftToRightDiagonalIsPlayerXWins() {
     TicTacToe ticTacToe = new TicTacToe(new Board(
         "X_O",
@@ -248,39 +126,6 @@ public class TicTacToeEndGameTest {
   }
 
   @Test
-  void twoInLeftToRightDiagonalIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "X_O",
-        "OX_",
-        "___"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
-  void twoSeparateInLeftToRightDiagonalIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "X_O",
-        "O__",
-        "__X"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
-  void middleAndBottomRightInLeftToRightDiagonalIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "__O",
-        "OX_",
-        "__X"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
   void rightToLeftDiagonalIsPlayerXWins() {
     TicTacToe ticTacToe = new TicTacToe(new Board(
         "__X",
@@ -289,28 +134,6 @@ public class TicTacToeEndGameTest {
 
     assertThat(ticTacToe.gameState())
         .isEqualByComparingTo(GameState.PLAYER_X_WINS);
-  }
-
-  @Test
-  void twoInRightToLeftDiagonalIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "__X",
-        "OX_",
-        "__O"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
-  }
-
-  @Test
-  void twoSeparateInRightToLeftDiagonalIsInProgress() {
-    TicTacToe ticTacToe = new TicTacToe(new Board(
-        "__X",
-        "O__",
-        "X_O"));
-
-    assertThat(ticTacToe.gameState())
-        .isEqualByComparingTo(GameState.IN_PROGRESS);
   }
 
   @Test
