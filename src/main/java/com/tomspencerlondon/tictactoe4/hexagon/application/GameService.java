@@ -27,6 +27,11 @@ public class GameService {
   }
 
   public void connect() {
-    gameState = GameState.WAITING_FOR_PLAYER2;
+    if (gameState == GameState.WAITING_FOR_PLAYER1) {
+      gameState = GameState.WAITING_FOR_PLAYER2;
+      return;
+    }
+
+    gameState = GameState.PLAYER1TURN;
   }
 }
