@@ -34,4 +34,12 @@ public class GameService {
 
     gameState = GameState.PLAYER1TURN;
   }
+
+  public void playerMove(int position) {
+    gameState = nextGameState();
+  }
+
+  private GameState nextGameState() {
+    return gameState == GameState.PLAYER2TURN ? GameState.PLAYER1TURN : GameState.PLAYER2TURN;
+  }
 }
