@@ -8,6 +8,7 @@ public class GameService {
   // High level game state field
   // GameState - WaitingForPlayer1, WaitingForPlayer2, Player1Turn, Player2Turn, GameOver
   private final TicTacToe ticTacToe;
+  private GameState gameState = GameState.WAITING_FOR_PLAYER1;
 
   public GameService(TicTacToe ticTacToe) {
     this.ticTacToe = ticTacToe;
@@ -22,6 +23,10 @@ public class GameService {
   }
 
   public GameState gameState() {
-    return GameState.WAITING_FOR_PLAYER1;
+    return gameState;
+  }
+
+  public void connect() {
+    gameState = GameState.WAITING_FOR_PLAYER2;
   }
 }

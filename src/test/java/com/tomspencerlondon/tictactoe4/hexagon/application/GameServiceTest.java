@@ -14,4 +14,14 @@ class GameServiceTest {
     assertThat(gameService.gameState())
         .isEqualTo(GameState.WAITING_FOR_PLAYER1);
   }
+
+  @Test
+  void givenPlayerConnectsGameStateIsWaitingForPlayer2() {
+    GameService gameService = new GameService(new TicTacToe());
+
+    gameService.connect();
+
+    assertThat(gameService.gameState())
+        .isEqualTo(GameState.WAITING_FOR_PLAYER2);
+  }
 }
