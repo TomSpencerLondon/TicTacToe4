@@ -1,10 +1,10 @@
 package com.tomspencerlondon.tictactoe4.adapter.in.web;
 
-import static com.tomspencerlondon.tictactoe4.adapter.in.web.GameStateTranslator.transform;
+import static com.tomspencerlondon.tictactoe4.adapter.in.web.TicTacToeStateTranslator.transform;
 
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
-import com.tomspencerlondon.tictactoe4.hexagon.domain.GameState;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToeState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +24,7 @@ public class GameController {
   public String game(Model model) {
     BoardState board = gameService.board();
     model.addAttribute("board", board.state());
-    GameState outcome = gameService.outcome();
+    TicTacToeState outcome = gameService.outcome();
     model.addAttribute("outcome", transform(outcome));
     return "game";
   }

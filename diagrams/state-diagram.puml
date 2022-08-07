@@ -1,0 +1,18 @@
+@startuml
+
+title Composite State Model
+[*] --> WaitForPlayer1
+WaitForPlayer1 --> WaitForPlayer2 : "Player 1 Connects"
+WaitForPlayer2 --> GameInProgress : "Player 2 Connects"
+
+state "Game in Progress" as GameInProgress {
+  state Player1
+  state Player2
+  Player1 --> Player2: "Player 1\nMoves"
+  Player2 --> Player1: "Player 2\nMoves"
+}
+
+GameInProgress --> GameOver : "Win or Draw"
+
+@enduml
+

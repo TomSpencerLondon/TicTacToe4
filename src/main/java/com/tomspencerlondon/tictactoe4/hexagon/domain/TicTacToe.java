@@ -24,16 +24,16 @@ public class TicTacToe {
     isPlayerMove = !isPlayerMove;
   }
 
-  public GameState gameState() {
+  public TicTacToeState gameState() {
     if (playerWins("X")) {
-      return GameState.PLAYER_X_WINS;
+      return TicTacToeState.PLAYER_X_WINS;
     } else if (playerWins("O")) {
-      return GameState.PLAYER_O_WINS;
+      return TicTacToeState.PLAYER_O_WINS;
     } else if (isDraw()) {
-      return GameState.DRAW;
+      return TicTacToeState.DRAW;
     }
 
-    return GameState.IN_PROGRESS;
+    return TicTacToeState.IN_PROGRESS;
   }
 
   private boolean isDraw() {
