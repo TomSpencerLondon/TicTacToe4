@@ -58,7 +58,7 @@ public class TicTacToeMoveTest {
   }
 
   @Test
-  void threeMovesIsBoardWithTwoPlayerAndOneComputer() {
+  void threeMovesIsBoardWithTwoXAndOneO() {
     TicTacToe ticTacToe = new TicTacToe();
     ticTacToe.move(0);
     ticTacToe.move(1);
@@ -67,6 +67,23 @@ public class TicTacToeMoveTest {
 
     assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("XO_____X_");
+  }
+
+
+  @Test
+  void givenGameWithBoardWith2XAnd2OPlayerTurnIsX() {
+    TicTacToe ticTacToe = new TicTacToe(new Board("XX_", "OO_", "___"));
+
+    assertThat(ticTacToe.playerMove())
+        .isEqualTo("X");
+  }
+
+  @Test
+  void givenGameWithBoardWith3XAnd2OPlayerTurnIsX() {
+    TicTacToe ticTacToe = new TicTacToe(new Board("XX_", "OO_", "X__"));
+
+    assertThat(ticTacToe.playerMove())
+        .isEqualTo("O");
   }
 
   String asString(BoardState boardState) {

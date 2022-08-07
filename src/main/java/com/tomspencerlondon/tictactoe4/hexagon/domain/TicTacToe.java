@@ -20,7 +20,7 @@ public class TicTacToe {
   }
 
   public void move(int position) {
-    board.play(position, isPlayerMove ? "X" : "O");
+    board.play(position, playerMove());
     isPlayerMove = !isPlayerMove;
   }
 
@@ -44,4 +44,7 @@ public class TicTacToe {
     return winChecker.hasWon(piece, board);
   }
 
+  public String playerMove() {
+    return board.playerTurn();
+  }
 }

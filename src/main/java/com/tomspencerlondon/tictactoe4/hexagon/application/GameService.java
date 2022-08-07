@@ -37,11 +37,17 @@ public class GameService {
 
   public void playerMove(int position) {
     ticTacToe.move(position);
-    if (ticTacToe.ticTacToeState() == TicTacToeState.DRAW) {
+    if (isWinOrDraw()) {
       gameState = GameState.GAME_OVER;
       return;
     }
     gameState = nextGameState();
+  }
+
+  private boolean isWinOrDraw() {
+    return (ticTacToe.ticTacToeState() == TicTacToeState.DRAW)
+        || (ticTacToe.ticTacToeState() == TicTacToeState.PLAYER_X_WINS)
+        || (ticTacToe.ticTacToeState() == TicTacToeState.PLAYER_O_WINS);
   }
 
   private GameState nextGameState() {

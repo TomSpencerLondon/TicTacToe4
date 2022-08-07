@@ -58,4 +58,18 @@ public class Board {
     }
     return true;
   }
+
+  public String playerTurn() {
+    long x = getCount("X");
+    long o = getCount("O");
+    if (x == o || x < o) {
+      return "X";
+    } else {
+      return "O";
+    }
+  }
+
+  private long getCount(String player) {
+    return Arrays.stream(board).flatMap(Arrays::stream).filter(s -> s.equals(player)).count();
+  }
 }

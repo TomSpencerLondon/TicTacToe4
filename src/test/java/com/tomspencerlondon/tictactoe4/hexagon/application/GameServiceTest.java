@@ -79,4 +79,21 @@ class GameServiceTest {
     assertThat(gameService.outcome())
         .isEqualTo(TicTacToeState.DRAW);
   }
+
+  @Test
+  void givenGameServiceWithGameOneMoveBeforePlayerXWinsThenGameStateIsGameOver() {
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "OOX",
+        "XXO",
+        "_OX"
+    ));
+    GameService gameService = new GameService(ticTacToe);
+
+    gameService.playerMove(6);
+
+    assertThat(gameService.gameState())
+        .isEqualTo(GameState.GAME_OVER);
+    assertThat(gameService.outcome())
+        .isEqualTo(TicTacToeState.PLAYER_X_WINS);
+  }
 }

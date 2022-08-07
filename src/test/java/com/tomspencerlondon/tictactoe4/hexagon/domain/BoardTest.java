@@ -96,4 +96,20 @@ class BoardTest {
         .flatMap(Arrays::stream)
         .collect(Collectors.joining());
   }
+
+  @Test
+  void boardWith2XAnd2OPlayerTurnIsX() {
+    Board board = new Board("XX_", "OO_", "___");
+
+    assertThat(board.playerTurn())
+        .isEqualTo("X");
+  }
+
+  @Test
+  void boardWith3XAnd2OPlayerTurnIsO() {
+    Board board = new Board("XX_", "OO_", "X__");
+
+    assertThat(board.playerTurn())
+        .isEqualTo("O");
+  }
 }
