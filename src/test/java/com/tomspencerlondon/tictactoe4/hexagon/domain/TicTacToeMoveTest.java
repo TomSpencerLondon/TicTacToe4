@@ -86,6 +86,34 @@ public class TicTacToeMoveTest {
         .isEqualTo("O");
   }
 
+  @Test
+  void givenBoardWithNextMoveDrawStateAfterMoveIsDraw() {
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "OOX",
+        "XXO",
+        "O_X"
+    ));
+
+    ticTacToe.move(7);
+
+    assertThat(ticTacToe.ticTacToeState())
+        .isEqualTo(TicTacToeState.DRAW);
+  }
+
+  @Test
+  void givenBoardWithNextMoveDrawStateAfterMoveOnTakenSquareIsInProgress() {
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "OOX",
+        "XXO",
+        "O_X"
+    ));
+
+    ticTacToe.move(6);
+
+    assertThat(ticTacToe.ticTacToeState())
+        .isEqualTo(TicTacToeState.IN_PROGRESS);
+  }
+
   String asString(BoardState boardState) {
     return Arrays.stream(boardState.state())
         .flatMap(Arrays::stream)

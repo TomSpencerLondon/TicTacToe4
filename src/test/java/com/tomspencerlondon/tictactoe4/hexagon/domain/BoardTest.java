@@ -112,4 +112,18 @@ class BoardTest {
     assertThat(board.playerTurn())
         .isEqualTo("O");
   }
+
+  @Test
+  void givenBoardWithNextMoveDrawStateAfterMoveOnTakenSquareIsInProgress() {
+    Board board = new Board("OOX", "XXO", "O_X");
+
+    board.play(6, "X");
+
+    assertThat(board.boardState().state()[0])
+        .isEqualTo(new String[]{"O", "O", "X"});
+    assertThat(board.boardState().state()[1])
+        .isEqualTo(new String[]{"X", "X", "O"});
+    assertThat(board.boardState().state()[2])
+        .isEqualTo(new String[]{"O", "_", "X"});
+  }
 }

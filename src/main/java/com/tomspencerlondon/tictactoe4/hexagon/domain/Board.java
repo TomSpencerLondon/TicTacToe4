@@ -5,6 +5,7 @@ import static java.util.Arrays.asList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class Board {
 
@@ -32,7 +33,13 @@ public class Board {
 
   void play(int move, String piece) {
     Place position = position(move);
-    board[position.x()][position.y()] = piece;
+    if (isEmpty(position)) {
+      board[position.x()][position.y()] = piece;
+    }
+  }
+
+  private boolean isEmpty(Place position) {
+    return Objects.equals(board[position.x()][position.y()], "_");
   }
 
   boolean contains(int position, String piece) {

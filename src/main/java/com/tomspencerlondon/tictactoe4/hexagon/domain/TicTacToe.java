@@ -3,12 +3,10 @@ package com.tomspencerlondon.tictactoe4.hexagon.domain;
 public class TicTacToe {
 
   private final Board board;
-  private boolean isPlayerMove;
   private final WinChecker winChecker = new WinChecker();
 
   public TicTacToe() {
     board = new Board();
-    isPlayerMove = true;
   }
 
   public TicTacToe(Board board) {
@@ -21,7 +19,6 @@ public class TicTacToe {
 
   public void move(int position) {
     board.play(position, playerMove());
-    isPlayerMove = !isPlayerMove;
   }
 
   public TicTacToeState ticTacToeState() {
