@@ -19,7 +19,7 @@ public class GameService {
   }
 
   public TicTacToeState outcome() {
-    return ticTacToe.gameState();
+    return ticTacToe.ticTacToeState();
   }
 
   public GameState gameState() {
@@ -36,6 +36,11 @@ public class GameService {
   }
 
   public void playerMove(int position) {
+    ticTacToe.move(position);
+    if (ticTacToe.ticTacToeState() == TicTacToeState.DRAW) {
+      gameState = GameState.GAME_OVER;
+      return;
+    }
     gameState = nextGameState();
   }
 

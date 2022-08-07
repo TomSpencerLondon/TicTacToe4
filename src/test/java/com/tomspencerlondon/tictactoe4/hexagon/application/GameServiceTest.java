@@ -2,7 +2,9 @@ package com.tomspencerlondon.tictactoe4.hexagon.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.tomspencerlondon.tictactoe4.hexagon.domain.Board;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToeState;
 import org.junit.jupiter.api.Test;
 
 class GameServiceTest {
@@ -59,5 +61,22 @@ class GameServiceTest {
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER1TURN);
+  }
+
+  @Test
+  void givenGameServiceWithGameOneMoveBeforeDrawWhenPlayerMoveGameStateIsGameOver() {
+    TicTacToe ticTacToe = new TicTacToe(new Board(
+        "OOX",
+        "XXO",
+        "O_X"
+    ));
+    GameService gameService = new GameService(ticTacToe);
+
+    gameService.playerMove(7);
+
+    assertThat(gameService.gameState())
+        .isEqualTo(GameState.GAME_OVER);
+    assertThat(gameService.outcome())
+        .isEqualTo(TicTacToeState.DRAW);
   }
 }

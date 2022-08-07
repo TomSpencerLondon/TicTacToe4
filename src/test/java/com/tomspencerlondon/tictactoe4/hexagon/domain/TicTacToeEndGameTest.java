@@ -10,7 +10,7 @@ public class TicTacToeEndGameTest {
   @Test
   void newGameOutcomeIsInProgress() {
     TicTacToe ticTacToe = new TicTacToe();
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.IN_PROGRESS);
   }
 
@@ -21,7 +21,7 @@ public class TicTacToeEndGameTest {
         "___",
         "___"));
 
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.IN_PROGRESS);
   }
 
@@ -32,7 +32,7 @@ public class TicTacToeEndGameTest {
         "___",
         "__O"));
 
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.IN_PROGRESS);
   }
 
@@ -44,7 +44,7 @@ public class TicTacToeEndGameTest {
         "_O_"
     ));
 
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.PLAYER_X_WINS);
   }
 
@@ -55,7 +55,7 @@ public class TicTacToeEndGameTest {
         "XXX",
         "_O_"));
 
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.PLAYER_X_WINS);
   }
 
@@ -66,7 +66,7 @@ public class TicTacToeEndGameTest {
         "_OO",
         "XXX"));
 
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.PLAYER_X_WINS);
   }
 
@@ -77,7 +77,7 @@ public class TicTacToeEndGameTest {
         "XOO",
         "X__"));
 
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.PLAYER_X_WINS);
   }
 
@@ -88,7 +88,7 @@ public class TicTacToeEndGameTest {
         "OXO",
         "_X_"));
 
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.PLAYER_X_WINS);
   }
 
@@ -99,7 +99,7 @@ public class TicTacToeEndGameTest {
         "OOX",
         "__X"));
 
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.PLAYER_X_WINS);
   }
 
@@ -110,7 +110,7 @@ public class TicTacToeEndGameTest {
         "OX_",
         "__X"));
 
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.PLAYER_X_WINS);
   }
 
@@ -121,7 +121,7 @@ public class TicTacToeEndGameTest {
         "OX_",
         "X_O"));
 
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.PLAYER_X_WINS);
   }
 
@@ -132,7 +132,7 @@ public class TicTacToeEndGameTest {
         "OXO",
         "OXO"));
 
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.DRAW);
   }
 
@@ -143,7 +143,7 @@ public class TicTacToeEndGameTest {
         "OOO",
         "_X_"));
 
-    assertThat(ticTacToe.gameState())
+    assertThat(ticTacToe.ticTacToeState())
         .isEqualByComparingTo(TicTacToeState.PLAYER_O_WINS);
   }
 }

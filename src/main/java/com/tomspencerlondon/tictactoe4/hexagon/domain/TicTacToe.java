@@ -11,7 +11,7 @@ public class TicTacToe {
     isPlayerMove = true;
   }
 
-  TicTacToe(Board board) {
+  public TicTacToe(Board board) {
     this.board = board;
   }
 
@@ -24,7 +24,7 @@ public class TicTacToe {
     isPlayerMove = !isPlayerMove;
   }
 
-  public TicTacToeState gameState() {
+  public TicTacToeState ticTacToeState() {
     if (playerWins("X")) {
       return TicTacToeState.PLAYER_X_WINS;
     } else if (playerWins("O")) {
