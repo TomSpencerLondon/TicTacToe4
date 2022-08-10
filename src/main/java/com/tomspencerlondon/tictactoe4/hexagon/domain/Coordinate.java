@@ -1,5 +1,5 @@
 package com.tomspencerlondon.tictactoe4.hexagon.domain;
 
-public record Place(int x, int y) {
+public record Coordinate(int x, int y) {
 
 }

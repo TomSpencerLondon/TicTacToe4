@@ -35,8 +35,8 @@ public class GameService {
     gameState = GameState.PLAYER1TURN;
   }
 
-  public void playerMove(int position) {
-    ticTacToe.move(position);
+  public void play(int move) {
+    ticTacToe.play(move);
     if (isWinOrDraw()) {
       gameState = GameState.GAME_OVER;
       return;

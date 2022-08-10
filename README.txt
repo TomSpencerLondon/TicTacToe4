@@ -68,10 +68,11 @@ Event Model
 ===
 
 
+### Ubiquitous Language
+#### Domain Point of View
+Play (verb) meaning to play "X" or "O" in a square
+Coordinate (noun) represents a chosen square with a coordinate row,column
+Piece - (noun) meaning "X" or "O"
 
-
-
-
-
-
-
+#### Web UI Adapter Point of View
+Move (noun) represents a chosen square with numbers 0 (top left) - 8 (bottom right)

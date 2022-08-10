@@ -17,8 +17,8 @@ public class TicTacToe {
     return board.boardState();
   }
 
-  public void move(int position) {
-    board.play(position, playerMove());
+  public void play(int move) {
+    board.play(move, playerMove());
   }
 
   public TicTacToeState ticTacToeState() {

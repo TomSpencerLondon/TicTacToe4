@@ -44,7 +44,7 @@ class GameServiceTest {
     gameService.connect();
     gameService.connect();
 
-    gameService.playerMove(1);
+    gameService.play(1);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER2TURN);
@@ -55,9 +55,9 @@ class GameServiceTest {
     GameService gameService = new GameService(new TicTacToe());
     gameService.connect();
     gameService.connect();
-    gameService.playerMove(1);
+    gameService.play(1);
 
-    gameService.playerMove(2);
+    gameService.play(2);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER1TURN);
@@ -72,7 +72,7 @@ class GameServiceTest {
     ));
     GameService gameService = new GameService(ticTacToe);
 
-    gameService.playerMove(7);
+    gameService.play(7);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.GAME_OVER);
@@ -89,7 +89,7 @@ class GameServiceTest {
     ));
     GameService gameService = new GameService(ticTacToe);
 
-    gameService.playerMove(6);
+    gameService.play(6);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.GAME_OVER);

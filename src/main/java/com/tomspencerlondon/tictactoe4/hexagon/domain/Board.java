@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class Board {
 
-  private final List<Place> places = List.of(new Place(0, 0), new Place(0, 1), new Place(0, 2), new Place(1, 0), new Place(1, 1), new Place(1, 2), new Place(2, 0), new Place(2, 1), new Place(2, 2));
+  private final List<Coordinate> coordinates = List.of(new Coordinate(0, 0), new Coordinate(0, 1), new Coordinate(0, 2), new Coordinate(1, 0), new Coordinate(1, 1), new Coordinate(1, 2), new Coordinate(2, 0), new Coordinate(2, 1), new Coordinate(2, 2));
   private String[][] board = new String[3][3];
 
   public Board() {
@@ -32,23 +32,26 @@ public class Board {
   }
 
   void play(int move, String piece) {
-    Place position = position(move);
-    if (isEmpty(position)) {
-      board[position.x()][position.y()] = piece;
+    Coordinate coordinate = transformToCoordinate(move);
+    if (!isEmpty(coordinate)) {
+      throw new SquareAlreadyTakenException();
+    }
+    if (isEmpty(coordinate)) {
+      board[coordinate.x()][coordinate.y()] = piece;
     }
   }
 
-  private boolean isEmpty(Place position) {
+  private boolean isEmpty(Coordinate position) {
     return Objects.equals(board[position.x()][position.y()], "_");
   }
 
   boolean contains(int position, String piece) {
-    Place place = position(position);
-    return board[place.x()][place.y()].equals(piece);
+    Coordinate coordinate = transformToCoordinate(position);
+    return board[coordinate.x()][coordinate.y()].equals(piece);
   }
 
-  private Place position(int position) {
-    return places.get(position);
+  private Coordinate transformToCoordinate(int move) {
+    return coordinates.get(move);
   }
 
   public BoardState boardState() {

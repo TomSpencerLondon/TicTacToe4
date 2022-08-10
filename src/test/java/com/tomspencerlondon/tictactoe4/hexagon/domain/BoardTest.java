@@ -1,6 +1,7 @@
 package com.tomspencerlondon.tictactoe4.hexagon.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -91,10 +92,20 @@ class BoardTest {
         .isEqualTo(expected);
   }
 
-  static String asString(Board board) {
-    return Arrays.stream(board.boardState().state())
-        .flatMap(Arrays::stream)
-        .collect(Collectors.joining());
+  @Test
+  void boardWithNoPlayerTurnIsX() {
+    Board board = new Board("___", "___", "___");
+
+    assertThat(board.playerTurn())
+        .isEqualTo("X");
+  }
+
+  @Test
+  void givenBoardWithSingleXThenPlayerTurnIsO() {
+    Board board = new Board("X__", "___", "___");
+
+    assertThat(board.playerTurn())
+        .isEqualTo("O");
   }
 
   @Test
@@ -114,16 +125,29 @@ class BoardTest {
   }
 
   @Test
-  void givenBoardWithNextMoveDrawStateAfterMoveOnTakenSquareIsInProgress() {
-    Board board = new Board("OOX", "XXO", "O_X");
+  void moveOnTakenSquareThrowsException() {
+    Board board = new Board("X__", "___", "___");
 
-    board.play(6, "X");
+    assertThatThrownBy(() -> board.play(0, "O"))
+        .isInstanceOf(SquareAlreadyTakenException.class);
+  }
 
-    assertThat(board.boardState().state()[0])
-        .isEqualTo(new String[]{"O", "O", "X"});
-    assertThat(board.boardState().state()[1])
-        .isEqualTo(new String[]{"X", "X", "O"});
-    assertThat(board.boardState().state()[2])
-        .isEqualTo(new String[]{"O", "_", "X"});
+  @Test
+  void samePlayerTurnAfterIllegalMove() {
+    Board board = new Board("X__", "___", "___");
+
+    try {
+      board.play(0, "0");
+    } catch (SquareAlreadyTakenException ignored) {
+    }
+
+    assertThat(board.playerTurn())
+        .isEqualTo("O");
+  }
+
+  static String asString(Board board) {
+    return Arrays.stream(board.boardState().state())
+        .flatMap(Arrays::stream)
+        .collect(Collectors.joining());
   }
 }
