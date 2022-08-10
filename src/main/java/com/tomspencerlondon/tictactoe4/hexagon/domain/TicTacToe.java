@@ -18,7 +18,7 @@ public class TicTacToe {
   }
 
   public void play(int move) {
-    board.play(move, playerMove());
+    board.play(move);
   }
 
   public TicTacToeState ticTacToeState() {
@@ -41,7 +41,4 @@ public class TicTacToe {
     return winChecker.hasWon(piece, board);
   }
 
-  public String playerMove() {
-    return board.playerTurn();
-  }
 }

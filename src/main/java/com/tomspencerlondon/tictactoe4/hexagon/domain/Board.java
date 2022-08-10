@@ -31,13 +31,13 @@ public class Board {
     this.board = board;
   }
 
-  void play(int move, String piece) {
+  void play(int move) {
     Coordinate coordinate = transformToCoordinate(move);
     if (!isEmpty(coordinate)) {
       throw new SquareAlreadyTakenException();
     }
 
-    board[coordinate.x()][coordinate.y()] = piece;
+    board[coordinate.x()][coordinate.y()] = currentPlayerPiece();
   }
 
   private boolean isEmpty(Coordinate position) {
@@ -68,7 +68,7 @@ public class Board {
     return true;
   }
 
-  public String playerTurn() {
+  public String currentPlayerPiece() {
     long x = getCount("X");
     long o = getCount("O");
     if (x == o || x < o) {

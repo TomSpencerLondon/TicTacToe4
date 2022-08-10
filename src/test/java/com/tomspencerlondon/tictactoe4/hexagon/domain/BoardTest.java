@@ -21,7 +21,7 @@ class BoardTest {
   void givenPlayZeroBoardContainsPosition() {
     Board board = new Board();
 
-    board.play(0, "X");
+    board.play(0);
 
     assertThat(asString(board))
         .isEqualTo("X________");
@@ -33,8 +33,8 @@ class BoardTest {
   void givenTwoPlaysBoardContainsPositions() {
     Board board = new Board();
 
-    board.play(0, "X");
-    board.play(1, "O");
+    board.play(0);
+    board.play(1);
 
     assertThat(asString(board))
         .isEqualTo("XO_______");
@@ -48,15 +48,15 @@ class BoardTest {
   void givenFullBoardBoardContainsPositions() {
     Board board = new Board();
 
-    board.play(0, "X");
-    board.play(1, "O");
-    board.play(2, "X");
-    board.play(3, "O");
-    board.play(4, "X");
-    board.play(5, "O");
-    board.play(6, "X");
-    board.play(7, "O");
-    board.play(8, "X");
+    board.play(0);
+    board.play(1);
+    board.play(2);
+    board.play(3);
+    board.play(4);
+    board.play(5);
+    board.play(6);
+    board.play(7);
+    board.play(8);
 
     assertThat(asString(board))
         .isEqualTo("XOXOXOXOX");
@@ -86,7 +86,7 @@ class BoardTest {
     String[][] expected = BoardFactory.empty();
 
     String[][] result = board.boardState().state();
-    board.play(1, "X");
+    board.play(1);
 
     assertThat(result)
         .isEqualTo(expected);
@@ -96,7 +96,7 @@ class BoardTest {
   void boardWithNoPlayerTurnIsX() {
     Board board = new Board("___", "___", "___");
 
-    assertThat(board.playerTurn())
+    assertThat(board.currentPlayerPiece())
         .isEqualTo("X");
   }
 
@@ -104,7 +104,7 @@ class BoardTest {
   void givenBoardWithSingleXThenPlayerTurnIsO() {
     Board board = new Board("X__", "___", "___");
 
-    assertThat(board.playerTurn())
+    assertThat(board.currentPlayerPiece())
         .isEqualTo("O");
   }
 
@@ -112,7 +112,7 @@ class BoardTest {
   void boardWith2XAnd2OPlayerTurnIsX() {
     Board board = new Board("XX_", "OO_", "___");
 
-    assertThat(board.playerTurn())
+    assertThat(board.currentPlayerPiece())
         .isEqualTo("X");
   }
 
@@ -120,7 +120,7 @@ class BoardTest {
   void boardWith3XAnd2OPlayerTurnIsO() {
     Board board = new Board("XX_", "OO_", "X__");
 
-    assertThat(board.playerTurn())
+    assertThat(board.currentPlayerPiece())
         .isEqualTo("O");
   }
 
@@ -128,7 +128,7 @@ class BoardTest {
   void moveOnTakenSquareThrowsException() {
     Board board = new Board("X__", "___", "___");
 
-    assertThatThrownBy(() -> board.play(0, "O"))
+    assertThatThrownBy(() -> board.play(0))
         .isInstanceOf(SquareAlreadyTakenException.class);
   }
 
@@ -137,11 +137,11 @@ class BoardTest {
     Board board = new Board("X__", "___", "___");
 
     try {
-      board.play(0, "0");
+      board.play(0);
     } catch (SquareAlreadyTakenException ignored) {
     }
 
-    assertThat(board.playerTurn())
+    assertThat(board.currentPlayerPiece())
         .isEqualTo("O");
   }
 
