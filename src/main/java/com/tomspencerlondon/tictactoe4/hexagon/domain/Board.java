@@ -36,9 +36,8 @@ public class Board {
     if (!isEmpty(coordinate)) {
       throw new SquareAlreadyTakenException();
     }
-    if (isEmpty(coordinate)) {
-      board[coordinate.x()][coordinate.y()] = piece;
-    }
+
+    board[coordinate.x()][coordinate.y()] = piece;
   }
 
   private boolean isEmpty(Coordinate position) {

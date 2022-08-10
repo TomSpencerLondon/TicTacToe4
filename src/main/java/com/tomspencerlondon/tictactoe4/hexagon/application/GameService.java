@@ -37,10 +37,12 @@ public class GameService {
 
   public void play(int move) {
     ticTacToe.play(move);
+
     if (isWinOrDraw()) {
       gameState = GameState.GAME_OVER;
       return;
     }
+
     gameState = nextGameState();
   }
 
