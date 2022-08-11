@@ -21,7 +21,7 @@ public class TicTacToeMoveTest {
   void startThenMove_0_IsBoardWithXOnTopRowLeft() {
     TicTacToe ticTacToe = new TicTacToe();
 
-    ticTacToe.play(0);
+    ticTacToe.play(Coordinate.fromMove(0));
 
     assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("X________");
@@ -31,7 +31,7 @@ public class TicTacToeMoveTest {
   void startThenMove_1_IsBoardWithXOnTopRowMiddle() {
     TicTacToe ticTacToe = new TicTacToe();
 
-    ticTacToe.play(1);
+    ticTacToe.play(Coordinate.fromMove(1));
 
     assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("_X_______");
@@ -41,7 +41,7 @@ public class TicTacToeMoveTest {
   void startThenMove_8_IsBoardWithXOnBottomRowRight() {
     TicTacToe ticTacToe = new TicTacToe();
 
-    ticTacToe.play(8);
+    ticTacToe.play(Coordinate.fromMove(8));
 
     assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("________X");
@@ -50,9 +50,9 @@ public class TicTacToeMoveTest {
   @Test
   void twoMovesIsBoardWithAlternatePlayers() {
     TicTacToe ticTacToe = new TicTacToe();
-    ticTacToe.play(0);
+    ticTacToe.play(Coordinate.fromMove(0));
 
-    ticTacToe.play(1);
+    ticTacToe.play(Coordinate.fromMove(1));
 
     assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("XO_______");
@@ -61,10 +61,10 @@ public class TicTacToeMoveTest {
   @Test
   void threeMovesIsBoardWithTwoXAndOneO() {
     TicTacToe ticTacToe = new TicTacToe();
-    ticTacToe.play(0);
-    ticTacToe.play(1);
+    ticTacToe.play(Coordinate.fromMove(0));
+    ticTacToe.play(Coordinate.fromMove(1));
 
-    ticTacToe.play(7);
+    ticTacToe.play(Coordinate.fromMove(7));
 
     assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("XO_____X_");
@@ -78,7 +78,7 @@ public class TicTacToeMoveTest {
         "O_X"
     ));
 
-    ticTacToe.play(7);
+    ticTacToe.play(Coordinate.fromMove(7));
 
     assertThat(ticTacToe.ticTacToeState())
         .isEqualTo(TicTacToeState.DRAW);
@@ -92,7 +92,7 @@ public class TicTacToeMoveTest {
         "___"
     ));
 
-    assertThatThrownBy(() -> ticTacToe.play(0))
+    assertThatThrownBy(() -> ticTacToe.play(Coordinate.fromMove(0)))
         .isInstanceOf(SquareAlreadyTakenException.class);
   }
 

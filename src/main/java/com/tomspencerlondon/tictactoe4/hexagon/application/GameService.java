@@ -1,6 +1,7 @@
 package com.tomspencerlondon.tictactoe4.hexagon.application;
 
 import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.Coordinate;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToeState;
 
@@ -35,8 +36,8 @@ public class GameService {
     gameState = GameState.PLAYER1TURN;
   }
 
-  public void play(int move) {
-    ticTacToe.play(move);
+  public void play(Coordinate coordinate) {
+    ticTacToe.play(coordinate);
 
     if (isWinOrDraw()) {
       gameState = GameState.GAME_OVER;

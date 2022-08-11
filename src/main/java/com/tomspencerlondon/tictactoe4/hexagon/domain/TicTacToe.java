@@ -17,8 +17,8 @@ public class TicTacToe {
     return board.boardState();
   }
 
-  public void play(int move) {
-    board.play(move);
+  public void play(Coordinate coordinate) {
+    board.play(coordinate);
   }
 
   public TicTacToeState ticTacToeState() {

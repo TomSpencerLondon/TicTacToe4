@@ -3,6 +3,7 @@ package com.tomspencerlondon.tictactoe4.hexagon.application;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Board;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.Coordinate;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToeState;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,7 @@ class GameServiceTest {
     gameService.connect();
     gameService.connect();
 
-    gameService.play(1);
+    gameService.play(Coordinate.fromMove(1));
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER2TURN);
@@ -55,9 +56,9 @@ class GameServiceTest {
     GameService gameService = new GameService(new TicTacToe());
     gameService.connect();
     gameService.connect();
-    gameService.play(1);
+    gameService.play(Coordinate.fromMove(1));
 
-    gameService.play(2);
+    gameService.play(Coordinate.fromMove(2));
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER1TURN);
@@ -72,7 +73,7 @@ class GameServiceTest {
     ));
     GameService gameService = new GameService(ticTacToe);
 
-    gameService.play(7);
+    gameService.play(Coordinate.fromMove(7));
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.GAME_OVER);
@@ -89,7 +90,7 @@ class GameServiceTest {
     ));
     GameService gameService = new GameService(ticTacToe);
 
-    gameService.play(6);
+    gameService.play(Coordinate.fromMove(6));
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.GAME_OVER);
