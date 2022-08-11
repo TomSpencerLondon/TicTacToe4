@@ -3,6 +3,7 @@ package com.tomspencerlondon.tictactoe4.hexagon.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.tomspencerlondon.tictactoe4.adapter.in.web.CoordinateTranslator;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
@@ -21,11 +22,11 @@ class BoardTest {
   void givenPlayZeroBoardContainsPosition() {
     Board board = new Board();
 
-    board.play(Coordinate.fromMove(0));
+    board.play(CoordinateTranslator.fromMove(0));
 
     assertThat(asString(board))
         .isEqualTo("X________");
-    assertThat(board.contains(Coordinate.fromMove(0), "X"))
+    assertThat(board.contains(CoordinateTranslator.fromMove(0), "X"))
         .isTrue();
   }
 
@@ -33,14 +34,14 @@ class BoardTest {
   void givenTwoPlaysBoardContainsPositions() {
     Board board = new Board();
 
-    board.play(Coordinate.fromMove(0));
-    board.play(Coordinate.fromMove(1));
+    board.play(CoordinateTranslator.fromMove(0));
+    board.play(CoordinateTranslator.fromMove(1));
 
     assertThat(asString(board))
         .isEqualTo("XO_______");
-    assertThat(board.contains(Coordinate.fromMove(0), "X"))
+    assertThat(board.contains(CoordinateTranslator.fromMove(0), "X"))
         .isTrue();
-    assertThat(board.contains(Coordinate.fromMove(1), "O"))
+    assertThat(board.contains(CoordinateTranslator.fromMove(1), "O"))
         .isTrue();
   }
 
@@ -48,35 +49,35 @@ class BoardTest {
   void givenFullBoardBoardContainsPositions() {
     Board board = new Board();
 
-    board.play(Coordinate.fromMove(0));
-    board.play(Coordinate.fromMove(1));
-    board.play(Coordinate.fromMove(2));
-    board.play(Coordinate.fromMove(3));
-    board.play(Coordinate.fromMove(4));
-    board.play(Coordinate.fromMove(5));
-    board.play(Coordinate.fromMove(6));
-    board.play(Coordinate.fromMove(7));
-    board.play(Coordinate.fromMove(8));
+    board.play(CoordinateTranslator.fromMove(0));
+    board.play(CoordinateTranslator.fromMove(1));
+    board.play(CoordinateTranslator.fromMove(2));
+    board.play(CoordinateTranslator.fromMove(3));
+    board.play(CoordinateTranslator.fromMove(4));
+    board.play(CoordinateTranslator.fromMove(5));
+    board.play(CoordinateTranslator.fromMove(6));
+    board.play(CoordinateTranslator.fromMove(7));
+    board.play(CoordinateTranslator.fromMove(8));
 
     assertThat(asString(board))
         .isEqualTo("XOXOXOXOX");
-    assertThat(board.contains(Coordinate.fromMove(0), "X"))
+    assertThat(board.contains(CoordinateTranslator.fromMove(0), "X"))
         .isTrue();
-    assertThat(board.contains(Coordinate.fromMove(1), "O"))
+    assertThat(board.contains(CoordinateTranslator.fromMove(1), "O"))
         .isTrue();
-    assertThat(board.contains(Coordinate.fromMove(2), "X"))
+    assertThat(board.contains(CoordinateTranslator.fromMove(2), "X"))
         .isTrue();
-    assertThat(board.contains(Coordinate.fromMove(3), "O"))
+    assertThat(board.contains(CoordinateTranslator.fromMove(3), "O"))
         .isTrue();
-    assertThat(board.contains(Coordinate.fromMove(4), "X"))
+    assertThat(board.contains(CoordinateTranslator.fromMove(4), "X"))
         .isTrue();
-    assertThat(board.contains(Coordinate.fromMove(5), "O"))
+    assertThat(board.contains(CoordinateTranslator.fromMove(5), "O"))
         .isTrue();
-    assertThat(board.contains(Coordinate.fromMove(6), "X"))
+    assertThat(board.contains(CoordinateTranslator.fromMove(6), "X"))
         .isTrue();
-    assertThat(board.contains(Coordinate.fromMove(7), "O"))
+    assertThat(board.contains(CoordinateTranslator.fromMove(7), "O"))
         .isTrue();
-    assertThat(board.contains(Coordinate.fromMove(8), "X"))
+    assertThat(board.contains(CoordinateTranslator.fromMove(8), "X"))
         .isTrue();
   }
 
@@ -86,7 +87,7 @@ class BoardTest {
     String[][] expected = BoardFactory.empty();
 
     String[][] result = board.boardState().state();
-    board.play(Coordinate.fromMove(1));
+    board.play(CoordinateTranslator.fromMove(1));
 
     assertThat(result)
         .isEqualTo(expected);
@@ -128,7 +129,7 @@ class BoardTest {
   void moveOnTakenSquareThrowsException() {
     Board board = new Board("X__", "___", "___");
 
-    assertThatThrownBy(() -> board.play(Coordinate.fromMove(0)))
+    assertThatThrownBy(() -> board.play(CoordinateTranslator.fromMove(0)))
         .isInstanceOf(SquareAlreadyTakenException.class);
   }
 
@@ -137,7 +138,7 @@ class BoardTest {
     Board board = new Board("X__", "___", "___");
 
     try {
-      board.play(Coordinate.fromMove(0));
+      board.play(CoordinateTranslator.fromMove(0));
     } catch (SquareAlreadyTakenException ignored) {
     }
 

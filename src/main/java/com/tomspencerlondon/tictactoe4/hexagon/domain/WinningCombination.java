@@ -1,10 +1,12 @@
 package com.tomspencerlondon.tictactoe4.hexagon.domain;
 
+import com.tomspencerlondon.tictactoe4.adapter.in.web.CoordinateTranslator;
+
 public record WinningCombination(int first, int second, int third) {
 
   boolean isWin(String piece, Board board) {
-    return board.contains(Coordinate.fromMove(first()), piece)
-        && board.contains(Coordinate.fromMove(second()), piece)
-        && board.contains(Coordinate.fromMove(third()), piece);
+    return board.contains(CoordinateTranslator.fromMove(first()), piece)
+        && board.contains(CoordinateTranslator.fromMove(second()), piece)
+        && board.contains(CoordinateTranslator.fromMove(third()), piece);
   }
 }

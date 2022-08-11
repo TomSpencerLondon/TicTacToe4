@@ -3,6 +3,7 @@ package com.tomspencerlondon.tictactoe4.hexagon.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.tomspencerlondon.tictactoe4.adapter.in.web.CoordinateTranslator;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ public class TicTacToeMoveTest {
   void startThenMove_0_IsBoardWithXOnTopRowLeft() {
     TicTacToe ticTacToe = new TicTacToe();
 
-    ticTacToe.play(Coordinate.fromMove(0));
+    ticTacToe.play(CoordinateTranslator.fromMove(0));
 
     assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("X________");
@@ -31,7 +32,7 @@ public class TicTacToeMoveTest {
   void startThenMove_1_IsBoardWithXOnTopRowMiddle() {
     TicTacToe ticTacToe = new TicTacToe();
 
-    ticTacToe.play(Coordinate.fromMove(1));
+    ticTacToe.play(CoordinateTranslator.fromMove(1));
 
     assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("_X_______");
@@ -41,7 +42,7 @@ public class TicTacToeMoveTest {
   void startThenMove_8_IsBoardWithXOnBottomRowRight() {
     TicTacToe ticTacToe = new TicTacToe();
 
-    ticTacToe.play(Coordinate.fromMove(8));
+    ticTacToe.play(CoordinateTranslator.fromMove(8));
 
     assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("________X");
@@ -50,9 +51,9 @@ public class TicTacToeMoveTest {
   @Test
   void twoMovesIsBoardWithAlternatePlayers() {
     TicTacToe ticTacToe = new TicTacToe();
-    ticTacToe.play(Coordinate.fromMove(0));
+    ticTacToe.play(CoordinateTranslator.fromMove(0));
 
-    ticTacToe.play(Coordinate.fromMove(1));
+    ticTacToe.play(CoordinateTranslator.fromMove(1));
 
     assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("XO_______");
@@ -61,10 +62,10 @@ public class TicTacToeMoveTest {
   @Test
   void threeMovesIsBoardWithTwoXAndOneO() {
     TicTacToe ticTacToe = new TicTacToe();
-    ticTacToe.play(Coordinate.fromMove(0));
-    ticTacToe.play(Coordinate.fromMove(1));
+    ticTacToe.play(CoordinateTranslator.fromMove(0));
+    ticTacToe.play(CoordinateTranslator.fromMove(1));
 
-    ticTacToe.play(Coordinate.fromMove(7));
+    ticTacToe.play(CoordinateTranslator.fromMove(7));
 
     assertThat(asString(ticTacToe.boardState()))
         .isEqualTo("XO_____X_");
@@ -78,7 +79,7 @@ public class TicTacToeMoveTest {
         "O_X"
     ));
 
-    ticTacToe.play(Coordinate.fromMove(7));
+    ticTacToe.play(CoordinateTranslator.fromMove(7));
 
     assertThat(ticTacToe.ticTacToeState())
         .isEqualTo(TicTacToeState.DRAW);
@@ -92,7 +93,7 @@ public class TicTacToeMoveTest {
         "___"
     ));
 
-    assertThatThrownBy(() -> ticTacToe.play(Coordinate.fromMove(0)))
+    assertThatThrownBy(() -> ticTacToe.play(CoordinateTranslator.fromMove(0)))
         .isInstanceOf(SquareAlreadyTakenException.class);
   }
 
