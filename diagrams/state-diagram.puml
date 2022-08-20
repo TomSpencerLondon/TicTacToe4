@@ -1,7 +1,7 @@
 @startuml
 
 title Composite State Model
-[*] --> WaitForPlayer1
+[*] --> WaitForPlayer1 : "Application started"
 WaitForPlayer1 --> WaitForPlayer2 : "Player 1 Connects"
 WaitForPlayer2 --> GameInProgress : "Player 2 Connects"
 
