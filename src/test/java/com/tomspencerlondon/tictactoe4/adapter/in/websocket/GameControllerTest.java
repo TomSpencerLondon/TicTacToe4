@@ -13,9 +13,26 @@ class GameControllerTest {
     GameService gameService = new GameService(new TicTacToe());
     GameController gameController = new GameController(gameService);
 
-    String message = gameController.currentStateOfGame();
+    GameMessage gameMessage = gameController.currentStateOfGame();
 
-    assertThat(message)
-        .isEqualTo("Waiting for player 2");
+    assertThat(gameMessage.getGameState())
+        .isEqualTo("WAITING_FOR_PLAYER2");
+    assertThat(gameMessage.getBoard())
+        .isEqualTo(new String[][]{
+            {"_", "_", "_"},
+            {"_", "_", "_"},
+            {"_", "_", "_"}
+        });
   }
+
+//  @Test
+//  void secondWebSocketRequestForCurrentStateOfGameReturnsCurrentGameState() {
+//    GameService gameService = new GameService(new TicTacToe());
+//    GameController gameController = new GameController(gameService);
+//    gameController.currentStateOfGame();
+//
+//    String message = gameController.currentStateOfGame();
+//
+//
+//  }
 }

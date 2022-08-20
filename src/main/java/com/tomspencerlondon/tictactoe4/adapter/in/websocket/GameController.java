@@ -13,7 +13,11 @@ public class GameController {
     this.gameService = gameService;
   }
 
-  public String currentStateOfGame() {
-    return "Waiting for player 2";
+  public GameMessage currentStateOfGame() {
+    return new GameMessage("WAITING_FOR_PLAYER2", new String[][]{
+        {"_", "_", "_"},
+        {"_", "_", "_"},
+        {"_", "_", "_"}
+    });
   }
 }
