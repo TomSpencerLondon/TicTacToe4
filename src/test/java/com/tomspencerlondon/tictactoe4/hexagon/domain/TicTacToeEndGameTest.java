@@ -1,6 +1,7 @@
 package com.tomspencerlondon.tictactoe4.hexagon.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,21 +9,21 @@ public class TicTacToeEndGameTest {
 
 
   @Test
-  void newGameOutcomeIsInProgress() {
+  void givenNewGameGameOutcomeThrowsException() {
     TicTacToe ticTacToe = new TicTacToe();
-    assertThat(ticTacToe.outcome())
-        .isEqualByComparingTo(GameOutcome.IN_PROGRESS);
+    assertThatThrownBy(ticTacToe::outcome)
+        .isInstanceOf(IllegalStateException.class);
   }
 
   @Test
-  void twoXTopRowIsGameInProgress() {
+  void givenOneMoveRemainingGameOutcomeThrowsException() {
     TicTacToe ticTacToe = new TicTacToe(new Board(
         "XO_",
         "XOX",
         "OXO"));
 
-    assertThat(ticTacToe.outcome())
-        .isEqualByComparingTo(GameOutcome.IN_PROGRESS);
+    assertThatThrownBy(ticTacToe::outcome)
+        .isInstanceOf(IllegalStateException.class);
   }
 
   @Test

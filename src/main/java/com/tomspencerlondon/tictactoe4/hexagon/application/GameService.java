@@ -39,18 +39,12 @@ public class GameService {
   public void play(Coordinate coordinate) {
     ticTacToe.play(coordinate);
 
-    if (isWinOrDraw()) {
+    if (ticTacToe.isWinOrDraw()) {
       gameState = GameState.GAME_OVER;
       return;
     }
 
     gameState = nextGameState();
-  }
-
-  private boolean isWinOrDraw() {
-    return (ticTacToe.outcome() == GameOutcome.DRAW)
-        || (ticTacToe.outcome() == GameOutcome.PLAYER_X_WINS)
-        || (ticTacToe.outcome() == GameOutcome.PLAYER_O_WINS);
   }
 
   private GameState nextGameState() {

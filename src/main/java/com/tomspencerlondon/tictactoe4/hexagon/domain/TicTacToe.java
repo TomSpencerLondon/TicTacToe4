@@ -30,7 +30,7 @@ public class TicTacToe {
       return GameOutcome.DRAW;
     }
 
-    return GameOutcome.IN_PROGRESS;
+    throw new IllegalStateException();
   }
 
   private boolean isDraw() {
@@ -41,4 +41,7 @@ public class TicTacToe {
     return winChecker.hasWon(piece, board);
   }
 
+  public boolean isWinOrDraw() {
+    return playerWins("X") || playerWins("O") || isDraw();
+  }
 }
