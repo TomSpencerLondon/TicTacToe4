@@ -18,7 +18,8 @@ public class GameController {
 
   @GetMapping("/")
   public String game(Model model) {
-    model.addAttribute("gameState", "Waiting for player 2");
+    gameService.connect();
+    model.addAttribute("message", "Waiting for player 2");
     return "game";
   }
 }
