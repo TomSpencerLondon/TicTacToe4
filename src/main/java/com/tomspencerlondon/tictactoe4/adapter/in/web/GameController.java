@@ -1,6 +1,7 @@
 package com.tomspencerlondon.tictactoe4.adapter.in.web;
 
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
+import com.tomspencerlondon.tictactoe4.hexagon.application.GameState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,9 @@ public class GameController {
   @GetMapping("/")
   public String game(Model model) {
     gameService.connect();
-    model.addAttribute("message", "Waiting for player 2");
+    if (gameService.gameState() == GameState.WAITING_FOR_PLAYER2) {
+      model.addAttribute("message", "Waiting for player 2");
+    }
     return "game";
   }
 }

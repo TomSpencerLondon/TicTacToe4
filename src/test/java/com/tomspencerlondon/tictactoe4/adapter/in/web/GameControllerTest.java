@@ -30,7 +30,8 @@ class GameControllerTest {
   @Test
   @Disabled
   void givenOneUserConnectedWhenGameRequestReturnsConnectingToGame() {
-    GameController controller = new GameController(new GameService(new TicTacToe()));
+    GameService gameService = new GameService(new TicTacToe());
+    GameController controller = new GameController(gameService);
     ConcurrentModel model = new ConcurrentModel();
     controller.game(model);
 
@@ -40,5 +41,7 @@ class GameControllerTest {
         .isEqualTo("game");
     assertThat(model.getAttribute("message"))
         .isEqualTo("Connecting to game");
+    assertThat(gameService.gameState())
+        .isEqualByComparingTo(GameState.PLAYER1TURN);
   }
 }
