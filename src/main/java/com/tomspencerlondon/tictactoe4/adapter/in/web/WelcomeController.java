@@ -8,12 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class GameController {
+public class WelcomeController {
 
   private final GameService gameService;
 
   @Autowired
-  public GameController(GameService gameService) {
+  public WelcomeController(GameService gameService) {
     this.gameService = gameService;
   }
 

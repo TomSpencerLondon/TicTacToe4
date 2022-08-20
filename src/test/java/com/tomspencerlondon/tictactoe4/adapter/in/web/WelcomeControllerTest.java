@@ -8,12 +8,12 @@ import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 
-class GameControllerTest {
+class WelcomeControllerTest {
 
   @Test
   void givenNoUserConnectedWhenGameRequestReturnsWaitingForPlayerTwo() {
     GameService gameService = new GameService(new TicTacToe());
-    GameController controller = new GameController(gameService);
+    WelcomeController controller = new WelcomeController(gameService);
 
     ConcurrentModel model = new ConcurrentModel();
     String view = controller.game(model);
@@ -29,7 +29,7 @@ class GameControllerTest {
   @Test
   void givenOneUserConnectedWhenGameRequestReturnsConnectingToGame() {
     GameService gameService = new GameService(new TicTacToe());
-    GameController controller = new GameController(gameService);
+    WelcomeController controller = new WelcomeController(gameService);
     controller.game(new ConcurrentModel());
 
     ConcurrentModel model = new ConcurrentModel();
