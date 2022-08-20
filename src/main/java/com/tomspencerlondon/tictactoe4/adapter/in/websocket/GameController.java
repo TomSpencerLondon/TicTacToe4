@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class GameController {
+
   private final GameService gameService;
 
   @Autowired
@@ -14,10 +15,9 @@ public class GameController {
   }
 
   public GameMessage currentStateOfGame() {
-    return new GameMessage("WAITING_FOR_PLAYER2", new String[][]{
-        {"_", "_", "_"},
-        {"_", "_", "_"},
-        {"_", "_", "_"}
-    });
+    return new GameMessage(
+        gameService.gameState().toString(),
+        new String[][]{{"_", "_", "_"}, {"_", "_", "_"}, {"_", "_", "_"}}
+    );
   }
 }
