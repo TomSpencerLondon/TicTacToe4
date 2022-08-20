@@ -21,16 +21,16 @@ public class TicTacToe {
     board.play(coordinate);
   }
 
-  public TicTacToeState ticTacToeState() {
+  public GameOutcome outcome() {
     if (playerWins("X")) {
-      return TicTacToeState.PLAYER_X_WINS;
+      return GameOutcome.PLAYER_X_WINS;
     } else if (playerWins("O")) {
-      return TicTacToeState.PLAYER_O_WINS;
+      return GameOutcome.PLAYER_O_WINS;
     } else if (isDraw()) {
-      return TicTacToeState.DRAW;
+      return GameOutcome.DRAW;
     }
 
-    return TicTacToeState.IN_PROGRESS;
+    return GameOutcome.IN_PROGRESS;
   }
 
   private boolean isDraw() {

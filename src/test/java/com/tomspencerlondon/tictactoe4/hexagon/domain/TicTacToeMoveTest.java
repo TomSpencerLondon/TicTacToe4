@@ -81,8 +81,8 @@ public class TicTacToeMoveTest {
 
     ticTacToe.play(CoordinateTranslator.fromMove(7));
 
-    assertThat(ticTacToe.ticTacToeState())
-        .isEqualTo(TicTacToeState.DRAW);
+    assertThat(ticTacToe.outcome())
+        .isEqualTo(GameOutcome.DRAW);
   }
 
   @Test

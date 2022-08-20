@@ -2,8 +2,8 @@ package com.tomspencerlondon.tictactoe4.hexagon.application;
 
 import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Coordinate;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.GameOutcome;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
-import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToeState;
 
 public class GameService {
   // High level game state field
@@ -19,8 +19,8 @@ public class GameService {
     return ticTacToe.boardState();
   }
 
-  public TicTacToeState outcome() {
-    return ticTacToe.ticTacToeState();
+  public GameOutcome outcome() {
+    return ticTacToe.outcome();
   }
 
   public GameState gameState() {
@@ -48,9 +48,9 @@ public class GameService {
   }
 
   private boolean isWinOrDraw() {
-    return (ticTacToe.ticTacToeState() == TicTacToeState.DRAW)
-        || (ticTacToe.ticTacToeState() == TicTacToeState.PLAYER_X_WINS)
-        || (ticTacToe.ticTacToeState() == TicTacToeState.PLAYER_O_WINS);
+    return (ticTacToe.outcome() == GameOutcome.DRAW)
+        || (ticTacToe.outcome() == GameOutcome.PLAYER_X_WINS)
+        || (ticTacToe.outcome() == GameOutcome.PLAYER_O_WINS);
   }
 
   private GameState nextGameState() {

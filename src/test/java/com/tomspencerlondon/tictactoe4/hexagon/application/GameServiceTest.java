@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.tomspencerlondon.tictactoe4.adapter.in.web.CoordinateTranslator;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Board;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.GameOutcome;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
-import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToeState;
 import org.junit.jupiter.api.Test;
 
 class GameServiceTest {
@@ -78,7 +78,7 @@ class GameServiceTest {
     assertThat(gameService.gameState())
         .isEqualTo(GameState.GAME_OVER);
     assertThat(gameService.outcome())
-        .isEqualTo(TicTacToeState.DRAW);
+        .isEqualTo(GameOutcome.DRAW);
   }
 
   @Test
@@ -95,6 +95,6 @@ class GameServiceTest {
     assertThat(gameService.gameState())
         .isEqualTo(GameState.GAME_OVER);
     assertThat(gameService.outcome())
-        .isEqualTo(TicTacToeState.PLAYER_X_WINS);
+        .isEqualTo(GameOutcome.PLAYER_X_WINS);
   }
 }

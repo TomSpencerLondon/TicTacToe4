@@ -42,7 +42,8 @@ Event Model
   D) Server responds with current state of game ("Player 1 turn", squares not clickable)
   E) The server publishes current state of game to John ("Your turn", squares clickable)
 7.
-  A) John plays a square by clicking a button
+  A) John (Should be player 1) plays a square by clicking a button
+  [NOTE: possible race condition - possible solution = server assigns player number]
 ===
 >>> Event - Player 1 moves
   B) javascript sends square to Server via websocket
