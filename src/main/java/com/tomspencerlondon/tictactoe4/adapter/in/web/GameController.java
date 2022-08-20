@@ -22,7 +22,10 @@ public class GameController {
     gameService.connect();
     if (gameService.gameState() == GameState.WAITING_FOR_PLAYER2) {
       model.addAttribute("message", "Waiting for player 2");
+    } else {
+      model.addAttribute("message", "Connecting to game");
     }
+
     return "game";
   }
 }
