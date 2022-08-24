@@ -2,12 +2,14 @@ document.addEventListener("DOMContentLoaded", connect)
 
 function connect() {
   console.log("connecting...")
-  const client = new StompJs.Client()
-
-  client.configure({
+  const client = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/websocket',
+    reconnectDelay: 200,
     debug: function(str) {
       console.log("debug:", str)
+    },
+    onConnect: function (frame) {
+      console.log("connecting...")
     }
   })
 
@@ -15,9 +17,6 @@ function connect() {
     console.log("Before connect!")
   }
 
-  client.onConnect = function(frame){
-    console.log("on connect...")
-  }
   client.activate();
 }
 
