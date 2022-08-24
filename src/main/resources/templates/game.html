@@ -4,6 +4,8 @@
       lang="en">
 <head>
   <link th:href="@{/tailwind.css}" href="../static/tailwind.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@5.0.0/bundles/stomp.umd.js"></script>
+  <script th:src="@{/app.js}" src="../static/app.js"></script>
 </head>
 <body>
 <main class="pt-8 text-center">
@@ -16,32 +18,4 @@
   </form>
 </main>
 </body>
-<script>
-  const gameMessage = `{"gameState":"PLAYER1TURN","board":[["X","_","_"],["_","O","_"],["_","_","_"]]}`
-  const parsedMessage = JSON.parse(gameMessage);
-  const array = parsedMessage.board
-  const board = document.getElementById("board");
-  const gameState = document.getElementById("gameState");
-  gameState.innerText = parsedMessage.gameState
-
-  for (let row = 0; row < 3; row++) {
-    for (let column = 0; column < 3; column++) {
-      if (array[row][column] === "_") {
-        board.innerHTML += `
-<button
-    class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200"
-    type="submit" name="square">
-</button>
-`
-      } else {
-        board.innerHTML += `
-<div
-    class="h-24 border-solid border-2 border-black text-center flex justify-center items-center font-extrabold text-3xl">
-${array[row][column]}
- </div>
-        `
-      }
-    }
-  }
-</script>
 </html>
