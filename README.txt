@@ -77,3 +77,8 @@ Piece - (noun) meaning "X" or "O"
 
 #### Web UI Adapter Point of View
 Move (noun) represents a chosen square with numbers 0 (top left) - 8 (bottom right)
+
+#### Starter for Websockets
+
+![Screenshot 2022-08-24 at 20 07 50](https://user-images.githubusercontent.com/27693622/186606675-af848092-14bf-48fc-a25e-279918e47131.png)
+
