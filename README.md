@@ -30,7 +30,6 @@ Event Model
   B) javascript to create websocket connection between server and browser
   C) Upon connection to websocket browser requests the current state of game
   D) Server responds with current state of game ("Waiting for player 2")
-==
 >>> Event - Player 2 connects
 5. Joe (player 2) does a GET request to "/"
 >>>
