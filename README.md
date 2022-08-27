@@ -18,23 +18,22 @@ State Model
   - Draw
 
 Event Model
-=== State 1 (Waiting for player 1)
+#### State 1 (Waiting for player 1)
 1. Server starts up - no-one is connected
 2. Tic Tac Toe instance is created
 >>> Event - Player 1 connects
 3. John (player 1) does a GET request to "/"
 >>>
-== State 2 (Waiting for Player 2)
+#### State 2 (Waiting for Player 2)
 4.
   A) The server responds with text "Waiting for player 2" (GET response - thymeleaf template)
   B) javascript to create websocket connection between server and browser
   C) Upon connection to websocket browser requests the current state of game
   D) Server responds with current state of game ("Waiting for player 2")
-==
 >>> Event - Player 2 connects
 5. Joe (player 2) does a GET request to "/"
 >>>
-=== State 3 (Game in Progress: Substate - Player 1 turn)
+#### State 3 (Game in Progress: Substate - Player 1 turn)
 6.
   A) The server responds with text "Connecting to game" (GET response - thymeleaf template)
   B) javascript to create websocket connection between server and browser
@@ -44,14 +43,13 @@ Event Model
 7.
   A) John (Should be player 1) plays a square by clicking a button
   [NOTE: possible race condition - possible solution = server assigns player number]
-===
 >>> Event - Player 1 moves
   B) javascript sends square to Server via websocket
   C) Server executes Player 1 command
   D) Server queries current state
   E) Server publishes current state of game to both players via websocket
 >>>
-=== State 3 (Game in Progress: Substate - Player 2 turn)
+#### State 3 (Game in Progress: Substate - Player 2 turn)
   F) Server tells Player 1 it is "Player 2 turn"
   G) Server tells Player 2 it is "Your turn"
 8.
@@ -62,11 +60,9 @@ Event Model
   D) Server queries current state
   E) Server publishes current state of game to both players via websocket
 >>>
-===
-=== State 4 (Game Over)
+#### State 4 (Game Over)
   F) Server tells Player 1 it is "You won" / "Player 2 won" / "Draw"
   G) Server tells Player 2 it is "You won" / "Player 1 won" / "Draw"
-===
 
 
 ### Ubiquitous Language
@@ -77,3 +73,8 @@ Piece - (noun) meaning "X" or "O"
 
 #### Web UI Adapter Point of View
 Move (noun) represents a chosen square with numbers 0 (top left) - 8 (bottom right)
+
+#### Starter for Websockets
+
+![Screenshot 2022-08-24 at 20 07 50](https://user-images.githubusercontent.com/27693622/186606675-af848092-14bf-48fc-a25e-279918e47131.png)
+
