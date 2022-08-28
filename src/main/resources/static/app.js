@@ -7,35 +7,43 @@ function connect() {
       console.log("debug:", str)
     },
     onConnect: function (frame) {
-      client.subscribe('/tictactoe', function (message) {
-        console.log("message: ", message);
+      client.subscribe("/topic/tictactoe", function (frame) {
+        console.log("message: ", frame.body)
+        displayBoard(frame.body)
       });
+
+      client.publish({
+        destination: "/app/requests",
+        body: ""
+      })
     }
   })
 
-  client.activate();
+  client.activate()
 }
 
+function myTurn(gameState, div) {
+  return gameState === div.dataset.player;
+}
 
-function displayBoard() {
-  const gameMessage = `{"gameState":"PLAYER1TURN","board":[["X","_","_"],["_","O","_"],["_","_","_"]]}`
+function displayBoard(gameMessage) {
   const parsedMessage = JSON.parse(gameMessage)
   const array = parsedMessage.board
   const board = document.getElementById("board")
-  const gameState = document.getElementById("gameState")
-  gameState.innerText = parsedMessage.gameState
-
+  const gameStateDiv = document.getElementById("gameState")
+  gameStateDiv.innerText = parsedMessage.gameState
+  let newBoard = '';
   for (let row = 0; row < 3; row++) {
     for (let column = 0; column < 3; column++) {
-      if (array[row][column] === "_") {
-        board.innerHTML += `
+      if (array[row][column] === "_" && myTurn(parsedMessage.gameState, gameStateDiv)) {
+        newBoard += `
 <button
     class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200"
     type="submit" name="square">
 </button>
 `
       } else {
-        board.innerHTML += `
+        newBoard += `
 <div
     class="h-24 border-solid border-2 border-black text-center flex justify-center items-center font-extrabold text-3xl">
 ${array[row][column]}
@@ -43,6 +51,8 @@ ${array[row][column]}
         `
       }
     }
+
+    board.innerHTML = newBoard;
   }
 }
 

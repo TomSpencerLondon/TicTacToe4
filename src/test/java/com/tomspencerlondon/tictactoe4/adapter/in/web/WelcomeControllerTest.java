@@ -11,7 +11,7 @@ import org.springframework.ui.ConcurrentModel;
 class WelcomeControllerTest {
 
   @Test
-  void givenNoUserConnectedWhenGameRequestReturnsWaitingForPlayerTwo() {
+  void givenNoUserConnectedPlayerOneAssignedToFirstConnectedUser() {
     GameService gameService = new GameService(new TicTacToe());
     WelcomeController controller = new WelcomeController(gameService);
 
@@ -22,12 +22,14 @@ class WelcomeControllerTest {
         .isEqualTo("game");
     assertThat(model.getAttribute("message"))
         .isEqualTo("Waiting for player 2");
+    assertThat(model.getAttribute("player"))
+        .isEqualTo(GameState.PLAYER1TURN.toString());
     assertThat(gameService.gameState())
         .isEqualByComparingTo(GameState.WAITING_FOR_PLAYER2);
   }
 
   @Test
-  void givenOneUserConnectedWhenGameRequestReturnsConnectingToGame() {
+  void givenOneUserConnectedPlayerTwoAssignedToNextConnectedUser() {
     GameService gameService = new GameService(new TicTacToe());
     WelcomeController controller = new WelcomeController(gameService);
     controller.game(new ConcurrentModel());
@@ -39,6 +41,8 @@ class WelcomeControllerTest {
         .isEqualTo("game");
     assertThat(model.getAttribute("message"))
         .isEqualTo("Connecting to game");
+    assertThat(model.getAttribute("player"))
+        .isEqualTo(GameState.PLAYER2TURN.toString());
     assertThat(gameService.gameState())
         .isEqualByComparingTo(GameState.PLAYER1TURN);
   }
