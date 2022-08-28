@@ -4,6 +4,7 @@ import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,9 @@ public class GameController {
 
   @MessageMapping("/requests")
   @SendTo("/topic/tictactoe")
-  public GameMessage currentStateOfGame() {
+  public GameMessage currentStateOfGame(Message<String> message) {
+    String payload = message.getPayload();
+    System.out.println(payload);
 
     return new GameMessage(
         gameService.gameState().toString(),

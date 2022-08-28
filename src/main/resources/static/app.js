@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", connect)
 
 function connect() {
+  const payLoad = "hello";
+
   const client = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/websocket',
     debug: function(str) {
@@ -14,7 +16,7 @@ function connect() {
 
       client.publish({
         destination: "/app/requests",
-        body: ""
+        body: JSON.stringify(payLoad)
       })
     }
   })

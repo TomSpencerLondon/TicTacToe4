@@ -23,7 +23,7 @@ class GameMessageTest {
     gameService.connect();
     GameController gameController = new GameController(gameService);
 
-    GameMessage gameMessage = gameController.currentStateOfGame();
+    GameMessage gameMessage = gameController.currentStateOfGame(null);
 
     String result = mapper.writeValueAsString(gameMessage);
 

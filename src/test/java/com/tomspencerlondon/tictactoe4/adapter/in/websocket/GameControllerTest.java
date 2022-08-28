@@ -14,7 +14,7 @@ class GameControllerTest {
     gameService.connect();
     GameController gameController = new GameController(gameService);
 
-    GameMessage gameMessage = gameController.currentStateOfGame();
+    GameMessage gameMessage = gameController.currentStateOfGame(null);
 
     assertThat(gameMessage.getGameState()).isEqualTo("WAITING_FOR_PLAYER2");
     assertThat(gameMessage.getBoard())
@@ -28,7 +28,7 @@ class GameControllerTest {
     gameService.connect();
     GameController gameController = new GameController(gameService);
 
-    GameMessage gameMessage = gameController.currentStateOfGame();
+    GameMessage gameMessage = gameController.currentStateOfGame(null);
 
     assertThat(gameMessage.getGameState()).isEqualTo("PLAYER1TURN");
     assertThat(gameMessage.getBoard())
@@ -48,7 +48,7 @@ class GameControllerTest {
     gameService.connect();
     GameController gameController = new GameController(gameService);
 
-    gameController.currentStateOfGame();
+    gameController.currentStateOfGame(null);
 
 //    {
 //      "command": "play",
