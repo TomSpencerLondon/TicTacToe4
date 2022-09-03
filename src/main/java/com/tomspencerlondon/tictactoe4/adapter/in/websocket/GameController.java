@@ -22,11 +22,12 @@ public class GameController {
 
   @MessageMapping("/requests")
   @SendTo("/topic/tictactoe")
-  public GameMessage currentStateOfGame(Message<PlayerPayload> message) {
+  public GameMessage playerCommand(Message<PlayerPayload> message) {
     PlayerPayload payload = message.getPayload();
 
     if (payload.isPlay()) {
-      gameService.play(new Coordinate(0, 0));
+      Coordinate coordinate = CoordinateTranslator.fromMove(Integer.parseInt(payload.square()));
+      gameService.play(coordinate);
     }
 
     return GameMessage.from(gameService.gameState(), gameService.board());

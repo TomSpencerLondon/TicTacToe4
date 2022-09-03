@@ -15,7 +15,7 @@ class GameControllerTest {
     gameService.connect();
     GameController gameController = new GameController(gameService);
 
-    GameMessage gameMessage = gameController.currentStateOfGame(connectMessage(1));
+    GameMessage gameMessage = gameController.playerCommand(connectMessage(1));
 
     assertThat(gameMessage.getGameState()).isEqualTo("WAITING_FOR_PLAYER2");
     assertThat(gameMessage.getBoard())
@@ -26,7 +26,7 @@ class GameControllerTest {
   void givenTwoConnectionsThenRequestForCurrentStateOfGameReturnsPlayerOneTurnWithEmptyBoard() {
     GameController gameController = controllerWithTwoConnections();
 
-    GameMessage gameMessage = gameController.currentStateOfGame(connectMessage(2));
+    GameMessage gameMessage = gameController.playerCommand(connectMessage(2));
 
     assertThat(gameMessage.getGameState()).isEqualTo("PLAYER1TURN");
     assertThat(gameMessage.getBoard())
@@ -37,11 +37,23 @@ class GameControllerTest {
   void givenPlayerOneTurnThenRequestReturnsPlayerTwoTurnAndUpdatedBoard() {
     GameController gameController = controllerWithTwoConnections();
 
-    GameMessage gameMessage = gameController.currentStateOfGame(playMessage("0", 1));
+    GameMessage gameMessage = gameController.playerCommand(playMessage("0", 1));
 
     assertThat(gameMessage.getGameState()).isEqualTo("PLAYER2TURN");
     assertThat(gameMessage.getBoard())
         .isEqualTo(new String[][]{{"X", "_", "_"}, {"_", "_", "_"}, {"_", "_", "_"}});
+  }
+
+  @Test
+  void givenPlayerTwoTurnThenRequestReturnsPlayerOneTurnAndUpdatedBoard() {
+    GameController gameController = controllerWithTwoConnections();
+    gameController.playerCommand(playMessage("0", 1));
+
+    GameMessage gameMessage = gameController.playerCommand(playMessage("1", 2));
+
+    assertThat(gameMessage.getGameState()).isEqualTo("PLAYER1TURN");
+    assertThat(gameMessage.getBoard())
+        .isEqualTo(new String[][]{{"X", "O", "_"}, {"_", "_", "_"}, {"_", "_", "_"}});
   }
 
   private static GenericMessage<PlayerPayload> playMessage(String square, int player) {
@@ -62,7 +74,6 @@ class GameControllerTest {
     GameService gameService = new GameService(new TicTacToe());
     gameService.connect();
     gameService.connect();
-    GameController gameController = new GameController(gameService);
-    return gameController;
+    return new GameController(gameService);
   }
 }
