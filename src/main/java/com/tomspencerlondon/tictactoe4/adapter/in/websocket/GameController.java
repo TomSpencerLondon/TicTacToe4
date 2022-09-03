@@ -25,13 +25,11 @@ public class GameController {
   public GameMessage currentStateOfGame(Message<PlayerPayload> message) {
     PlayerPayload payload = message.getPayload();
 
-    if (payload.command().equals("play")) {
+    if (payload.isPlay()) {
       gameService.play(new Coordinate(0, 0));
     }
 
-    return new GameMessage(
-        gameService.gameState().toString(),
-        gameService.board().state()
-    );
+    return GameMessage.from(gameService.gameState(), gameService.board());
   }
+
 }
