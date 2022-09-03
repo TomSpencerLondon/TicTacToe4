@@ -1,7 +1,6 @@
 package com.tomspencerlondon.tictactoe4.adapter.in.websocket;
 
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
-import com.tomspencerlondon.tictactoe4.hexagon.domain.Coordinate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +23,7 @@ public class GameController {
   @SendTo("/topic/tictactoe")
   public GameMessage playerCommand(Message<PlayerPayload> message) {
     PlayerPayload payload = message.getPayload();
-
-    if (payload.isPlay()) {
-      Coordinate coordinate = CoordinateTranslator.fromMove(Integer.parseInt(payload.square()));
-      gameService.play(coordinate);
-    }
-
+    payload.execute(gameService);
     return GameMessage.from(gameService.gameState(), gameService.board());
   }
 
