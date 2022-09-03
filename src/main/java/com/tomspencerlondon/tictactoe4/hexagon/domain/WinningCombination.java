@@ -1,6 +1,6 @@
 package com.tomspencerlondon.tictactoe4.hexagon.domain;
 
-import com.tomspencerlondon.tictactoe4.adapter.in.web.CoordinateTranslator;
+import com.tomspencerlondon.tictactoe4.adapter.in.websocket.CoordinateTranslator;
 
 public record WinningCombination(int first, int second, int third) {
 

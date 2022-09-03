@@ -3,7 +3,7 @@ package com.tomspencerlondon.tictactoe4.hexagon.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.tomspencerlondon.tictactoe4.adapter.in.web.CoordinateTranslator;
+import com.tomspencerlondon.tictactoe4.adapter.in.websocket.CoordinateTranslator;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;

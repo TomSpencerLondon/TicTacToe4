@@ -1,4 +1,4 @@
-package com.tomspencerlondon.tictactoe4.adapter.in.web;
+package com.tomspencerlondon.tictactoe4.adapter.in.websocket;
 
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Coordinate;
 

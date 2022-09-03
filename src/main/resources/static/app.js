@@ -35,6 +35,7 @@ function displayBoard(gameMessage) {
   const gameStateDiv = document.getElementById("gameState")
   gameStateDiv.innerText = parsedMessage.gameState
   let newBoard = '';
+
   for (let row = 0; row < 3; row++) {
     for (let column = 0; column < 3; column++) {
       if (array[row][column] === "_" && myTurn(parsedMessage.gameState, gameStateDiv)) {

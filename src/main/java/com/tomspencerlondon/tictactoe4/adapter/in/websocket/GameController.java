@@ -1,6 +1,7 @@
 package com.tomspencerlondon.tictactoe4.adapter.in.websocket;
 
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.Coordinate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,16 @@ public class GameController {
 
   @MessageMapping("/requests")
   @SendTo("/topic/tictactoe")
-  public GameMessage currentStateOfGame(Message<String> message) {
-    String payload = message.getPayload();
-    System.out.println(payload);
+  public GameMessage currentStateOfGame(Message<PlayerPayload> message) {
+    PlayerPayload payload = message.getPayload();
+
+    if (payload.command().equals("play")) {
+      gameService.play(new Coordinate(0, 0));
+    }
 
     return new GameMessage(
         gameService.gameState().toString(),
-        new String[][]{{"_", "_", "_"}, {"_", "_", "_"}, {"_", "_", "_"}}
+        gameService.board().state()
     );
   }
 }

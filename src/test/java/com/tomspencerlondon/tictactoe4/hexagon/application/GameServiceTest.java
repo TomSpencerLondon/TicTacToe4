@@ -2,7 +2,7 @@ package com.tomspencerlondon.tictactoe4.hexagon.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.tomspencerlondon.tictactoe4.adapter.in.web.CoordinateTranslator;
+import com.tomspencerlondon.tictactoe4.adapter.in.websocket.CoordinateTranslator;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Board;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.GameOutcome;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
