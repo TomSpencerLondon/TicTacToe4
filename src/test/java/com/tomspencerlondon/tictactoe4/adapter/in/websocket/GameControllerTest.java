@@ -80,6 +80,29 @@ class GameControllerTest {
         .isEqualTo(new String[][]{{"X", "O", "X"}, {"_", "_", "_"}, {"_", "_", "_"}});
   }
 
+  @Test
+  void playerPlaysAfterGameOver() {
+    GameController gameController = controllerWithTwoConnections();
+    gameController.playerCommand(playMessage("0", 1));
+    gameController.playerCommand(playMessage("1", 2));
+    gameController.playerCommand(playMessage("2", 1));
+    gameController.playerCommand(playMessage("3", 2));
+    gameController.playerCommand(playMessage("7", 1));
+    gameController.playerCommand(playMessage("6", 2));
+    gameController.playerCommand(playMessage("8", 1));
+    gameController.playerCommand(playMessage("5", 2));
+    gameController.playerCommand(playMessage("4", 1));
+
+    GameMessage gameMessage = gameController.playerCommand(playMessage("3", 1));
+
+    assertThat(gameMessage.getGameState()).isEqualTo("GAME_OVER");
+    assertThat(gameMessage.getBoard())
+        .isEqualTo(new String[][]{
+            {"X", "O", "X"},
+            {"O", "X", "O"},
+            {"O", "X", "X"}});
+  }
+
   private static GenericMessage<PlayerPayload> playMessage(String square, int player) {
     return createMessage("play", square, player);
   }
