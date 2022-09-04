@@ -56,6 +56,30 @@ class GameControllerTest {
         .isEqualTo(new String[][]{{"X", "O", "_"}, {"_", "_", "_"}, {"_", "_", "_"}});
   }
 
+  @Test
+  void player2PlaysButNotTheirTurn() {
+    GameController gameController = controllerWithTwoConnections();
+
+    GameMessage gameMessage = gameController.playerCommand(playMessage("0", 2));
+    assertThat(gameMessage.getGameState()).isEqualTo("PLAYER1TURN");
+    assertThat(gameMessage.getBoard())
+        .isEqualTo(new String[][]{{"_", "_", "_"}, {"_", "_", "_"}, {"_", "_", "_"}});
+  }
+
+  @Test
+  void player1PlaysButNotTheirTurn() {
+    GameController gameController = controllerWithTwoConnections();
+    gameController.playerCommand(playMessage("0", 1));
+    gameController.playerCommand(playMessage("1", 2));
+    gameController.playerCommand(playMessage("2", 1));
+
+    GameMessage gameMessage = gameController.playerCommand(playMessage("3", 1));
+
+    assertThat(gameMessage.getGameState()).isEqualTo("PLAYER2TURN");
+    assertThat(gameMessage.getBoard())
+        .isEqualTo(new String[][]{{"X", "O", "X"}, {"_", "_", "_"}, {"_", "_", "_"}});
+  }
+
   private static GenericMessage<PlayerPayload> playMessage(String square, int player) {
     return createMessage("play", square, player);
   }

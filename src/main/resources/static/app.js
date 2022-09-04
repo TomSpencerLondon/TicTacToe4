@@ -25,7 +25,14 @@ function connect() {
 }
 
 function myTurn(gameState, div) {
-  return gameState === div.dataset.player;
+  return gameState === div.dataset.player
+}
+
+function playerCommand(event) {
+  const square = event.target.value
+  const command = "play"
+  const gameStateDiv = document.getElementById("gameState")
+  const player = gameStateDiv.dataset.player
 }
 
 function displayBoard(gameMessage) {
@@ -35,14 +42,18 @@ function displayBoard(gameMessage) {
   const gameStateDiv = document.getElementById("gameState")
   gameStateDiv.innerText = parsedMessage.gameState
   let newBoard = '';
-
+  let square = 0;
   for (let row = 0; row < 3; row++) {
     for (let column = 0; column < 3; column++) {
       if (array[row][column] === "_" && myTurn(parsedMessage.gameState, gameStateDiv)) {
         newBoard += `
 <button
+    type="button"
     class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200"
-    type="submit" name="square">
+    name="square"
+    value="${square++}"
+    onclick="playerCommand()"
+    >
 </button>
 `
       } else {
