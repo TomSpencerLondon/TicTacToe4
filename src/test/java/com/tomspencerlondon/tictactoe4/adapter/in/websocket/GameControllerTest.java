@@ -81,7 +81,7 @@ class GameControllerTest {
   }
 
   @Test
-  void playerPlaysAfterGameOver() {
+  void playingOccupiedSquareWhenGameIsOverIsNoOperation() {
     GameController gameController = controllerWithTwoConnections();
     gameController.playerCommand(playMessage("0", 1));
     gameController.playerCommand(playMessage("1", 2));
@@ -101,20 +101,6 @@ class GameControllerTest {
             {"X", "O", "X"},
             {"O", "X", "O"},
             {"O", "X", "X"}});
-  }
-
-  @Test
-  void player1PlaysBeforePlayer2Connects() {
-    GameService gameService = new GameService(new TicTacToe());
-    gameService.connect();
-    GameController gameController = new GameController(gameService);
-    gameController.playerCommand(connectMessage(1));
-
-    GameMessage gameMessage = gameController.playerCommand(playMessage("0", 1));
-
-    assertThat(gameMessage.getGameState()).isEqualTo("WAITING_FOR_PLAYER2");
-    assertThat(gameMessage.getBoard())
-        .isEqualTo(new String[][]{{"_", "_", "_"}, {"_", "_", "_"}, {"_", "_", "_"}});
   }
 
   private static GenericMessage<PlayerPayload> playMessage(String square, int player) {

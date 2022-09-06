@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class BoardState {
   private final String[][] state;
 
-  static BoardState copyOf(String[][] board) {
+  public static BoardState copyOf(String[][] board) {
     String[][] copy = Arrays.stream(board)
         .map(String[]::clone)
         .toArray(String[][]::new);

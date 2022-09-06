@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.tomspencerlondon.tictactoe4.adapter.in.websocket.CoordinateTranslator;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Board;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.Coordinate;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.GameOutcome;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 import org.junit.jupiter.api.Test;
@@ -30,8 +31,7 @@ class GameServiceTest {
 
   @Test
   void givenNewGameServiceAndPlayerConnectsWhenPlayerConnectsIsPlayer1Turn() {
-    GameService gameService = new GameService(new TicTacToe());
-    gameService.connect();
+    GameService gameService = createGameServiceWithOnlyPlayerOneConnected();
 
     gameService.connect();
 
@@ -41,8 +41,7 @@ class GameServiceTest {
 
   @Test
   void givenNewGameServiceAndPlayer1TurnWhenPlayerMoveSquareIsPlayer2Turn() {
-    GameService gameService = new GameService(new TicTacToe());
-    gameService.connect();
+    GameService gameService = createGameServiceWithOnlyPlayerOneConnected();
     gameService.connect();
 
     gameService.play(CoordinateTranslator.fromMove(1));
@@ -53,10 +52,7 @@ class GameServiceTest {
 
   @Test
   void givenNewGameServiceAndPlayer2TurnWhenPlayerMoveSquareIsPlayer1Turn() {
-    GameService gameService = new GameService(new TicTacToe());
-    gameService.connect();
-    gameService.connect();
-    gameService.play(CoordinateTranslator.fromMove(1));
+    GameService gameService = new GameService(GameState.PLAYER2TURN);
 
     gameService.play(CoordinateTranslator.fromMove(2));
 
@@ -71,7 +67,7 @@ class GameServiceTest {
         "XXO",
         "O_X"
     ));
-    GameService gameService = new GameService(ticTacToe);
+    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN);
 
     gameService.play(CoordinateTranslator.fromMove(7));
 
@@ -88,7 +84,7 @@ class GameServiceTest {
         "XXO",
         "_OX"
     ));
-    GameService gameService = new GameService(ticTacToe);
+    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN);
 
     gameService.play(CoordinateTranslator.fromMove(6));
 
@@ -96,5 +92,31 @@ class GameServiceTest {
         .isEqualTo(GameState.GAME_OVER);
     assertThat(gameService.outcome())
         .isEqualTo(GameOutcome.PLAYER_X_WINS);
+  }
+
+  @Test
+  void player1PlaysBeforePlayer2Connects() {
+    GameService gameService = createGameServiceWithOnlyPlayerOneConnected();
+
+    gameService.play(new Coordinate(0, 0));
+
+    assertThat(gameService.gameState())
+        .isEqualByComparingTo(GameState.WAITING_FOR_PLAYER2);
+  }
+
+  @Test
+  void noOneIsConnectedWhenPlayer1PlaysThenWaitingForPlayer1() {
+    GameService gameService = new GameService(GameState.WAITING_FOR_PLAYER1);
+
+    gameService.play(new Coordinate(0, 0));
+
+    assertThat(gameService.gameState())
+        .isEqualByComparingTo(GameState.WAITING_FOR_PLAYER1);
+  }
+
+  private GameService createGameServiceWithOnlyPlayerOneConnected() {
+    GameService gameService = new GameService(new TicTacToe());
+    gameService.connect();
+    return gameService;
   }
 }

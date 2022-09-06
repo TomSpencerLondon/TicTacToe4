@@ -15,6 +15,15 @@ public class GameService {
     this.ticTacToe = ticTacToe;
   }
 
+  GameService(GameState startingState) {
+    this(new TicTacToe(), startingState);
+  }
+
+  public GameService(TicTacToe ticTacToe, GameState startingState) {
+    this.ticTacToe = ticTacToe;
+    gameState = startingState;
+  }
+
   public BoardState board() {
     return ticTacToe.boardState();
   }
@@ -37,6 +46,11 @@ public class GameService {
   }
 
   public void play(Coordinate coordinate) {
+    if (gameState == GameState.WAITING_FOR_PLAYER2 ||
+        gameState == GameState.WAITING_FOR_PLAYER1) {
+      return;
+    }
+
     ticTacToe.play(coordinate);
 
     if (ticTacToe.isWinOrDraw()) {
