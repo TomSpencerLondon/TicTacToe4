@@ -34,9 +34,7 @@ public class GameService {
   }
 
   public void connect() {
-    if (gameState.gameInProgress() ||
-        gameState == GameState.GAME_OVER
-    ) {
+    if (!gameState.isConnecting()) {
       throw new IllegalStateException();
     }
 
