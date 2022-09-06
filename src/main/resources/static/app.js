@@ -10,14 +10,8 @@ function connect() {
     },
     onConnect: function (frame) {
       client.subscribe("/topic/tictactoe", function (frame) {
-        console.log("message: ", frame.body)
         displayBoard(frame.body)
       });
-
-      client.publish({
-        destination: "/app/requests",
-        body: JSON.stringify(payLoad)
-      })
     }
   })
 
@@ -28,11 +22,14 @@ function myTurn(gameState, div) {
   return gameState === div.dataset.player
 }
 
-function playerCommand(event) {
-  const square = event.target.value
+function playerCommand(square) {
   const command = "play"
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
+  client.publish({
+    destination: "/app/requests",
+    body: JSON.stringify(payLoad)
+  })
 }
 
 function displayBoard(gameMessage) {
@@ -52,7 +49,7 @@ function displayBoard(gameMessage) {
     class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200"
     name="square"
     value="${square++}"
-    onclick="playerCommand()"
+    onclick="playerCommand(this.value)"
     >
 </button>
 `

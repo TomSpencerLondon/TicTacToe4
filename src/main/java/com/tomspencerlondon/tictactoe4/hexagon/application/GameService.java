@@ -34,12 +34,19 @@ public class GameService {
   }
 
   public void connect() {
-    if (gameState == GameState.WAITING_FOR_PLAYER1) {
-      gameState = GameState.WAITING_FOR_PLAYER2;
-      return;
+    if (gameState.gameInProgress() ||
+        gameState == GameState.GAME_OVER
+    ) {
+      throw new IllegalStateException();
     }
 
-    gameState = GameState.PLAYER1TURN;
+    gameState = nextConnectState();
+  }
+
+  private GameState nextConnectState() {
+    return gameState == GameState.WAITING_FOR_PLAYER1 ?
+        GameState.WAITING_FOR_PLAYER2 :
+        GameState.PLAYER1TURN;
   }
 
   public void play(Coordinate coordinate) {
