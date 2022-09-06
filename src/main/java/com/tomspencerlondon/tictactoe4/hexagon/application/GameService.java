@@ -16,10 +16,6 @@ public class GameService {
     this.ticTacToe = ticTacToe;
   }
 
-  GameService(GameState startingState) {
-    this(new TicTacToe(), startingState);
-  }
-
   public GameService(TicTacToe ticTacToe, GameState startingState) {
     this.ticTacToe = ticTacToe;
     gameState = startingState;
@@ -47,8 +43,8 @@ public class GameService {
   }
 
   public void play(Coordinate coordinate) {
-    if (!gameInProgress()) {
-      return;
+    if (!gameState.gameInProgress()) {
+      throw new IllegalStateException();
     }
 
     ticTacToe.play(coordinate);
@@ -59,10 +55,6 @@ public class GameService {
     }
 
     gameState = nextGameState();
-  }
-
-  private boolean gameInProgress() {
-    return gameState == GameState.PLAYER1TURN || gameState == GameState.PLAYER2TURN;
   }
 
   private GameState nextGameState() {

@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.tomspencerlondon.tictactoe4.adapter.in.websocket.CoordinateTranslator;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Board;
-import com.tomspencerlondon.tictactoe4.hexagon.domain.Coordinate;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.GameOutcome;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 import org.junit.jupiter.api.Test;
@@ -52,7 +51,7 @@ class GameServiceTest {
 
   @Test
   void givenNewGameServiceAndPlayer2TurnWhenPlayerMoveSquareIsPlayer1Turn() {
-    GameService gameService = new GameService(GameState.PLAYER2TURN);
+    GameService gameService = new GameService(new TicTacToe(), GameState.PLAYER2TURN);
 
     gameService.play(CoordinateTranslator.fromMove(2));
 
@@ -92,36 +91,6 @@ class GameServiceTest {
         .isEqualTo(GameState.GAME_OVER);
     assertThat(gameService.outcome())
         .isEqualTo(GameOutcome.PLAYER_X_WINS);
-  }
-
-  @Test
-  void player1PlaysBeforePlayer2Connects() {
-    GameService gameService = createGameServiceWithOnlyPlayerOneConnected();
-
-    gameService.play(new Coordinate(0, 0));
-
-    assertThat(gameService.gameState())
-        .isEqualByComparingTo(GameState.WAITING_FOR_PLAYER2);
-  }
-
-  @Test
-  void noOneIsConnectedWhenPlayer1PlaysThenWaitingForPlayer1() {
-    GameService gameService = new GameService(GameState.WAITING_FOR_PLAYER1);
-
-    gameService.play(new Coordinate(0, 0));
-
-    assertThat(gameService.gameState())
-        .isEqualByComparingTo(GameState.WAITING_FOR_PLAYER1);
-  }
-
-  @Test
-  void gameIsOverWhenPlayerPlaysThenGameIsStillOver() {
-    GameService gameService = new GameService(GameState.GAME_OVER);
-
-    gameService.play(new Coordinate(0, 0));
-
-    assertThat(gameService.gameState())
-        .isEqualByComparingTo(GameState.GAME_OVER);
   }
 
   private GameService createGameServiceWithOnlyPlayerOneConnected() {
