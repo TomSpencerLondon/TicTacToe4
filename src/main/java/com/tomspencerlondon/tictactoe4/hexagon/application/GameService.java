@@ -6,6 +6,7 @@ import com.tomspencerlondon.tictactoe4.hexagon.domain.GameOutcome;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 
 public class GameService {
+
   // High level game state field
   // GameState - WaitingForPlayer1, WaitingForPlayer2, Player1Turn, Player2Turn, GameOver
   private final TicTacToe ticTacToe;
@@ -46,10 +47,7 @@ public class GameService {
   }
 
   public void play(Coordinate coordinate) {
-    if (gameState == GameState.WAITING_FOR_PLAYER2 ||
-        gameState == GameState.WAITING_FOR_PLAYER1 ||
-        gameState == GameState.GAME_OVER
-    ) {
+    if (!gameInProgress()) {
       return;
     }
 
@@ -61,6 +59,10 @@ public class GameService {
     }
 
     gameState = nextGameState();
+  }
+
+  private boolean gameInProgress() {
+    return gameState == GameState.PLAYER1TURN || gameState == GameState.PLAYER2TURN;
   }
 
   private GameState nextGameState() {
