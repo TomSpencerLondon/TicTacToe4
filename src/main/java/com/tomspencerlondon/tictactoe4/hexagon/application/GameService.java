@@ -47,7 +47,9 @@ public class GameService {
 
   public void play(Coordinate coordinate) {
     if (gameState == GameState.WAITING_FOR_PLAYER2 ||
-        gameState == GameState.WAITING_FOR_PLAYER1) {
+        gameState == GameState.WAITING_FOR_PLAYER1 ||
+        gameState == GameState.GAME_OVER
+    ) {
       return;
     }
 

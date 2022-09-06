@@ -114,6 +114,16 @@ class GameServiceTest {
         .isEqualByComparingTo(GameState.WAITING_FOR_PLAYER1);
   }
 
+  @Test
+  void gameIsOverWhenPlayerPlaysThenGameIsStillOver() {
+    GameService gameService = new GameService(GameState.GAME_OVER);
+
+    gameService.play(new Coordinate(0, 0));
+
+    assertThat(gameService.gameState())
+        .isEqualByComparingTo(GameState.GAME_OVER);
+  }
+
   private GameService createGameServiceWithOnlyPlayerOneConnected() {
     GameService gameService = new GameService(new TicTacToe());
     gameService.connect();
