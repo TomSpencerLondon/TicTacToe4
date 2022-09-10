@@ -24,7 +24,7 @@ public class GameServiceExceptionalTest {
 
     assertThatThrownBy(() -> {
       gameService.play(new Coordinate(0, 1), 1);
-    }).isInstanceOf(IllegalStateException.class);
+    }).isInstanceOf(NotPlayerTurnException.class);
   }
 
   @Test

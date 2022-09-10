@@ -75,7 +75,7 @@ public class GameService {
 
   private void requireCorrectPlayer(int player) {
     if (!gameState.isCorrectPlayer(player)) {
-      throw new IllegalStateException();
+      throw new NotPlayerTurnException();
     }
   }
 }
