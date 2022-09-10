@@ -35,7 +35,7 @@ public class GameService {
 
   public void connect() {
     if (!gameState.isConnecting()) {
-      throw new IllegalStateException();
+      throw new CantConnectToGameInProgress();
     }
 
     gameState = nextConnectState();

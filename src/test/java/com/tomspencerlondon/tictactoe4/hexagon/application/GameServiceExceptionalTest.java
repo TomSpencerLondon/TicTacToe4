@@ -55,18 +55,6 @@ public class GameServiceExceptionalTest {
     GameService gameService = new GameService(new TicTacToe(), GameState.PLAYER1TURN);
 
     assertThatThrownBy(gameService::connect)
-        .isInstanceOf(IllegalStateException.class);
-  }
-
-  @Test
-  void connectWhenGameIsOverIsNotAllowed() {
-    GameService gameService = new GameService(new TicTacToe(new Board(
-        "OOX",
-        "XXO",
-        "XOX"
-    )), GameState.GAME_OVER);
-
-    assertThatThrownBy(gameService::connect)
-        .isInstanceOf(IllegalStateException.class);
+        .isInstanceOf(CantConnectToGameInProgress.class);
   }
 }
