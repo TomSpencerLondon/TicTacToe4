@@ -42,24 +42,7 @@ public class GameService {
   }
 
   private GameState nextConnectState() {
-    return gameState == GameState.WAITING_FOR_PLAYER1 ?
-        GameState.WAITING_FOR_PLAYER2 :
-        GameState.PLAYER1TURN;
-  }
-
-  public void play(Coordinate coordinate) {
-    if (!gameState.gameInProgress()) {
-      throw new IllegalStateException();
-    }
-
-    ticTacToe.play(coordinate);
-
-    if (ticTacToe.isWinOrDraw()) {
-      gameState = GameState.GAME_OVER;
-      return;
-    }
-
-    gameState = nextGameState();
+    return gameState == GameState.WAITING_FOR_PLAYER1 ? GameState.WAITING_FOR_PLAYER2 : GameState.PLAYER1TURN;
   }
 
   private GameState nextGameState() {
@@ -71,11 +54,27 @@ public class GameService {
   }
 
   public void play(Coordinate coordinate, int player) {
-    if (player == 1 && gameState == GameState.PLAYER1TURN) {
-      play(coordinate);
-    } else if (player == 2 && gameState == GameState.PLAYER2TURN) {
-      play(coordinate);
-    } else {
+    requireGameInProgress();
+    requireCorrectPlayer(player);
+
+    ticTacToe.play(coordinate);
+
+    if (ticTacToe.isWinOrDraw()) {
+      gameState = GameState.GAME_OVER;
+      return;
+    }
+
+    gameState = nextGameState();
+  }
+
+  private void requireGameInProgress() {
+    if (!gameState.gameInProgress()) {
+      throw new IllegalStateException();
+    }
+  }
+
+  private void requireCorrectPlayer(int player) {
+    if (!gameState.isCorrectPlayer(player)) {
       throw new IllegalStateException();
     }
   }
