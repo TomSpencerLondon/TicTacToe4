@@ -13,7 +13,7 @@ public class GameServiceExceptionalTest {
     GameService gameService = new GameService(new TicTacToe(), GameState.WAITING_FOR_PLAYER2);
 
     assertThatThrownBy(() -> gameService.play(new Coordinate(0, 0), 1))
-        .isInstanceOf(IllegalStateException.class);
+        .isInstanceOf(GameNotInProgressException.class);
   }
 
   @Test
@@ -32,7 +32,7 @@ public class GameServiceExceptionalTest {
     GameService gameService = new GameService(new TicTacToe(), GameState.WAITING_FOR_PLAYER1);
 
     assertThatThrownBy(() -> gameService.play(new Coordinate(0, 0), 1))
-        .isInstanceOf(IllegalStateException.class);
+        .isInstanceOf(GameNotInProgressException.class);
   }
 
   @Test
@@ -46,7 +46,7 @@ public class GameServiceExceptionalTest {
     GameService gameService = new GameService(ticTacToe, GameState.GAME_OVER);
 
     assertThatThrownBy(() -> gameService.play(new Coordinate(0, 0), 2))
-        .isInstanceOf(IllegalStateException.class);
+        .isInstanceOf(GameNotInProgressException.class);
 
   }
 

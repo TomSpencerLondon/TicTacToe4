@@ -69,7 +69,7 @@ public class GameService {
 
   private void requireGameInProgress() {
     if (!gameState.gameInProgress()) {
-      throw new IllegalStateException();
+      throw new GameNotInProgressException();
     }
   }
 
