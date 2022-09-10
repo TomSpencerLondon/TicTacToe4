@@ -29,7 +29,7 @@ class GameServiceTest {
   }
 
   @Test
-  void givenNewGameServiceAndPlayerConnectsWhenPlayerConnectsIsPlayer1Turn() {
+  void givenPlayer1ConnectedWhenPlayer2ConnectsIsPlayer1Turn() {
     GameService gameService = createGameServiceWithOnlyPlayerOneConnected();
 
     gameService.connect();
@@ -39,21 +39,21 @@ class GameServiceTest {
   }
 
   @Test
-  void givenNewGameServiceAndPlayer1TurnWhenPlayerMoveSquareIsPlayer2Turn() {
+  void givenPlayer1TurnWhenPlayer1MovesIsPlayer2Turn() {
     GameService gameService = createGameServiceWithOnlyPlayerOneConnected();
     gameService.connect();
 
-    gameService.play(CoordinateTranslator.fromMove(1));
+    gameService.play(CoordinateTranslator.fromMove(1), 1);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER2TURN);
   }
 
   @Test
-  void givenNewGameServiceAndPlayer2TurnWhenPlayerMoveSquareIsPlayer1Turn() {
+  void givenPlayer2TurnWhenPlayerMovesIsPlayer1Turn() {
     GameService gameService = new GameService(new TicTacToe(), GameState.PLAYER2TURN);
 
-    gameService.play(CoordinateTranslator.fromMove(2));
+    gameService.play(CoordinateTranslator.fromMove(2), 2);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER1TURN);
@@ -68,7 +68,7 @@ class GameServiceTest {
     ));
     GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN);
 
-    gameService.play(CoordinateTranslator.fromMove(7));
+    gameService.play(CoordinateTranslator.fromMove(7), 1);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.GAME_OVER);
@@ -85,7 +85,7 @@ class GameServiceTest {
     ));
     GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN);
 
-    gameService.play(CoordinateTranslator.fromMove(6));
+    gameService.play(CoordinateTranslator.fromMove(6), 1);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.GAME_OVER);

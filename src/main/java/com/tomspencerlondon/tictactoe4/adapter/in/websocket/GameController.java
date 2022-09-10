@@ -23,8 +23,14 @@ public class GameController {
   @SendTo("/topic/tictactoe")
   public GameMessage playerCommand(Message<PlayerPayload> message) {
     PlayerPayload payload = message.getPayload();
-    payload.execute(gameService);
-    return GameMessage.from(gameService.gameState(), gameService.board());
+
+    try {
+      payload.execute(gameService);
+    } catch (Exception e) {
+      return GameMessage.from(gameService.gameState(), gameService.board(), "Error");
+    }
+
+    return GameMessage.from(gameService.gameState(), gameService.board(), null);
   }
 
 }

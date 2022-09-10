@@ -34,15 +34,15 @@ public class Board {
       throw new SquareAlreadyTakenException();
     }
 
-    board[coordinate.x()][coordinate.y()] = currentPlayerPiece();
+    board[coordinate.row()][coordinate.column()] = currentPlayerPiece();
   }
 
   private boolean isEmpty(Coordinate position) {
-    return Objects.equals(board[position.x()][position.y()], "_");
+    return Objects.equals(board[position.row()][position.column()], "_");
   }
 
   boolean contains(Coordinate coordinate, String piece) {
-    return board[coordinate.x()][coordinate.y()].equals(piece);
+    return board[coordinate.row()][coordinate.column()].equals(piece);
   }
 
   public BoardState boardState() {

@@ -65,4 +65,18 @@ public class GameService {
   private GameState nextGameState() {
     return gameState == GameState.PLAYER2TURN ? GameState.PLAYER1TURN : GameState.PLAYER2TURN;
   }
+
+  public String error() {
+    return null;
+  }
+
+  public void play(Coordinate coordinate, int player) {
+    if (player == 1 && gameState == GameState.PLAYER1TURN) {
+      play(coordinate);
+    } else if (player == 2 && gameState == GameState.PLAYER2TURN) {
+      play(coordinate);
+    } else {
+      throw new IllegalStateException();
+    }
+  }
 }
