@@ -12,7 +12,8 @@ class WelcomeControllerTest {
 
   @Test
   void givenNoUserConnectedPlayerOneAssignedToFirstConnectedUser() {
-    GameService gameService = new GameService(new TicTacToe());
+    GameService gameService = new GameService(new TicTacToe(), () -> {
+    });
     WelcomeController controller = new WelcomeController(gameService);
 
     ConcurrentModel model = new ConcurrentModel();
@@ -30,7 +31,8 @@ class WelcomeControllerTest {
 
   @Test
   void givenOneUserConnectedPlayerTwoAssignedToNextConnectedUser() {
-    GameService gameService = new GameService(new TicTacToe());
+    GameService gameService = new GameService(new TicTacToe(), () -> {
+    });
     WelcomeController controller = new WelcomeController(gameService);
     controller.game(new ConcurrentModel());
 

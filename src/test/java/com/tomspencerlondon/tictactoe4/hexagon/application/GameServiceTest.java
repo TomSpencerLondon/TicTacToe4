@@ -12,7 +12,8 @@ class GameServiceTest {
 
   @Test
   void givenNewGameServiceGameStateIsWaitingForPlayer1() {
-    GameService gameService = new GameService(new TicTacToe());
+    GameService gameService = new GameService(new TicTacToe(), () -> {
+    });
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.WAITING_FOR_PLAYER1);
@@ -20,7 +21,8 @@ class GameServiceTest {
 
   @Test
   void givenPlayerConnectsGameStateIsWaitingForPlayer2() {
-    GameService gameService = new GameService(new TicTacToe());
+    GameService gameService = new GameService(new TicTacToe(), () -> {
+    });
 
     gameService.connect();
 
@@ -30,12 +32,15 @@ class GameServiceTest {
 
   @Test
   void givenPlayer1ConnectedWhenPlayer2ConnectsIsPlayer1Turn() {
-    GameService gameService = createGameServiceWithOnlyPlayerOneConnected();
+    GameService gameService = new GameService(new TicTacToe(), () -> {
+    });
+    gameService.connect();
 
     gameService.connect();
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER1TURN);
+
   }
 
   @Test
@@ -94,7 +99,8 @@ class GameServiceTest {
   }
 
   private GameService createGameServiceWithOnlyPlayerOneConnected() {
-    GameService gameService = new GameService(new TicTacToe());
+    GameService gameService = new GameService(new TicTacToe(), () -> {
+    });
     gameService.connect();
     return gameService;
   }

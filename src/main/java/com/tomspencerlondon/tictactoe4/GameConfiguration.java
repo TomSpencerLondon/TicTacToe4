@@ -10,6 +10,7 @@ public class GameConfiguration {
 
   @Bean
   GameService gameService() {
-    return new GameService(new TicTacToe());
+    return new GameService(new TicTacToe(), () -> {
+    });
   }
 }

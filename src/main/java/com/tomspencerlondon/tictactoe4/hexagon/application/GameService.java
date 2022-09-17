@@ -1,5 +1,6 @@
 package com.tomspencerlondon.tictactoe4.hexagon.application;
 
+import com.tomspencerlondon.tictactoe4.hexagon.application.port.GameBroadcaster;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Coordinate;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.GameOutcome;
@@ -11,9 +12,11 @@ public class GameService {
   // GameState - WaitingForPlayer1, WaitingForPlayer2, Player1Turn, Player2Turn, GameOver
   private final TicTacToe ticTacToe;
   private GameState gameState = GameState.WAITING_FOR_PLAYER1;
+  private GameBroadcaster gameBroadcaster;
 
-  public GameService(TicTacToe ticTacToe) {
+  public GameService(TicTacToe ticTacToe, GameBroadcaster gameBroadcaster) {
     this.ticTacToe = ticTacToe;
+    this.gameBroadcaster = gameBroadcaster;
   }
 
   public GameService(TicTacToe ticTacToe, GameState startingState) {

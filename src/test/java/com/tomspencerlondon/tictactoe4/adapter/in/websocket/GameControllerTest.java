@@ -13,7 +13,8 @@ class GameControllerTest {
 
   @Test
   void givenOneConnectionThenRequestForCurrentStateOfGameReturnsWaitingForPlayerTwo() {
-    GameService gameService = new GameService(new TicTacToe());
+    GameService gameService = new GameService(new TicTacToe(), () -> {
+    });
     gameService.connect();
     GameController gameController = new GameController(gameService);
 
@@ -90,7 +91,8 @@ class GameControllerTest {
     }
 
     private static GameController controllerWithTwoConnections () {
-      GameService gameService = new GameService(new TicTacToe());
+      GameService gameService = new GameService(new TicTacToe(), () -> {
+      });
       gameService.connect();
       gameService.connect();
       return new GameController(gameService);
