@@ -13,10 +13,6 @@ public enum GameState {
     return this == PLAYER1TURN || this == PLAYER2TURN;
   }
 
-  boolean isConnecting() {
-    return !gameInProgress() && this != GAME_OVER;
-  }
-
   boolean isCorrectPlayer(int player) {
     return isPlayerOneTurn(player) || isPlayerTwoTurn(player);
   }
@@ -29,18 +25,26 @@ public enum GameState {
     return player == 2 && this == PLAYER2TURN;
   }
 
-  GameState nextConnectState() {
-    return this == WAITING_FOR_PLAYER1 ? WAITING_FOR_PLAYER2 : PLAYER1TURN;
-  }
-
-  GameState nextGameState() {
+  GameState playerPlayed() {
     return this == PLAYER2TURN ? PLAYER1TURN : PLAYER2TURN;
   }
 
-  GameState winOrDraw() {
+  GameState playerWonOrDraw() {
     if (!gameInProgress()) {
       throw new IllegalStateException();
     }
     return GAME_OVER;
+  }
+
+  GameState playerConnected() {
+    if (!isConnecting()) {
+      throw new CantConnectToGameInProgress();
+    }
+
+    return this == WAITING_FOR_PLAYER1 ? WAITING_FOR_PLAYER2 : PLAYER1TURN;
+  }
+
+  private boolean isConnecting() {
+    return !gameInProgress() && this != GAME_OVER;
   }
 }

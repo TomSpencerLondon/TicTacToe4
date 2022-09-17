@@ -11,7 +11,7 @@ class GameStateTest {
   void givenGameInProgressWhenWinOrDrawThenStateChangesToGameOver() {
     GameState gameState = GameState.PLAYER1TURN;
 
-    GameState result = gameState.winOrDraw();
+    GameState result = gameState.playerWonOrDraw();
 
     assertThat(result)
         .isEqualByComparingTo(GameState.GAME_OVER);
@@ -21,6 +21,17 @@ class GameStateTest {
   void givenGameConnectingWhenWinOrDrawThenThrowsException() {
     GameState gameState = GameState.WAITING_FOR_PLAYER1;
 
-    assertThatThrownBy(gameState::winOrDraw).isInstanceOf(IllegalStateException.class);
+    assertThatThrownBy(gameState::playerWonOrDraw)
+        .isInstanceOf(IllegalStateException.class);
   }
+
+  @Test
+  void givenGameOverWhenWinOrDrawThenThrowsException() {
+    GameState gameState = GameState.GAME_OVER;
+
+    assertThatThrownBy(gameState::playerWonOrDraw)
+        .isInstanceOf(IllegalStateException.class);
+  }
+
+
 }

@@ -8,9 +8,11 @@ state "Connecting" as Connecting {
 state "Game in Progress" as GameInProgress {
   state Player1
   state Player2
-  Player1 --> Player2: "Player 1\nMoves"
-  Player2 --> Player1: "Player 2\nMoves"
+  Player1 --> Player2: "Player 1\nPlays"
+  Player2 --> Player1: "Player 2\nPlays"
 }
+
+
 
 [*] -->  WaitForPlayer1 : "Application started"
 GameInProgress --> GameOver : "Win or Draw"

@@ -34,11 +34,7 @@ public class GameService {
   }
 
   public void connect() {
-    if (!gameState.isConnecting()) {
-      throw new CantConnectToGameInProgress();
-    }
-
-    gameState = gameState.nextConnectState();
+    gameState = gameState.playerConnected();
   }
 
   public String error() {
@@ -52,11 +48,11 @@ public class GameService {
     ticTacToe.play(coordinate);
 
     if (ticTacToe.isWinOrDraw()) {
-      gameState = gameState.winOrDraw();
+      gameState = gameState.playerWonOrDraw();
       return;
     }
 
-    gameState = gameState.nextGameState();
+    gameState = gameState.playerPlayed();
   }
 
   private void requireGameInProgress() {
