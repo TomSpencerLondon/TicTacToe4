@@ -49,10 +49,9 @@ public class GameService {
 
     if (ticTacToe.isWinOrDraw()) {
       gameState = gameState.playerWonOrDraw();
-      return;
+    } else {
+      gameState = gameState.playerPlayed();
     }
-
-    gameState = gameState.playerPlayed();
   }
 
   private void requireGameInProgress() {
