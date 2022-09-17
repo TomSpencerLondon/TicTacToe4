@@ -1,18 +1,23 @@
 package com.tomspencerlondon.tictactoe4.hexagon.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 import com.tomspencerlondon.tictactoe4.adapter.in.websocket.CoordinateTranslator;
+import com.tomspencerlondon.tictactoe4.hexagon.application.port.GameBroadcaster;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Board;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.GameOutcome;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class GameServiceTest {
 
   @Test
   void givenNewGameServiceGameStateIsWaitingForPlayer1() {
-    GameService gameService = new GameService(new TicTacToe(), () -> {
+    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState) -> {
     });
 
     assertThat(gameService.gameState())
@@ -21,26 +26,28 @@ class GameServiceTest {
 
   @Test
   void givenPlayerConnectsGameStateIsWaitingForPlayer2() {
-    GameService gameService = new GameService(new TicTacToe(), () -> {
-    });
+    GameBroadcaster gameBroadcaster = Mockito.spy(GameBroadcaster.class);
+    GameService gameService = new GameService(new TicTacToe(), gameBroadcaster);
 
     gameService.connect();
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.WAITING_FOR_PLAYER2);
+    verify(gameBroadcaster, never()).send(Mockito.any(), Mockito.any());
   }
 
   @Test
   void givenPlayer1ConnectedWhenPlayer2ConnectsIsPlayer1Turn() {
-    GameService gameService = new GameService(new TicTacToe(), () -> {
-    });
+    GameBroadcaster gameBroadcaster = Mockito.spy(GameBroadcaster.class);
+    GameService gameService = new GameService(new TicTacToe(), gameBroadcaster);
     gameService.connect();
 
     gameService.connect();
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER1TURN);
-
+    verify(gameBroadcaster)
+        .send(Mockito.any(GameState.class), Mockito.any(BoardState.class));
   }
 
   @Test
@@ -99,7 +106,7 @@ class GameServiceTest {
   }
 
   private GameService createGameServiceWithOnlyPlayerOneConnected() {
-    GameService gameService = new GameService(new TicTacToe(), () -> {
+    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState) -> {
     });
     gameService.connect();
     return gameService;

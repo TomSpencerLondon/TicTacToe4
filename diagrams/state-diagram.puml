@@ -1,16 +1,18 @@
 @startuml
 
 title Composite State Model
+state "Game in Progress" as GameInProgress {
+  state Player1 : Broadcast
+  state Player2 : Broadcast
+}
+
 state "Connecting" as Connecting {
   WaitForPlayer1 --> WaitForPlayer2 : "Player 1 Connects"
-  WaitForPlayer2 --> GameInProgress : "Player 2 Connects"
+  WaitForPlayer2 --> Player1 : "Player 2 Connects"
 }
-state "Game in Progress" as GameInProgress {
-  state Player1
-  state Player2
-  Player1 --> Player2: "Player 1\nPlays"
-  Player2 --> Player1: "Player 2\nPlays"
-}
+
+Player1 --> Player2: "Player 1\nPlays"
+Player2 --> Player1: "Player 2\nPlays"
 
 
 

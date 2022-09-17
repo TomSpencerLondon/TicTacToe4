@@ -38,6 +38,10 @@ public class GameService {
 
   public void connect() {
     gameState = gameState.playerConnected();
+
+    if (gameState == GameState.PLAYER1TURN) {
+      gameBroadcaster.send(gameState, board());
+    }
   }
 
   public String error() {

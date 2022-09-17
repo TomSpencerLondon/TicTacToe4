@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameState;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Board;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 import org.junit.jupiter.api.Test;
 import org.springframework.messaging.support.GenericMessage;
@@ -13,7 +14,7 @@ class GameControllerTest {
 
   @Test
   void givenOneConnectionThenRequestForCurrentStateOfGameReturnsWaitingForPlayerTwo() {
-    GameService gameService = new GameService(new TicTacToe(), () -> {
+    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState) -> {
     });
     gameService.connect();
     GameController gameController = new GameController(gameService);
@@ -91,7 +92,7 @@ class GameControllerTest {
     }
 
     private static GameController controllerWithTwoConnections () {
-      GameService gameService = new GameService(new TicTacToe(), () -> {
+      GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState) -> {
       });
       gameService.connect();
       gameService.connect();

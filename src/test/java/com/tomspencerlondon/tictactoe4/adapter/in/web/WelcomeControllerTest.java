@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameState;
+import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
@@ -12,7 +13,7 @@ class WelcomeControllerTest {
 
   @Test
   void givenNoUserConnectedPlayerOneAssignedToFirstConnectedUser() {
-    GameService gameService = new GameService(new TicTacToe(), () -> {
+    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState) -> {
     });
     WelcomeController controller = new WelcomeController(gameService);
 
@@ -31,7 +32,7 @@ class WelcomeControllerTest {
 
   @Test
   void givenOneUserConnectedPlayerTwoAssignedToNextConnectedUser() {
-    GameService gameService = new GameService(new TicTacToe(), () -> {
+    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState) -> {
     });
     WelcomeController controller = new WelcomeController(gameService);
     controller.game(new ConcurrentModel());
