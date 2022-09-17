@@ -38,15 +38,7 @@ public class GameService {
       throw new CantConnectToGameInProgress();
     }
 
-    gameState = nextConnectState();
-  }
-
-  private GameState nextConnectState() {
-    return gameState == GameState.WAITING_FOR_PLAYER1 ? GameState.WAITING_FOR_PLAYER2 : GameState.PLAYER1TURN;
-  }
-
-  private GameState nextGameState() {
-    return gameState == GameState.PLAYER2TURN ? GameState.PLAYER1TURN : GameState.PLAYER2TURN;
+    gameState = gameState.nextConnectState();
   }
 
   public String error() {
@@ -60,11 +52,11 @@ public class GameService {
     ticTacToe.play(coordinate);
 
     if (ticTacToe.isWinOrDraw()) {
-      gameState = GameState.GAME_OVER;
+      gameState = gameState.winOrDraw();
       return;
     }
 
-    gameState = nextGameState();
+    gameState = gameState.nextGameState();
   }
 
   private void requireGameInProgress() {

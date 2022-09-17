@@ -3,8 +3,10 @@ package com.tomspencerlondon.tictactoe4.hexagon.application;
 public enum GameState {
   WAITING_FOR_PLAYER1,
   WAITING_FOR_PLAYER2,
+
   PLAYER1TURN,
   PLAYER2TURN,
+
   GAME_OVER;
 
   boolean gameInProgress() {
@@ -25,5 +27,20 @@ public enum GameState {
 
   private boolean isPlayerTwoTurn(int player) {
     return player == 2 && this == PLAYER2TURN;
+  }
+
+  GameState nextConnectState() {
+    return this == WAITING_FOR_PLAYER1 ? WAITING_FOR_PLAYER2 : PLAYER1TURN;
+  }
+
+  GameState nextGameState() {
+    return this == PLAYER2TURN ? PLAYER1TURN : PLAYER2TURN;
+  }
+
+  GameState winOrDraw() {
+    if (!gameInProgress()) {
+      throw new IllegalStateException();
+    }
+    return GAME_OVER;
   }
 }
