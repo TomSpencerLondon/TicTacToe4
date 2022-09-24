@@ -19,7 +19,7 @@ class GameControllerTest {
     gameService.connect();
     GameController gameController = new GameController(gameService);
 
-    GameMessage gameMessage = gameController.playerCommand(connectMessage(1));
+    GameMessage gameMessage = gameController.playerCommand(connectMessage("PLAYER1TURN"));
 
     assertThat(gameMessage.getGameState()).isEqualTo("WAITING_FOR_PLAYER2");
     assertThat(gameMessage.getBoard()).isEqualTo(new String[][]{{"_", "_", "_"}, {"_", "_", "_"}, {"_", "_", "_"}});
@@ -29,7 +29,7 @@ class GameControllerTest {
   void givenTwoConnectionsThenRequestForCurrentStateOfGameReturnsPlayerOneTurnWithEmptyBoard() {
     GameController gameController = controllerWithTwoConnections();
 
-    GameMessage gameMessage = gameController.playerCommand(connectMessage(2));
+    GameMessage gameMessage = gameController.playerCommand(connectMessage("PLAYER2TURN"));
 
     assertThat(gameMessage.getGameState()).isEqualTo("PLAYER1TURN");
     assertThat(gameMessage.getBoard()).isEqualTo(new String[][]{{"_", "_", "_"}, {"_", "_", "_"}, {"_", "_", "_"}});
@@ -39,7 +39,7 @@ class GameControllerTest {
   void givenPlayerOneTurnThenRequestReturnsPlayerTwoTurnAndUpdatedBoard() {
     GameController gameController = controllerWithTwoConnections();
 
-    GameMessage gameMessage = gameController.playerCommand(playMessage("0", 1));
+    GameMessage gameMessage = gameController.playerCommand(playMessage("0", "PLAYER1TURN"));
 
     assertThat(gameMessage.getGameState()).isEqualTo("PLAYER2TURN");
     assertThat(gameMessage.getBoard()).isEqualTo(new String[][]{{"X", "_", "_"}, {"_", "_", "_"}, {"_", "_", "_"}});
@@ -48,9 +48,9 @@ class GameControllerTest {
   @Test
   void givenPlayerTwoTurnThenRequestReturnsPlayerOneTurnAndUpdatedBoard() {
     GameController gameController = controllerWithTwoConnections();
-    gameController.playerCommand(playMessage("0", 1));
+    gameController.playerCommand(playMessage("0", "PLAYER1TURN"));
 
-    GameMessage gameMessage = gameController.playerCommand(playMessage("1", 2));
+    GameMessage gameMessage = gameController.playerCommand(playMessage("1", "PLAYER2TURN"));
 
     assertThat(gameMessage.getGameState()).isEqualTo("PLAYER1TURN");
     assertThat(gameMessage.getBoard()).isEqualTo(new String[][]{{"X", "O", "_"}, {"_", "_", "_"}, {"_", "_", "_"}});
@@ -60,7 +60,7 @@ class GameControllerTest {
   void player2PlaysButNotTheirTurn() {
     GameController gameController = controllerWithTwoConnections();
 
-    GameMessage gameMessage = gameController.playerCommand(playMessage("0", 2));
+    GameMessage gameMessage = gameController.playerCommand(playMessage("0", "PLAYER2TURN"));
     assertThat(gameMessage.getGameState()).isEqualTo("PLAYER1TURN");
     assertThat(gameMessage.getBoard()).isEqualTo(new String[][]{{"_", "_", "_"}, {"_", "_", "_"}, {"_", "_", "_"}});
     assertThat(gameMessage.getError())
@@ -72,20 +72,20 @@ class GameControllerTest {
       GameService gameService = new GameService(ticTacToe, GameState.GAME_OVER);
       GameController gameController = new GameController(gameService);
 
-      GameMessage gameMessage = gameController.playerCommand(playMessage("3", 1));
+      GameMessage gameMessage = gameController.playerCommand(playMessage("3", "PLAYER1TURN"));
 
       assertThat(gameMessage.getError()).isEqualTo("Error");
     }
 
-    private static GenericMessage<PlayerPayload> playMessage (String square,int player){
+    private static GenericMessage<PlayerPayload> playMessage (String square,String player){
       return createMessage("play", square, player);
     }
 
-    private static GenericMessage<PlayerPayload> connectMessage ( int player){
+    private static GenericMessage<PlayerPayload> connectMessage (String player){
       return createMessage("connect", "", player);
     }
 
-    private static GenericMessage<PlayerPayload> createMessage (String connect, String square,int player){
+    private static GenericMessage<PlayerPayload> createMessage (String connect, String square,String player){
       PlayerPayload playerPayload = new PlayerPayload(connect, square, player);
       GenericMessage<PlayerPayload> message = new GenericMessage<>(playerPayload);
       return message;

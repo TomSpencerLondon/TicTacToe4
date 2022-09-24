@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", connect)
+let client;
 
 function connect() {
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
   const payLoad = {command: "connect", square: "", player: player}
 
-   const client = new StompJs.Client({
+  client = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/websocket',
     debug: function(str) {
       console.log("debug:", str)
@@ -14,23 +15,21 @@ function connect() {
       client.subscribe("/topic/tictactoe", function (frame) {
         displayBoard(frame.body)
       });
-
       client.publish({
         destination: "/app/requests",
         body: JSON.stringify(payLoad)
       })
     }
   })
-
   client.activate()
 }
 
 function myTurn(gameState, div) {
+  console.log("GameState: ", gameState)
   return gameState === div.dataset.player
 }
 
 function playerCommand(square) {
-  const command = "play"
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
   const payLoad = {command: "connect", square: "", player: player}
