@@ -4,7 +4,8 @@ function connect() {
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
   const payLoad = {command: "connect", square: "", player: player}
-  const client = new StompJs.Client({
+
+   const client = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/websocket',
     debug: function(str) {
       console.log("debug:", str)
@@ -13,14 +14,15 @@ function connect() {
       client.subscribe("/topic/tictactoe", function (frame) {
         displayBoard(frame.body)
       });
+
+      client.publish({
+        destination: "/app/requests",
+        body: JSON.stringify(payLoad)
+      })
     }
   })
 
   client.activate()
-  client.publish({
-    destination: "/app/requests",
-    body: JSON.stringify(payLoad)
-  })
 }
 
 function myTurn(gameState, div) {
@@ -31,6 +33,8 @@ function playerCommand(square) {
   const command = "play"
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
+  const payLoad = {command: "connect", square: "", player: player}
+
   client.publish({
     destination: "/app/requests",
     body: JSON.stringify(payLoad)
@@ -38,6 +42,7 @@ function playerCommand(square) {
 }
 
 function displayBoard(gameMessage) {
+  console.log("inside display board")
   const parsedMessage = JSON.parse(gameMessage)
   const array = parsedMessage.board
   const board = document.getElementById("board")

@@ -18,7 +18,6 @@ public class WelcomeController {
 
   @GetMapping("/")
   public String game(Model model) {
-    gameService.connect();
     if (gameService.gameState() == GameState.WAITING_FOR_PLAYER2) {
       model.addAttribute("message", "Waiting for player 2");
       model.addAttribute("player", GameState.PLAYER1TURN.toString());

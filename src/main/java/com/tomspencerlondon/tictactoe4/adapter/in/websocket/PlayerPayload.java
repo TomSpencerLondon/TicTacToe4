@@ -3,11 +3,13 @@ package com.tomspencerlondon.tictactoe4.adapter.in.websocket;
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Coordinate;
 
-public record PlayerPayload(String command, String square, int player) {
+public record PlayerPayload(String command, String square, String playerTurn) {
 
   void execute(GameService gameService) {
     if (isPlay()) {
-      gameService.play(coordinate(), player);
+      gameService.play(coordinate(), playerTurn.equals("PLAYER2TURN") ? 2 : 1);
+    } else if (command.equals("connect")) {
+      gameService.connect();
     }
   }
 
