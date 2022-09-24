@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", connect)
 
 function connect() {
-  const payLoad = "hello";
-
+  const gameStateDiv = document.getElementById("gameState")
+  const player = gameStateDiv.dataset.player
+  const payLoad = {command: "connect", square: "", player: player}
   const client = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/websocket',
     debug: function(str) {
@@ -16,6 +17,10 @@ function connect() {
   })
 
   client.activate()
+  client.publish({
+    destination: "/app/requests",
+    body: JSON.stringify(payLoad)
+  })
 }
 
 function myTurn(gameState, div) {

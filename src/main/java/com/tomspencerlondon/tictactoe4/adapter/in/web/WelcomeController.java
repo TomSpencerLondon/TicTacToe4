@@ -2,8 +2,6 @@ package com.tomspencerlondon.tictactoe4.adapter.in.web;
 
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class WelcomeController {
-  private static final Logger logger = LoggerFactory.getLogger(WelcomeController.class);
   private final GameService gameService;
 
   @Autowired

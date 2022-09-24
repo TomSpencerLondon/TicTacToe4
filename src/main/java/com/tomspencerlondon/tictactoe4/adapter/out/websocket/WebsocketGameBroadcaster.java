@@ -20,6 +20,8 @@ public class WebsocketGameBroadcaster implements GameBroadcaster {
 
   @Override
   public void send(GameState gameState, BoardState boardState) {
-    this.template.convertAndSend("/topic/greetings", GameMessage.from(gameState, boardState, ""));
+    template.convertAndSend(
+            "/topic/tictactoe",
+            GameMessage.from(gameState, boardState, ""));
   }
 }
