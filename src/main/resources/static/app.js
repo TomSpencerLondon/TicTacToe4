@@ -41,6 +41,10 @@ function playerCommand(square) {
   })
 }
 
+function currentSquare(row, column) {
+  return (3 * row) + column
+}
+
 function displayBoard(gameMessage) {
   const parsedMessage = JSON.parse(gameMessage)
   const array = parsedMessage.board
@@ -48,7 +52,6 @@ function displayBoard(gameMessage) {
   const gameStateDiv = document.getElementById("gameState")
   gameStateDiv.innerText = parsedMessage.gameState
   let newBoard = '';
-  let square = 0;
   for (let row = 0; row < 3; row++) {
     for (let column = 0; column < 3; column++) {
       if (array[row][column] === "_" && myTurn(parsedMessage.gameState, gameStateDiv)) {
@@ -57,7 +60,7 @@ function displayBoard(gameMessage) {
     type="button"
     class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200"
     name="square"
-    value="${square++}"
+    value="${currentSquare(row, column)}"
     onclick="playerCommand(this.value)"
     >
 </button>
