@@ -78,4 +78,4 @@ Move (noun) represents a chosen square with numbers 0 (top left) - 8 (bottom rig
 
 ![Screenshot 2022-08-24 at 20 07 50](https://user-images.githubusercontent.com/27693622/186606675-af848092-14bf-48fc-a25e-279918e47131.png)
 
-![gif](https://media.giphy.com/media/JipNO82kfyx3spNJR8/giphy.gif)
+![gif](https://media.giphy.com/media/xZvm0XvB6aNd6mepeB/giphy.gif)
