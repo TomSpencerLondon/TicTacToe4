@@ -38,4 +38,9 @@ public class BoardState {
   public int hashCode() {
     return Arrays.deepHashCode(state);
   }
+
+  @Override
+  public String toString() {
+    return "BoardState{" + "state=" + Arrays.toString(state[0]) + Arrays.toString(state[1]) + Arrays.toString(state[2]) + '}';
+  }
 }

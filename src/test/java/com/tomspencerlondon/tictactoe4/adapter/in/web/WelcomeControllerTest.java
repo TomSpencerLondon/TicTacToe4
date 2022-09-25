@@ -13,7 +13,7 @@ class WelcomeControllerTest {
 
   @Test
   void givenNoUserConnectedPlayerOneAssignedToFirstConnectedUser() {
-    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState) -> {
+    GameService gameService = new GameService(new TicTacToe(), GameState.WAITING_FOR_PLAYER1, (GameState gameState, BoardState boardState) -> {
     });
     WelcomeController controller = new WelcomeController(gameService);
 
@@ -22,17 +22,13 @@ class WelcomeControllerTest {
 
     assertThat(view)
         .isEqualTo("game");
-    assertThat(model.getAttribute("message"))
-        .isEqualTo("Waiting for player 2");
     assertThat(model.getAttribute("player"))
-        .isEqualTo(GameState.PLAYER1TURN.toString());
-    assertThat(gameService.gameState())
-        .isEqualByComparingTo(GameState.WAITING_FOR_PLAYER2);
+        .isEqualTo("1");
   }
 
   @Test
   void givenOneUserConnectedPlayerTwoAssignedToNextConnectedUser() {
-    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState) -> {
+    GameService gameService = new GameService(new TicTacToe(), GameState.WAITING_FOR_PLAYER2, (GameState gameState, BoardState boardState) -> {
     });
     WelcomeController controller = new WelcomeController(gameService);
     controller.game(new ConcurrentModel());
@@ -42,11 +38,7 @@ class WelcomeControllerTest {
 
     assertThat(view)
         .isEqualTo("game");
-    assertThat(model.getAttribute("message"))
-        .isEqualTo("Connecting to game");
     assertThat(model.getAttribute("player"))
-        .isEqualTo(GameState.PLAYER2TURN.toString());
-    assertThat(gameService.gameState())
-        .isEqualByComparingTo(GameState.PLAYER1TURN);
+        .isEqualTo("2");
   }
 }

@@ -7,7 +7,7 @@ public record PlayerPayload(String command, String square, String playerTurn) {
 
   void execute(GameService gameService) {
     if (isPlay()) {
-      gameService.play(coordinate(), playerTurn.equals("PLAYER2TURN") ? 2 : 1);
+      gameService.play(coordinate(), Integer.parseInt(playerTurn));
     } else if (command.equals("connect")) {
       gameService.connect();
     }

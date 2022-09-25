@@ -19,11 +19,11 @@ public class WelcomeController {
   @GetMapping("/")
   public String game(Model model) {
     if (gameService.gameState() == GameState.WAITING_FOR_PLAYER2) {
-      model.addAttribute("message", "Waiting for player 2");
-      model.addAttribute("player", GameState.PLAYER1TURN.toString());
+      model.addAttribute("message", "Waiting for player 1");
+      model.addAttribute("player", "2");
     } else {
       model.addAttribute("message", "Connecting to game");
-      model.addAttribute("player", GameState.PLAYER2TURN.toString());
+      model.addAttribute("player", "1");
     }
 
     return "game";

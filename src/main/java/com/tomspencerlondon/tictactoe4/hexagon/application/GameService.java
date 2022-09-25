@@ -19,9 +19,10 @@ public class GameService {
     this.gameBroadcaster = gameBroadcaster;
   }
 
-  public GameService(TicTacToe ticTacToe, GameState startingState) {
+  public GameService(TicTacToe ticTacToe, GameState startingState, GameBroadcaster gameBroadcaster) {
     this.ticTacToe = ticTacToe;
     gameState = startingState;
+    this.gameBroadcaster = gameBroadcaster;
   }
 
   public BoardState board() {
@@ -59,6 +60,8 @@ public class GameService {
     } else {
       gameState = gameState.playerPlayed();
     }
+
+    gameBroadcaster.send(gameState, board());
   }
 
   private void requireGameInProgress() {

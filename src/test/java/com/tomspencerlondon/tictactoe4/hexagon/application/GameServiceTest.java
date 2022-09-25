@@ -52,23 +52,39 @@ class GameServiceTest {
 
   @Test
   void givenPlayer1TurnWhenPlayer1MovesIsPlayer2Turn() {
-    GameService gameService = createGameServiceWithOnlyPlayerOneConnected();
+    GameBroadcaster gameBroadcaster = Mockito.spy(GameBroadcaster.class);
+    GameService gameService = new GameService(new TicTacToe(), gameBroadcaster);
     gameService.connect();
+    gameService.connect();
+    BoardState boardState = BoardState.copyOf(new String[][]{
+        {"_", "X", "_"},
+        {"_", "_", "_"},
+        {"_", "_", "_"}
+    });
 
     gameService.play(CoordinateTranslator.fromMove(1), 1);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER2TURN);
+    verify(gameBroadcaster).send(GameState.PLAYER2TURN, boardState);
   }
 
   @Test
   void givenPlayer2TurnWhenPlayerMovesIsPlayer1Turn() {
-    GameService gameService = new GameService(new TicTacToe(), GameState.PLAYER2TURN);
+    GameBroadcaster gameBroadcaster = Mockito.spy(GameBroadcaster.class);
+    Board board = new Board("_X_", "___", "___");
+    GameService gameService = new GameService(new TicTacToe(board), GameState.PLAYER2TURN, gameBroadcaster);
+    BoardState boardState = BoardState.copyOf(new String[][]{
+        {"_", "X", "O"},
+        {"_", "_", "_"},
+        {"_", "_", "_"}
+    });
 
     gameService.play(CoordinateTranslator.fromMove(2), 2);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER1TURN);
+    verify(gameBroadcaster).send(GameState.PLAYER1TURN, boardState);
   }
 
   @Test
@@ -78,7 +94,8 @@ class GameServiceTest {
         "XXO",
         "O_X"
     ));
-    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN);
+    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN, (GameState gameState, BoardState boardState) -> {
+    });
 
     gameService.play(CoordinateTranslator.fromMove(7), 1);
 
@@ -95,7 +112,8 @@ class GameServiceTest {
         "XXO",
         "_OX"
     ));
-    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN);
+    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN, (GameState gameState, BoardState boardState) -> {
+    });
 
     gameService.play(CoordinateTranslator.fromMove(6), 1);
 

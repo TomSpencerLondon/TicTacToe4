@@ -4,7 +4,6 @@ import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -17,17 +16,18 @@ public class GameController {
   }
 
   @MessageMapping("/requests")
-  @SendTo("/topic/tictactoe")
-  public GameMessage playerCommand(Message<PlayerPayload> message) {
+  public void playerCommand(Message<PlayerPayload> message) {
     PlayerPayload payload = message.getPayload();
-
-    try {
-      payload.execute(gameService);
-    } catch (Exception e) {
-      return GameMessage.from(gameService.gameState(), gameService.board(), "Error");
-    }
-
-    return GameMessage.from(gameService.gameState(), gameService.board(), null);
+    payload.execute(gameService);
+//
+//
+//    try {
+//
+//    } catch (Exception e) {
+//      return GameMessage.from(gameService.gameState(), gameService.board(), "Error");
+//    }
+//
+//    return GameMessage.from(gameService.gameState(), gameService.board(), null);
   }
 
 }

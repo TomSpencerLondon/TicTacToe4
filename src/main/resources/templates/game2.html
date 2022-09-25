@@ -1,0 +1,47 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <link rel="shortcut icon" href="#">
+  <link th:href="@{/tailwind.css}" href="../static/tailwind.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@6.1.2/bundles/stomp.umd.js"></script>
+  <script th:src="@{/app.js}" src="../static/app.js"></script>
+</head>
+<body>
+<main class="pt-8 text-center">
+  <h1 class="mb-8 text-3xl font-bold uppercase">Tic Tac Toe</h1>
+  <div id="gameState" data-player="1">PLAYER1TURN</div>
+  <form id="board" class="grid grid-cols-3 mx-auto w-64 border-black border-solid border-2" action="/game" method="post">
+    <button type="button" class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200" name="square" value="0" onclick="playerCommand(this.value)">
+    </button>
+
+    <button type="button" class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200" name="square" value="1" onclick="playerCommand(this.value)">
+    </button>
+
+    <button type="button" class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200" name="square" value="2" onclick="playerCommand(this.value)">
+    </button>
+
+    <button type="button" class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200" name="square" value="3" onclick="playerCommand(this.value)">
+    </button>
+
+    <button type="button" class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200" name="square" value="4" onclick="playerCommand(this.value)">
+    </button>
+
+    <button type="button" class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200" name="square" value="5" onclick="playerCommand(this.value)">
+    </button>
+
+    <button type="button" class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200" name="square" value="6" onclick="playerCommand(this.value)">
+    </button>
+
+    <button type="button" class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200" name="square" value="7" onclick="playerCommand(this.value)">
+    </button>
+
+    <button type="button" class="h-24 border-solid border-2 border-black cursor-pointer bg-lime-200" name="square" value="8" onclick="playerCommand(this.value)">
+    </button>
+  </form>
+</main>
+
+
+</body>
+</html>

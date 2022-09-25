@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", connect)
 let client;
-
 function connect() {
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
@@ -25,14 +24,17 @@ function connect() {
 }
 
 function myTurn(gameState, div) {
-  console.log("GameState: ", gameState)
-  return gameState === div.dataset.player
+  if (gameState === "PLAYER1TURN") {
+    return parseInt(div.dataset.player) === 1
+  } else if (gameState === "PLAYER2TURN") {
+    return parseInt(div.dataset.player) === 2
+  }
 }
 
 function playerCommand(square) {
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
-  const payLoad = {command: "connect", square: "", player: player}
+  const payLoad = {command: "play", square: square, player: player}
 
   client.publish({
     destination: "/app/requests",
@@ -41,7 +43,6 @@ function playerCommand(square) {
 }
 
 function displayBoard(gameMessage) {
-  console.log("inside display board")
   const parsedMessage = JSON.parse(gameMessage)
   const array = parsedMessage.board
   const board = document.getElementById("board")
@@ -72,7 +73,7 @@ ${array[row][column]}
       }
     }
 
-    board.innerHTML = newBoard;
+    board.innerHTML = newBoard
   }
 }
 

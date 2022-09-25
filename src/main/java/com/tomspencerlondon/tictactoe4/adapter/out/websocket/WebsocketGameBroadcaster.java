@@ -4,6 +4,7 @@ import com.tomspencerlondon.tictactoe4.hexagon.application.GameState;
 import com.tomspencerlondon.tictactoe4.hexagon.application.port.GameBroadcaster;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class WebsocketGameBroadcaster implements GameBroadcaster {
 
 
   @Override
+  @SendTo("/topic/tictactoe")
   public void send(GameState gameState, BoardState boardState) {
     template.convertAndSend(
             "/topic/tictactoe",

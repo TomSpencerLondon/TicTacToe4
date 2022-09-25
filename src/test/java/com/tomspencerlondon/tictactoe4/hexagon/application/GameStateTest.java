@@ -33,5 +33,13 @@ class GameStateTest {
         .isInstanceOf(IllegalStateException.class);
   }
 
+  @Test
+  void givenPlayer1ConnectsThenWaitingForPlayer2() {
+    GameState gameState = GameState.WAITING_FOR_PLAYER1;
 
+    GameState result = gameState.playerConnected();
+
+    assertThat(result)
+        .isEqualByComparingTo(GameState.WAITING_FOR_PLAYER2);
+  }
 }
