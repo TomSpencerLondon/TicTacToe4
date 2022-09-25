@@ -35,7 +35,6 @@ function playerCommand(square) {
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
   const payLoad = {command: "play", square: square, player: player}
-
   client.publish({
     destination: "/app/requests",
     body: JSON.stringify(payLoad)

@@ -19,15 +19,5 @@ public class GameController {
   public void playerCommand(Message<PlayerPayload> message) {
     PlayerPayload payload = message.getPayload();
     payload.execute(gameService);
-//
-//
-//    try {
-//
-//    } catch (Exception e) {
-//      return GameMessage.from(gameService.gameState(), gameService.board(), "Error");
-//    }
-//
-//    return GameMessage.from(gameService.gameState(), gameService.board(), null);
   }
-
 }

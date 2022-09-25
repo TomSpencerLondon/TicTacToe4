@@ -24,6 +24,6 @@ public class WebsocketGameBroadcaster implements GameBroadcaster {
   public void send(GameState gameState, BoardState boardState, String message) {
     template.convertAndSend(
             "/topic/tictactoe",
-            GameMessage.from(gameState, boardState, ""));
+            GameMessage.from(gameState, boardState, message));
   }
 }
