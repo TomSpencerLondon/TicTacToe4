@@ -41,7 +41,7 @@ public class GameService {
     gameState = gameState.playerConnected();
 
     if (gameState == GameState.PLAYER1TURN) {
-      gameBroadcaster.send(gameState, board());
+      gameBroadcaster.send(gameState, board(), "");
     }
   }
 
@@ -50,8 +50,13 @@ public class GameService {
   }
 
   public void play(Coordinate coordinate, int player) {
-    requireGameInProgress();
-    requireCorrectPlayer(player);
+    try {
+      requireGameInProgress();
+      requireCorrectPlayer(player);
+    } catch (GameNotInProgressException | NotPlayerTurnException e) {
+      gameBroadcaster.send(gameState, board(), e.getMessage());
+      return;
+    }
 
     ticTacToe.play(coordinate);
 
@@ -61,18 +66,18 @@ public class GameService {
       gameState = gameState.playerPlayed();
     }
 
-    gameBroadcaster.send(gameState, board());
+    gameBroadcaster.send(gameState, board(), "");
   }
 
   private void requireGameInProgress() {
     if (!gameState.gameInProgress()) {
-      throw new GameNotInProgressException();
+      throw new GameNotInProgressException("Game not in progress");
     }
   }
 
   private void requireCorrectPlayer(int player) {
     if (!gameState.isCorrectPlayer(player)) {
-      throw new NotPlayerTurnException();
+      throw new NotPlayerTurnException(String.format("Not player %s turn", player));
     }
   }
 }

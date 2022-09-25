@@ -88,7 +88,7 @@ class GameControllerTest {
     }
 
     private static GameController controllerWithTwoConnections () {
-      GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState) -> {
+      GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState, String message) -> {
       });
       gameService.connect();
       gameService.connect();

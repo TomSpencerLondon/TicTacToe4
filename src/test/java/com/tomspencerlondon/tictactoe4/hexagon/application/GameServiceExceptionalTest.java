@@ -1,63 +1,82 @@
 package com.tomspencerlondon.tictactoe4.hexagon.application;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.verify;
 
+import com.tomspencerlondon.tictactoe4.hexagon.application.port.GameBroadcaster;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Board;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.Coordinate;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class GameServiceExceptionalTest {
   @Test
   void player1PlaysBeforePlayer2ConnectsThenThrowException() {
-    GameService gameService = new GameService(new TicTacToe(), GameState.WAITING_FOR_PLAYER2, (GameState gameState, BoardState boardState) -> {
+    GameBroadcaster gameBroadcaster = Mockito.spy(GameBroadcaster.class);
+    GameService gameService = new GameService(new TicTacToe(), GameState.WAITING_FOR_PLAYER2, gameBroadcaster);
+    BoardState boardState = BoardState.copyOf(new String[][]{
+        {"_", "_", "_"},
+        {"_", "_", "_"},
+        {"_", "_", "_"}
     });
 
-    assertThatThrownBy(() -> gameService.play(new Coordinate(0, 0), 1))
-        .isInstanceOf(GameNotInProgressException.class);
+    gameService.play(new Coordinate(0, 0), 1);
+
+    verify(gameBroadcaster).send(GameState.WAITING_FOR_PLAYER2, boardState, "Game not in progress");
   }
 
   @Test
   void player1PlaysButNotTheirTurnThenThrowException() {
+    GameBroadcaster gameBroadcaster = Mockito.spy(GameBroadcaster.class);
     GameService gameService = new GameService(
         new TicTacToe(new Board("X__", "___", "___")),
-        GameState.PLAYER2TURN, (GameState gameState, BoardState boardState) -> {
+        GameState.PLAYER2TURN, gameBroadcaster);
+    BoardState boardState = BoardState.copyOf(new String[][]{
+        {"X", "_", "_"},
+        {"_", "_", "_"},
+        {"_", "_", "_"}
     });
 
-    assertThatThrownBy(() -> {
-      gameService.play(new Coordinate(0, 1), 1);
-    }).isInstanceOf(NotPlayerTurnException.class);
+    gameService.play(new Coordinate(0, 1), 1);
+
+    verify(gameBroadcaster).send(GameState.PLAYER2TURN, boardState, "Not player 1 turn");
   }
 
   @Test
   void noOneIsConnectedWhenPlayer1PlaysThenThrowException() {
-    GameService gameService = new GameService(new TicTacToe(), GameState.WAITING_FOR_PLAYER1, (GameState gameState, BoardState boardState) -> {
+    GameBroadcaster gameBroadcaster = Mockito.spy(GameBroadcaster.class);
+    GameService gameService = new GameService(new TicTacToe(), GameState.WAITING_FOR_PLAYER1, gameBroadcaster);
+    BoardState boardState = BoardState.copyOf(new String[][]{
+        {"_", "_", "_"},
+        {"_", "_", "_"},
+        {"_", "_", "_"}
     });
 
-    assertThatThrownBy(() -> gameService.play(new Coordinate(0, 0), 1))
-        .isInstanceOf(GameNotInProgressException.class);
+    gameService.play(new Coordinate(0, 0), 1);
+
+    verify(gameBroadcaster).send(GameState.WAITING_FOR_PLAYER1, boardState, "Game not in progress");
   }
 
   @Test
   void gameIsOverWhenPlayerPlaysThrowsException() {
+    GameBroadcaster gameBroadcaster = Mockito.spy(GameBroadcaster.class);
     TicTacToe ticTacToe = new TicTacToe(new Board(
         "OOX",
         "XXO",
         "XOX"
     ));
+    GameService gameService = new GameService(ticTacToe, GameState.GAME_OVER, gameBroadcaster);
 
-    GameService gameService = new GameService(ticTacToe, GameState.GAME_OVER, (GameState gameState, BoardState boardState) -> {
-    });
+    gameService.play(new Coordinate(0, 0), 2);
 
-    assertThatThrownBy(() -> gameService.play(new Coordinate(0, 0), 2))
-        .isInstanceOf(GameNotInProgressException.class);
-
+    verify(gameBroadcaster).send(GameState.GAME_OVER, ticTacToe.boardState(), "Game not in progress");
   }
 
   @Test
   void connectForThirdPlayerIsNotAllowed() {
-    GameService gameService = new GameService(new TicTacToe(), GameState.PLAYER1TURN, (GameState gameState, BoardState boardState) -> {
+    GameService gameService = new GameService(new TicTacToe(), GameState.PLAYER1TURN, (GameState gameState, BoardState boardState, String message) -> {
     });
 
     assertThatThrownBy(gameService::connect)

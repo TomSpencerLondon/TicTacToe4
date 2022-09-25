@@ -17,7 +17,7 @@ class GameServiceTest {
 
   @Test
   void givenNewGameServiceGameStateIsWaitingForPlayer1() {
-    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState) -> {
+    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState, String message) -> {
     });
 
     assertThat(gameService.gameState())
@@ -33,13 +33,18 @@ class GameServiceTest {
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.WAITING_FOR_PLAYER2);
-    verify(gameBroadcaster, never()).send(Mockito.any(), Mockito.any());
+    verify(gameBroadcaster, never()).send(Mockito.any(), Mockito.any(), Mockito.any(String.class));
   }
 
   @Test
   void givenPlayer1ConnectedWhenPlayer2ConnectsIsPlayer1Turn() {
     GameBroadcaster gameBroadcaster = Mockito.spy(GameBroadcaster.class);
     GameService gameService = new GameService(new TicTacToe(), gameBroadcaster);
+    BoardState boardState = BoardState.copyOf(new String[][]{
+        {"_", "_", "_"},
+        {"_", "_", "_"},
+        {"_", "_", "_"}
+    });
     gameService.connect();
 
     gameService.connect();
@@ -47,7 +52,7 @@ class GameServiceTest {
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER1TURN);
     verify(gameBroadcaster)
-        .send(Mockito.any(GameState.class), Mockito.any(BoardState.class));
+        .send(GameState.PLAYER1TURN, boardState, "");
   }
 
   @Test
@@ -66,7 +71,7 @@ class GameServiceTest {
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER2TURN);
-    verify(gameBroadcaster).send(GameState.PLAYER2TURN, boardState);
+    verify(gameBroadcaster).send(GameState.PLAYER2TURN, boardState, "");
   }
 
   @Test
@@ -84,7 +89,7 @@ class GameServiceTest {
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER1TURN);
-    verify(gameBroadcaster).send(GameState.PLAYER1TURN, boardState);
+    verify(gameBroadcaster).send(GameState.PLAYER1TURN, boardState, "");
   }
 
   @Test
@@ -94,7 +99,7 @@ class GameServiceTest {
         "XXO",
         "O_X"
     ));
-    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN, (GameState gameState, BoardState boardState) -> {
+    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN, (GameState gameState, BoardState boardState, String message) -> {
     });
 
     gameService.play(CoordinateTranslator.fromMove(7), 1);
@@ -112,7 +117,7 @@ class GameServiceTest {
         "XXO",
         "_OX"
     ));
-    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN, (GameState gameState, BoardState boardState) -> {
+    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN, (GameState gameState, BoardState boardState, String message) -> {
     });
 
     gameService.play(CoordinateTranslator.fromMove(6), 1);
@@ -124,7 +129,7 @@ class GameServiceTest {
   }
 
   private GameService createGameServiceWithOnlyPlayerOneConnected() {
-    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState) -> {
+    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState, String message) -> {
     });
     gameService.connect();
     return gameService;
