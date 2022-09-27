@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", connect)
 let client;
 
 // let url = "localhost:8080"
-let url = "https://toms-tic-tac-toe.herokuapp.com/"
+let url = "toms-tic-tac-toe.herokuapp.com"
 function connect() {
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
