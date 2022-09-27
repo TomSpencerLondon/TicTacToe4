@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", connect)
 let client;
+
+// let url = "localhost:8080"
+let url = "https://toms-tic-tac-toe.herokuapp.com/"
 function connect() {
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
@@ -7,7 +10,7 @@ function connect() {
   const payLoad = {id: id, command: "connect", square: "", player: player}
 
   client = new StompJs.Client({
-    brokerURL: 'ws://localhost:8080/websocket',
+    brokerURL: `ws://${url}/websocket`,
     debug: function(str) {
       console.log("debug:", str)
     },
