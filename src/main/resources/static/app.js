@@ -89,9 +89,10 @@ function newGameButton(parsedMessage) {
   if (parsedMessage.gameState === 'GAME_OVER') {
     const form = `
     <form id="newGame"
-          th:action="@{/new-game}" method="post">
+          action="/new-game" method="post">
       <button
-          type="button" class="mt-8 inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+          type="submit"
+          class="mt-8 inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
         New game
       </button>
     </form>

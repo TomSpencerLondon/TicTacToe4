@@ -10,7 +10,7 @@ public class GameService {
 
   // High level game state field
   // GameState - WaitingForPlayer1, WaitingForPlayer2, Player1Turn, Player2Turn, GameOver
-  private final TicTacToe ticTacToe;
+  private TicTacToe ticTacToe;
   private GameState gameState = GameState.WAITING_FOR_PLAYER1;
   private GameBroadcaster gameBroadcaster;
 
@@ -79,5 +79,10 @@ public class GameService {
     if (!gameState.isCorrectPlayer(player)) {
       throw new NotPlayerTurnException(String.format("Not player %s turn", player));
     }
+  }
+
+  public void newGame() {
+    gameState = GameState.WAITING_FOR_PLAYER1;
+    ticTacToe = new TicTacToe();
   }
 }

@@ -41,4 +41,8 @@ class WelcomeControllerTest {
     assertThat(model.getAttribute("player"))
         .isEqualTo("2");
   }
+
+  @Test
+  void newGame() {
+  }
 }

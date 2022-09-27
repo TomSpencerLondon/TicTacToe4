@@ -128,10 +128,21 @@ class GameServiceTest {
         .isEqualTo(GameOutcome.PLAYER_X_WINS);
   }
 
-  private GameService createGameServiceWithOnlyPlayerOneConnected() {
-    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState, String message) -> {
+  @Test
+  void givenGameOverNewGameStartsNewGame() {
+    GameService gameService = new GameService(new TicTacToe(new Board("XOX", "XXO", "X00")), GameState.GAME_OVER, (GameState gameState, BoardState boardState, String message) -> {
     });
-    gameService.connect();
-    return gameService;
+    BoardState boardState = BoardState.copyOf(new String[][]{
+        {"_", "_", "_"},
+        {"_", "_", "_"},
+        {"_", "_", "_"}
+    });
+
+    gameService.newGame();
+
+    assertThat(gameService.gameState())
+        .isEqualByComparingTo(GameState.WAITING_FOR_PLAYER2);
+    assertThat(gameService.board())
+        .isEqualTo(boardState);
   }
 }
