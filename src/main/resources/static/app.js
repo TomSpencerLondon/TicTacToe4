@@ -47,30 +47,20 @@ function currentSquare(row, column) {
 
 function displayBoard(gameMessage) {
   const parsedMessage = JSON.parse(gameMessage)
+  createBoard(parsedMessage);
+}
+
+function createBoard(parsedMessage) {
   const array = parsedMessage.board
   const board = document.getElementById("board")
   const gameStateDiv = document.getElementById("gameState")
   gameStateDiv.innerText = parsedMessage.gameState
+  newGameButton(parsedMessage)
   let newBoard = '';
-
-  const newGame = document.getElementById("newGame")
-  console.log(parsedMessage.gameState);
-  if (parsedMessage.gameState === 'GAME_OVER') {
-    const form = `
-    <form id="newGame"
-          th:action="@{/new-game}" method="post">
-      <button
-          type="button" class="mt-8 inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-        New game
-      </button>
-    </form>
-    `
-    newGame.innerHTML = form
-  }
-
   for (let row = 0; row < 3; row++) {
     for (let column = 0; column < 3; column++) {
-      if (array[row][column] === "_" && myTurn(parsedMessage.gameState, gameStateDiv)) {
+      if (array[row][column] === "_" && myTurn(parsedMessage.gameState,
+          gameStateDiv)) {
         newBoard += `
 <button
     type="button"
@@ -94,3 +84,18 @@ ${array[row][column]}
   }
 }
 
+function newGameButton(parsedMessage) {
+  const newGame = document.getElementById("newGame")
+  if (parsedMessage.gameState === 'GAME_OVER') {
+    const form = `
+    <form id="newGame"
+          th:action="@{/new-game}" method="post">
+      <button
+          type="button" class="mt-8 inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+        New game
+      </button>
+    </form>
+    `
+    newGame.innerHTML = form
+  }
+}
