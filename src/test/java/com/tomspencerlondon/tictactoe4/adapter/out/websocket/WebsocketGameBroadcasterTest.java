@@ -21,7 +21,7 @@ class WebsocketGameBroadcasterTest {
     String[][] board = {{"_", "_", "_"}, {"_", "_", "_"}, {"_", "_", "_"}};
     GameState gameState = GameState.PLAYER1TURN;
     BoardState boardState = BoardState.copyOf(board);
-    broadcaster.send(gameState, boardState, null);
+    broadcaster.send("windy-dolphin", gameState, boardState, "");
 
     verify(template)
         .convertAndSend(Mockito.any(String.class), Mockito.any(GameMessage.class));

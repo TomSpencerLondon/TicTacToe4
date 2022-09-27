@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
 import com.tomspencerlondon.tictactoe4.hexagon.application.GameState;
+import com.tomspencerlondon.tictactoe4.hexagon.application.StubIdGenerator;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
 import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 import org.junit.jupiter.api.Test;
@@ -13,12 +14,12 @@ class WelcomeControllerTest {
 
   @Test
   void givenNoUserConnectedPlayerOneAssignedToFirstConnectedUser() {
-    GameService gameService = new GameService(new TicTacToe(), GameState.WAITING_FOR_PLAYER1, (GameState gameState, BoardState boardState, String message) -> {
+    GameService gameService = new GameService(new TicTacToe(), GameState.WAITING_FOR_PLAYER1, (String id, GameState gameState, BoardState boardState, String message) -> {
     });
-    WelcomeController controller = new WelcomeController(gameService);
+    WelcomeController controller = new WelcomeController(gameService, new StubIdGenerator());
 
     ConcurrentModel model = new ConcurrentModel();
-    String view = controller.game(model);
+    String view = controller.game(model, "windy-dolphin");
 
     assertThat(view)
         .isEqualTo("game");
@@ -28,13 +29,13 @@ class WelcomeControllerTest {
 
   @Test
   void givenOneUserConnectedPlayerTwoAssignedToNextConnectedUser() {
-    GameService gameService = new GameService(new TicTacToe(), GameState.WAITING_FOR_PLAYER2, (GameState gameState, BoardState boardState, String message) -> {
+    GameService gameService = new GameService(new TicTacToe(), GameState.WAITING_FOR_PLAYER2, (String id, GameState gameState, BoardState boardState, String message) -> {
     });
-    WelcomeController controller = new WelcomeController(gameService);
-    controller.game(new ConcurrentModel());
+    WelcomeController controller = new WelcomeController(gameService, new StubIdGenerator());
+    controller.game(new ConcurrentModel(), "windy-dolphin");
 
     ConcurrentModel model = new ConcurrentModel();
-    String view = controller.game(model);
+    String view = controller.game(model, "windy-dolphin");
 
     assertThat(view)
         .isEqualTo("game");
@@ -45,9 +46,9 @@ class WelcomeControllerTest {
 
   @Test
   void givenGameOverNewGameCreatesNewGame() {
-    GameService gameService = new GameService(new TicTacToe(), GameState.GAME_OVER, (GameState gameState, BoardState boardState, String message) -> {
+    GameService gameService = new GameService(new TicTacToe(), GameState.GAME_OVER, (String id, GameState gameState, BoardState boardState, String message) -> {
     });
-    WelcomeController controller = new WelcomeController(gameService);
+    WelcomeController controller = new WelcomeController(gameService, new StubIdGenerator());
 
     controller.newGame();
 

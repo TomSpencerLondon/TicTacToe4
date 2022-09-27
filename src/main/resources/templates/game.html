@@ -11,7 +11,7 @@
 <body>
 <main class="pt-8 text-center">
   <h1 class="mb-8 text-3xl font-bold uppercase">Tic Tac Toe</h1>
-  <div id="gameState" th:text="${message}" th:data-player="${player}">
+  <div id="gameState" th:text="${message}" th:data-player="${player}" th:data-game-id="${id}">
     Connecting to game...
   </div>
   <form id="board" class="grid grid-cols-3 mx-auto w-64 border-black border-solid border-2"

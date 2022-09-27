@@ -17,7 +17,7 @@ class GameServiceTest {
 
   @Test
   void givenNewGameServiceGameStateIsWaitingForPlayer1() {
-    GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState, String message) -> {
+    GameService gameService = new GameService(new TicTacToe(), (String id, GameState gameState, BoardState boardState, String message) -> {
     });
 
     assertThat(gameService.gameState())
@@ -29,11 +29,11 @@ class GameServiceTest {
     GameBroadcaster gameBroadcaster = Mockito.spy(GameBroadcaster.class);
     GameService gameService = new GameService(new TicTacToe(), gameBroadcaster);
 
-    gameService.connect();
+    gameService.connect("windy-dolphin");
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.WAITING_FOR_PLAYER2);
-    verify(gameBroadcaster, never()).send(Mockito.any(), Mockito.any(), Mockito.any(String.class));
+    verify(gameBroadcaster, never()).send(Mockito.any(String.class), Mockito.any(), Mockito.any(), Mockito.any(String.class));
   }
 
   @Test
@@ -45,33 +45,33 @@ class GameServiceTest {
         {"_", "_", "_"},
         {"_", "_", "_"}
     });
-    gameService.connect();
+    gameService.connect("windy-dolphin");
 
-    gameService.connect();
+    gameService.connect("windy-dolphin");
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER1TURN);
     verify(gameBroadcaster)
-        .send(GameState.PLAYER1TURN, boardState, "");
+        .send("windy-dolphin", GameState.PLAYER1TURN, boardState, "");
   }
 
   @Test
   void givenPlayer1TurnWhenPlayer1MovesIsPlayer2Turn() {
     GameBroadcaster gameBroadcaster = Mockito.spy(GameBroadcaster.class);
     GameService gameService = new GameService(new TicTacToe(), gameBroadcaster);
-    gameService.connect();
-    gameService.connect();
+    gameService.connect("windy-dolphin");
+    gameService.connect("windy-dolphin");
     BoardState boardState = BoardState.copyOf(new String[][]{
         {"_", "X", "_"},
         {"_", "_", "_"},
         {"_", "_", "_"}
     });
 
-    gameService.play(CoordinateTranslator.fromMove(1), 1);
+    gameService.play("windy-dolphin", CoordinateTranslator.fromMove(1), 1);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER2TURN);
-    verify(gameBroadcaster).send(GameState.PLAYER2TURN, boardState, "");
+    verify(gameBroadcaster).send("windy-dolphin", GameState.PLAYER2TURN, boardState, "");
   }
 
   @Test
@@ -85,11 +85,11 @@ class GameServiceTest {
         {"_", "_", "_"}
     });
 
-    gameService.play(CoordinateTranslator.fromMove(2), 2);
+    gameService.play("windy-dolphin", CoordinateTranslator.fromMove(2), 2);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.PLAYER1TURN);
-    verify(gameBroadcaster).send(GameState.PLAYER1TURN, boardState, "");
+    verify(gameBroadcaster).send("windy-dolphin", GameState.PLAYER1TURN, boardState, "");
   }
 
   @Test
@@ -99,10 +99,10 @@ class GameServiceTest {
         "XXO",
         "O_X"
     ));
-    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN, (GameState gameState, BoardState boardState, String message) -> {
+    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN, (String id, GameState gameState, BoardState boardState, String message) -> {
     });
 
-    gameService.play(CoordinateTranslator.fromMove(7), 1);
+    gameService.play("windy-dolphin", CoordinateTranslator.fromMove(7), 1);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.GAME_OVER);
@@ -117,10 +117,10 @@ class GameServiceTest {
         "XXO",
         "_OX"
     ));
-    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN, (GameState gameState, BoardState boardState, String message) -> {
+    GameService gameService = new GameService(ticTacToe, GameState.PLAYER1TURN, (String id, GameState gameState, BoardState boardState, String message) -> {
     });
 
-    gameService.play(CoordinateTranslator.fromMove(6), 1);
+    gameService.play("windy-dolphin", CoordinateTranslator.fromMove(6), 1);
 
     assertThat(gameService.gameState())
         .isEqualTo(GameState.GAME_OVER);
@@ -130,7 +130,7 @@ class GameServiceTest {
 
   @Test
   void givenGameOverNewGameStartsNewGame() {
-    GameService gameService = new GameService(new TicTacToe(new Board("XOX", "XXO", "X00")), GameState.GAME_OVER, (GameState gameState, BoardState boardState, String message) -> {
+    GameService gameService = new GameService(new TicTacToe(new Board("XOX", "XXO", "X00")), GameState.GAME_OVER, (String id, GameState gameState, BoardState boardState, String message) -> {
     });
     BoardState boardState = BoardState.copyOf(new String[][]{
         {"_", "_", "_"},

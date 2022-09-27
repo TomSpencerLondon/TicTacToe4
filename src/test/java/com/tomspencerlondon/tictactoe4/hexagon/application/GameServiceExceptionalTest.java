@@ -22,9 +22,9 @@ public class GameServiceExceptionalTest {
         {"_", "_", "_"}
     });
 
-    gameService.play(new Coordinate(0, 0), 1);
+    gameService.play("windy-dolphin", new Coordinate(0, 0), 1);
 
-    verify(gameBroadcaster).send(GameState.WAITING_FOR_PLAYER2, boardState, "Game not in progress");
+    verify(gameBroadcaster).send("windy-dolphin", GameState.WAITING_FOR_PLAYER2, boardState, "Game not in progress");
   }
 
   @Test
@@ -39,9 +39,9 @@ public class GameServiceExceptionalTest {
         {"_", "_", "_"}
     });
 
-    gameService.play(new Coordinate(0, 1), 1);
+    gameService.play("windy-dolphin", new Coordinate(0, 1), 1);
 
-    verify(gameBroadcaster).send(GameState.PLAYER2TURN, boardState, "Not player 1 turn");
+    verify(gameBroadcaster).send("windy-dolphin", GameState.PLAYER2TURN, boardState, "Not player 1 turn");
   }
 
   @Test
@@ -54,9 +54,9 @@ public class GameServiceExceptionalTest {
         {"_", "_", "_"}
     });
 
-    gameService.play(new Coordinate(0, 0), 1);
+    gameService.play("windy-dolphin", new Coordinate(0, 0), 1);
 
-    verify(gameBroadcaster).send(GameState.WAITING_FOR_PLAYER1, boardState, "Game not in progress");
+    verify(gameBroadcaster).send("windy-dolphin", GameState.WAITING_FOR_PLAYER1, boardState, "Game not in progress");
   }
 
   @Test
@@ -69,17 +69,17 @@ public class GameServiceExceptionalTest {
     ));
     GameService gameService = new GameService(ticTacToe, GameState.GAME_OVER, gameBroadcaster);
 
-    gameService.play(new Coordinate(0, 0), 2);
+    gameService.play("windy-dolphin", new Coordinate(0, 0), 2);
 
-    verify(gameBroadcaster).send(GameState.GAME_OVER, ticTacToe.boardState(), "Game not in progress");
+    verify(gameBroadcaster).send("windy-dolphin", GameState.GAME_OVER, ticTacToe.boardState(), "Game not in progress");
   }
 
   @Test
   void connectForThirdPlayerIsNotAllowed() {
-    GameService gameService = new GameService(new TicTacToe(), GameState.PLAYER1TURN, (GameState gameState, BoardState boardState, String message) -> {
+    GameService gameService = new GameService(new TicTacToe(), GameState.PLAYER1TURN, (String id, GameState gameState, BoardState boardState, String message) -> {
     });
 
-    assertThatThrownBy(gameService::connect)
+    assertThatThrownBy(() -> gameService.connect("windy-dolphin"))
         .isInstanceOf(CantConnectToGameInProgress.class);
   }
 }

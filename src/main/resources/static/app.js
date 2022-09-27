@@ -3,7 +3,8 @@ let client;
 function connect() {
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
-  const payLoad = {command: "connect", square: "", player: player}
+  const id = gameStateDiv.dataset.gameId
+  const payLoad = {id: id, command: "connect", square: "", player: player}
 
   client = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/websocket',
@@ -11,7 +12,7 @@ function connect() {
       console.log("debug:", str)
     },
     onConnect: function (frame) {
-      client.subscribe("/topic/tictactoe", function (frame) {
+      client.subscribe(`/topic/tictactoe-${id}`, function (frame) {
         displayBoard(frame.body)
       });
       client.publish({
@@ -34,7 +35,8 @@ function myTurn(gameState, div) {
 function playerCommand(square) {
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
-  const payLoad = {command: "play", square: square, player: player}
+  const id = gameStateDiv.dataset.gameId
+  const payLoad = {id: id, command: "play", square: square, player: player}
   client.publish({
     destination: "/app/requests",
     body: JSON.stringify(payLoad)

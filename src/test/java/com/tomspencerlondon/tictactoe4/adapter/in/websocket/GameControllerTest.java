@@ -1,9 +1,5 @@
 package com.tomspencerlondon.tictactoe4.adapter.in.websocket;
 
-import com.tomspencerlondon.tictactoe4.hexagon.application.GameService;
-import com.tomspencerlondon.tictactoe4.hexagon.application.GameState;
-import com.tomspencerlondon.tictactoe4.hexagon.domain.BoardState;
-import com.tomspencerlondon.tictactoe4.hexagon.domain.TicTacToe;
 import org.springframework.messaging.support.GenericMessage;
 
 class GameControllerTest {
@@ -82,16 +78,9 @@ class GameControllerTest {
     }
 
     private static GenericMessage<PlayerPayload> createMessage (String connect, String square,String player){
-      PlayerPayload playerPayload = new PlayerPayload(connect, square, player);
+      PlayerPayload playerPayload = new PlayerPayload("windy-dolphin", connect, square, player);
       GenericMessage<PlayerPayload> message = new GenericMessage<>(playerPayload);
       return message;
     }
 
-    private static GameController controllerWithTwoConnections () {
-      GameService gameService = new GameService(new TicTacToe(), (GameState gameState, BoardState boardState, String message) -> {
-      });
-      gameService.connect();
-      gameService.connect();
-      return new GameController(gameService);
-    }
   }

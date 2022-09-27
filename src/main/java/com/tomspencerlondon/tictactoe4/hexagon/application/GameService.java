@@ -37,11 +37,11 @@ public class GameService {
     return gameState;
   }
 
-  public void connect() {
+  public void connect(String id) {
     gameState = gameState.playerConnected();
 
     if (gameState == GameState.PLAYER1TURN) {
-      gameBroadcaster.send(gameState, board(), "");
+      gameBroadcaster.send(id, gameState, board(), "");
     }
   }
 
@@ -49,12 +49,12 @@ public class GameService {
     return null;
   }
 
-  public void play(Coordinate coordinate, int player) {
+  public void play(String id, Coordinate coordinate, int player) {
     try {
       requireGameInProgress();
       requireCorrectPlayer(player);
     } catch (GameNotInProgressException | NotPlayerTurnException e) {
-      gameBroadcaster.send(gameState, board(), e.getMessage());
+      gameBroadcaster.send(id, gameState, board(), e.getMessage());
       return;
     }
 
@@ -66,7 +66,7 @@ public class GameService {
       gameState = gameState.playerPlayed();
     }
 
-    gameBroadcaster.send(gameState, board(), "");
+    gameBroadcaster.send(id, gameState, board(), "");
   }
 
   private void requireGameInProgress() {
