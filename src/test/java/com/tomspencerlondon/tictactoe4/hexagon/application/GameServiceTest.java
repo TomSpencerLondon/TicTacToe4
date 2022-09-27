@@ -141,7 +141,7 @@ class GameServiceTest {
     gameService.newGame();
 
     assertThat(gameService.gameState())
-        .isEqualByComparingTo(GameState.WAITING_FOR_PLAYER2);
+        .isEqualByComparingTo(GameState.WAITING_FOR_PLAYER1);
     assertThat(gameService.board())
         .isEqualTo(boardState);
   }

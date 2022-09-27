@@ -42,7 +42,16 @@ class WelcomeControllerTest {
         .isEqualTo("2");
   }
 
+
   @Test
-  void newGame() {
+  void givenGameOverNewGameCreatesNewGame() {
+    GameService gameService = new GameService(new TicTacToe(), GameState.GAME_OVER, (GameState gameState, BoardState boardState, String message) -> {
+    });
+    WelcomeController controller = new WelcomeController(gameService);
+
+    controller.newGame();
+
+    assertThat(gameService.gameState())
+        .isEqualByComparingTo(GameState.WAITING_FOR_PLAYER1);
   }
 }
