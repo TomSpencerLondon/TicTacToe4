@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", connect)
 let client;
 
-let url = "localhost:8080"
-// let url = "toms-tic-tac-toe.herokuapp.com"
+// let url = "localhost:8080"
+let url = "toms-tic-tac-toe.herokuapp.com"
 function connect() {
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
@@ -10,6 +10,7 @@ function connect() {
 
   const linkDiv = document.getElementById("shareLink")
   linkDiv.innerHTML = `<button 
+id="shareButton"
 class="mt-4 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
 onclick="copyText()">
 Copy link to share
@@ -119,6 +120,8 @@ function newGameButton(parsedMessage) {
 function copyText() {
   const gameStateDiv = document.getElementById("gameState")
   const id = gameStateDiv.dataset.gameId
+  const shareButton = document.getElementById("shareButton")
+  shareButton.innerText = 'Copied'
   navigator.clipboard.writeText
   (`https://${url}/?id=${id}`);
 }
