@@ -14,6 +14,13 @@
   <div id="gameState" th:text="${message}" th:data-player="${player}" th:data-game-id="${id}">
     Connecting to game...
   </div>
+  <div id="shareLink">
+    <button
+        class="mt-4 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onclick="copyText()">
+      Share link
+    </button>
+  </div>
   <form id="board" class="grid grid-cols-3 mx-auto w-64 border-black border-solid border-2"
         th:action="@{/game}" method="post">
   </form>

@@ -1,16 +1,24 @@
 document.addEventListener("DOMContentLoaded", connect)
 let client;
 
-// let url = "localhost:8080"
-let url = "toms-tic-tac-toe.herokuapp.com"
+let url = "localhost:8080"
+// let url = "toms-tic-tac-toe.herokuapp.com"
 function connect() {
   const gameStateDiv = document.getElementById("gameState")
   const player = gameStateDiv.dataset.player
   const id = gameStateDiv.dataset.gameId
+
+  const linkDiv = document.getElementById("shareLink")
+  linkDiv.innerHTML = `<button 
+class="mt-4 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+onclick="copyText()">
+Copy link to share
+</button>`
+
   const payLoad = {id: id, command: "connect", square: "", player: player}
 
   client = new StompJs.Client({
-    brokerURL: `wss://${url}/websocket`,
+    brokerURL: `ws://${url}/websocket`,
     debug: function(str) {
       console.log("debug:", str)
     },
@@ -60,6 +68,8 @@ function createBoard(parsedMessage) {
   const board = document.getElementById("board")
   const gameStateDiv = document.getElementById("gameState")
   gameStateDiv.innerText = parsedMessage.gameState
+  const linkDiv = document.getElementById("shareLink")
+  linkDiv.innerHTML = ''
   newGameButton(parsedMessage)
   let newBoard = '';
   for (let row = 0; row < 3; row++) {
@@ -104,4 +114,11 @@ function newGameButton(parsedMessage) {
     `
     newGame.innerHTML = form
   }
+}
+
+function copyText() {
+  const gameStateDiv = document.getElementById("gameState")
+  const id = gameStateDiv.dataset.gameId
+  navigator.clipboard.writeText
+  (`https://${url}/?id=${id}`);
 }
