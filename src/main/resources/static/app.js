@@ -19,7 +19,7 @@ Copy link to share
   const payLoad = {id: id, command: "connect", square: "", player: player}
 
   client = new StompJs.Client({
-    brokerURL: `ws://${url}/websocket`,
+    brokerURL: `wss://${url}/websocket`,
     debug: function(str) {
       console.log("debug:", str)
     },
